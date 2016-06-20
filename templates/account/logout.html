@@ -1,0 +1,28 @@
+{% extends "base.html" %}if(this.properties.visible) 
+		this.show();
+	else 
+		this.hide();{% load i18n %}
+
+{% block head_title %}{% trans "Sign out" %}{% endblock %}
+
+{% block head %}<link rel="stylesheet" href="/static/account.css" />{% endblock %} 
+
+
+{% block content %}
+<div class="content">
+	<fieldset class="gray-box">
+	    <legend>{% trans "Sign out" %}</legend>
+		<p>{% trans 'Are you sure you want to sign out?' %}</p>
+
+		<form method="post" action="{% url 'account_logout' %}">
+			{% csrf_token %}
+			{% if redirect_field_value %}
+				<input type="hidden" name="{{redirect_field_name}}" value="{{redirect_field_value}}"/>
+			{% endif %}
+			<a class="btn btn-danger" href="/">Back to main page</a>
+			<button class="btn btn-info" type="submit">{% trans 'Sign Out' %}</button>
+		</form>
+	</fieldset>
+</div>
+
+{% endblock %}

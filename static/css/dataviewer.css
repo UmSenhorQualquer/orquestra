@@ -1,0 +1,324 @@
+a:focus {
+	outline: none;
+}
+a.trigger{
+	position: absolute;
+	background:#88bbd4 url(/static/plus.png) 6% 50% no-repeat;
+	text-decoration: none;
+	font-size: 16px;
+	letter-spacing:-1px;
+	font-family: verdana, helvetica, arial, sans-serif;
+	color:#fff;
+	padding:5px 12px 4px 24px;
+	font-weight: bold;	
+	z-index:901;
+}
+
+a.trigger.left {
+	left: 0;
+	border-top-right-radius: 5px;
+	-moz-border-radius-topright: 5px;
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-radius-bottomright: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+a.trigger.right {
+	right: 0;
+	border-bottom-left-radius: 5px;
+	border-top-left-radius: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	-moz-border-radius-topleft: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-webkit-border-top-left-radius: 5px;
+}
+a.trigger:hover {
+	background-color:#59B;
+}
+a.active.trigger {
+	background:#666 url(/static/minus.png) 6% 50% no-repeat;
+}
+.panel {
+	color:#CCC;
+	position: absolute;
+	border: 6px solid #171717;
+
+	display: none;
+	background: #000000;
+	width: 300px;
+	height: auto;
+	z-index:900;
+	overflow: auto;
+	background:
+	    radial-gradient(black 15%, transparent 16%) 0 0,
+	    radial-gradient(black 15%, transparent 16%) 8px 8px,
+	    radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+	    radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+	    background-color:#282828 !important;
+	    background-size:16px 16px;
+}
+.panel.left {
+	left: 0;
+	padding: 20px 30px 20px 100px;
+	border-top-right-radius: 15px;
+	-moz-border-radius-topright: 15px;
+	-webkit-border-top-right-radius: 15px;
+	-moz-border-radius-bottomright: 15px;
+	-webkit-border-bottom-right-radius: 15px;
+	border-bottom-right-radius: 15px;
+}
+.panel.right {
+
+	right: 0;
+	padding: 20px 100px 20px 30px;
+	border-bottom-left-radius: 15px;
+	border-top-left-radius: 15px;
+	-moz-border-radius-bottomleft: 15px;
+	-moz-border-radius-topleft: 15px;
+	-webkit-border-bottom-left-radius: 15px;
+	-webkit-border-top-left-radius: 15px;
+	border-right: 0px;
+}
+.panel p {
+	font-size:11px;
+
+}
+
+
+
+.files-panel{
+	width: 820px;
+	height: 80%;
+	background-color: #333;
+	-webkit-box-shadow: inset 0px 0px 10px 1px #000;
+	box-shadow: inset 0px 0px 10px 1px #000;
+}
+
+
+.files-panel ul.filesbrowser li{
+    border-bottom: 1px solid #999;
+}
+
+.files-panel ul.filesbrowser li img{
+    padding-right: 20px;
+}
+
+.files-panel ul.filesbrowser li .remove-button{
+    float: right;
+    position: relative;
+    top: 8px;
+}
+
+.files-panel ul.filesbrowser li{
+    width: 390px;
+    float: left;
+    height: 30px;
+}
+
+.files-panel ul.filesbrowser li a{
+    color: white;
+}
+
+.files-panel ul{
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+.files-panel li{
+    list-style: none;
+    margin-left: 0px;
+    cursor: pointer;
+    padding-top: 10px;
+    padding-bottom: 8px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-right: 5px;
+    color: 333;
+}
+
+.files-panel .loading{
+	position: relative;
+	top: 20%;
+	left: 50%;
+}
+
+
+
+.upload-panel{
+	width: 600px;
+	height: 80%;
+	background-color: #333;
+	-webkit-box-shadow: inset 0px 0px 10px 1px #000;
+	box-shadow: inset 0px 0px 10px 1px #000;
+}
+
+
+
+.dataviewer-bar{
+	height: 40px;
+	padding-top: 5px;
+	padding-left: 5px;
+	padding-right: 50px;
+}
+
+.dataviewer-bar-path{
+	float: left;
+}
+
+.dataviewer-bar-path-folder{
+	float: left;
+	background-color: #EEEEEE;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-right: 0px;
+    border-left: 0px;
+    box-shadow: none;
+    color: #444444;
+    padding: 6px;
+    padding-right: 0px;
+}
+
+.dataviewer-bar-path-folder-separator{
+	background: url(/static/filesbrowser.png) no-repeat scroll -136px -96px / 243px 119px rgba(0, 0, 0, 0);
+	height: 8px;
+    width: 5px;
+    opacity: 0.25;
+    margin-left: 6px;
+    margin-right: 6px;
+    margin-top: 6px;
+    display: inline-block;
+}
+
+
+.dataviewer-bar-buttons{
+	float: right;
+}
+
+.dataviewer-bar-icon{
+    background-color: #EEEEEE;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: none;
+    color: #444444;
+	padding: 6px;
+	float: left;
+	margin-right: 3px;
+}
+
+.dataviewer-bar-icon:hover{
+	background-color: #CCC;
+	cursor: pointer;
+}
+
+.dataviewer-bar-icon-list{
+	background: url(/static/filesbrowser.png) no-repeat scroll -22px -78px / 243px 119px rgba(0, 0, 0, 0);
+	height: 21px;
+    width: 21px;
+    opacity: 0.55;
+}
+
+.dataviewer-bar-icon-thumb{
+	background: url(/static/filesbrowser.png) no-repeat scroll -222px -75px / 243px 119px rgba(0, 0, 0, 0);
+	height: 21px;
+    width: 21px;
+    opacity: 0.55;
+}
+
+.dataviewer-bar-icon-custom{
+	height: 21px;
+	padding-top: 2px;
+}
+
+.dataviewer-data{
+	overflow: hidden;
+}
+
+
+.dataviewer-data-thumb img{
+	height: 180px;
+    width: auto;
+    margin-bottom: 7px;
+}
+
+.dataviewer-data-thumb{
+	height: 200px;
+    width: 250px;
+    /*border: 1px dashed rgba(0, 0, 0, 0.1);*/
+    box-shadow: none;
+    color: #4D90FE;
+    border-radius: 15px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	padding: 6px;
+	float: left;
+	margin: 10px;
+	font-weight: bold;
+}
+
+
+
+
+
+
+
+
+/***************************************************/
+
+
+.dataviewer-data-list{
+	width: 100%;
+	height: 100%;
+	border-collapse: collapse;
+}
+
+.dataviewer-data-list .small-thumb{
+	width: 32px;
+}
+
+.dataviewer-data-list td.small-thumb{
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
+.dataviewer-data-list tr td{
+	padding: 10px;
+	border-bottom: 1px solid #CCC;
+	border-right: 0px;
+}
+
+.dataviewer-data-list-title{
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.dataviewer-data-list-title .sortUp{
+	background-image: url(sort_up.gif);
+	background-repeat: no-repeat;
+	background-position: top;
+}
+
+.dataviewer-data-list-title .sortDown{
+	background-image: url(sort_down.gif);
+	background-repeat: no-repeat;	
+	background-position: top;
+}
+
+.dataviewer-data-thumb{
+	text-align: center;
+}
+
+input.dataviewer-search-field{
+	border-radius: 0px !important;
+	padding-left: 10px !important;
+	padding-right: 10px !important;
+	padding-top: 5px !important;
+	padding-bottom: 5px !important;
+	height: 30px !important;
+	width: 250px !important;
+	margin: 0px !important;
+}
+
+.dataviewer-load-more{
+	text-align: center;
+	color: #08c;
+	cursor: pointer;
+	padding: 10px;
+}

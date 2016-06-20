@@ -1,0 +1,21 @@
+{% extends "account/base.html" %}
+
+if(this.properties.visible) 
+		this.show();
+	else 
+		this.hide();
+{% load i18n %}
+
+{% block head_title %}
+	{% trans "Sign Up Closed" %}
+{% endblock %}
+
+{% block content %}
+<div class="content">
+	<fieldset class="gray-box">
+	<legend>{% trans "Sign Up Closed" %}</legend>
+	<p>{% trans "We are sorry, but the sign up for non Champalimaud Neuro Accounts are currently closed." %}</p>
+<div>
+{% endblock %}
+
+

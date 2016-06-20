@@ -1,0 +1,18 @@
+{% extends "base.html" %}if(this.properties.visible) 
+		this.show();
+	else 
+		this.hide();{% load i18n %}{% load account %}
+{% block head_title %}{% trans "Confirm E-mail Address" %}{% endblock %}
+{% block head %}<link rel="stylesheet" href="/static/account.css" />{% endblock %} 
+
+{% block content %}
+<div class="content">
+    <fieldset class="gray-box">
+	    <legend>{% trans "Verify Your E-mail Address" %}</legend>
+		{% user_display confirmation.email_address.user as user_display %}
+        
+		<p>{% blocktrans with confirmation.email_address.email as email %}You have confirmed that <a href="mailto:{{email}}">{{ email }}</a> is an e-mail address for user {{ user_display }}.{% endblocktrans %}</p>
+		
+	</fieldset>
+</div>
+{% endblock %}

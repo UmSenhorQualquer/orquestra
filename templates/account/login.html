@@ -1,0 +1,63 @@
+{% extends "base.html" %}{% load i18n %}{% load account %}
+
+{% block page_content %}
+
+
+  <style type="text/css">
+	body {
+	  background-color: #DADADA;
+	}
+	
+  </style>
+  
+
+<div style="margin: auto;position:relative; top:130px; width:800px;" class="ui middle aligned center aligned basic segment">
+
+	<div class="ui two column middle aligned very relaxed stackable grid">
+		<div class="column">
+			<form class="ui form" action="{% url 'account_login' %}" method="post">
+				{% csrf_token %} {% if redirect_field_value %}
+				<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" /> {% endif %}
+
+			  <div class="ui stacked segment">
+				<div class="field">
+				  <div class="ui left icon input">
+					<i class="user icon"></i>
+					<input type="text" name="login" placeholder="Username">
+				  </div>
+				</div>
+				<div class="field">
+				  <div class="ui left icon input">
+					<i class="lock icon"></i>
+					<input type="password" name="password" placeholder="Password">
+				  </div>
+				</div>
+				<button class="ui fluid large teal submit button" type="submit">Login</button>
+			  </div>
+
+			  <div class="ui error message"></div>
+
+			</form>
+		</div>
+		<div class="ui vertical divider">Or</div>
+		<div class="center aligned column">
+			<a href='/accounts/google/login/?process=login' class="ui big green labeled icon button">
+				<i class="google icon"></i>
+				Log-in with Google
+			</a>
+		</div>
+
+		<div class="column">
+			<div class="ui message">New to us? <a href="/accounts/signup/">Sign Up</a></div>
+		</div>
+	</div>
+
+
+</div>
+
+
+
+
+
+
+{% endblock %}
