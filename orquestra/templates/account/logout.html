@@ -1,0 +1,28 @@
+{% extends "base.html" %}{% load i18n %}
+
+{% block head_title %}{% trans "Sign out" %}{% endblock %}
+
+{% block content %}
+
+<style type="text/css">body{ background-color: #DADADA; }</style>
+
+<div style="margin: auto;position:relative; width:300px; top: 50vh;transform: translateY(-150%);" class="ui middle aligned center aligned basic segment">
+
+	<div class="ui column middle aligned very relaxed stackable grid">
+		<div class="column">
+			<div class="ui message">
+				<form method="post" class='ui form' action="{% url 'account_logout' %}">
+					{% csrf_token %}
+					{% if redirect_field_value %}<input type="hidden" name="{{redirect_field_name}}" value="{{redirect_field_value}}"/>{% endif %}
+					<a class="btn btn-danger" href="/">Back to main page</a>
+					<br/>
+					<br/>
+					<button class="ui fluid large teal submit button" type="submit">{% trans 'Sign Out' %}</button>				
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
