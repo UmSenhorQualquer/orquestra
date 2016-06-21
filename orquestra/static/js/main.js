@@ -1,43 +1,5 @@
 function loading()		{ $("#loading-label").addClass('active'); 		};
 function not_loading()	{ $("#loading-label").removeClass('active'); 	};
-function show_msgs()	{ 												};
-function update_msgs_icon(){ 
-	$.get( "/plugins/messages/unread_msg_count/", function(data){
-		
-		if($('#menu-messages .label').size()>0) $('#menu-messages .label').remove();
-
-		if(data.count>0){
-			var html = '<div class="ui label '+data.color+'">'+data.count+'</div>';
-			$('#menu-messages').append(html);
-		}
-	}, "json" );
-};
-
-
-function launch_msgs_check(){
-	update_msgs_icon();
-	setTimeout(launch_msgs_check, 30000);
-}
-
-function success_msg(msg){
-	update_msgs_icon();
-};
-
-function error_msg(msg){
-	update_msgs_icon();
-};
-
-
-function get_current_folder(){
-	if($('#MyAreaAppID-_directory').length)
-		return $('#MyAreaAppID-_directory').val();
-	else
-		return '/';
-};
-
-
-
-var tabTemplate = "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>";
 
 // actual addTab function: adds new tab using the input from the form above
 function add_tab(name, label, url) {
@@ -82,9 +44,6 @@ function add_tab(name, label, url) {
 		if(status=='error') error_msg(xhr.status+" "+xhr.statusText+": "+xhr.responseText);
 		not_loading();
 	});
-
-	
-
 	
 }
 
@@ -92,14 +51,6 @@ function select_main_tab(){
 	$('#applications-tab .item[data-tab="tab-home"]').click();
 }
 
-
-var refreshEvent = setInterval(function(){},100000);
-
-
 function open_application(application){
 	add_tab(application, application, "/plugins/applist/load/"+application+"/");
 }
-
-$(function(){
-	launch_msgs_check();
-});
