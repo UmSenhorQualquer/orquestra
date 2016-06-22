@@ -62,3 +62,101 @@ function success_msg(msg){
 
 function error_msg(msg){
 };
+
+
+function get_current_folder(){
+		if($('#MyAreaAppID-_directory').length)
+			return $('#MyAreaAppID-_directory').val();
+		else
+			return '/';
+	};
+	
+	$(function(){
+		BaseWidget.prototype.schedule_job = function(){
+			var html= '<table class="ui celled compact table" >';
+			
+			var currentfolder = get_current_folder();
+			if(currentfolder==undefined) currentfolder = '/';
+
+			html += "<thead><tr><th>Field</th><th>Value</th></tr></thead>"
+			html += "<tbody>";
+			html += "<tr>";
+			html += "<td >Output folder</td>";
+			html += "<td >"+currentfolder+"<input type='hidden' value='"+currentfolder+"' id='"+this.widget_id+"-job-output-folder' /></td>";
+			html += "</tr>";
+			for (var index = 0; index < this.controls.length; index++) {
+				var name  = this.controls[index].name;
+				var value = this.controls[index].get_value();
+				var label = this.controls[index].properties.label;
+
+				if((typeof value !== "undefined") && (typeof name !== "undefined") && (typeof label !== "undefined")){
+					html+="<tr>";
+					html+="<td class='collapsing'>"+label+"</td>";
+					html+="<td >"+value+"</td>";
+					html+="</tr>";
+				}
+			}
+			html += "</tbody>";
+			html += "</table>";
+			$('#'+this.widget_id+'-schedulejob-window-content').html( html );
+
+			var self = this;
+			$.ajax({
+				dataType: "json",
+				cache: false,
+				url: '/browseservers/'+this.name+'/',
+				success: function(res){
+					var select = document.getElementById(self.widget_id+'-schedulejob-server');
+					select.options.length = 0;
+					var option=document.createElement("option");
+					option.text='Auto'; option.id = 0; select.add(option);
+
+					for (index = 0; index < res.length; index++) {
+						var id = res[index][0];
+						var name = res[index][1];
+						var option=document.createElement("option");
+						option.text=name;
+						option.id = id;
+						select.add(option);
+					}
+				}
+			});
+			$('#'+this.widget_id+'-schedulejob-window').modal('show');
+
+		}
+
+
+		BaseWidget.prototype.send_job_2_queue = function(){
+			
+			var params = { userpath: $('#'+this.widget_id+'-job-output-folder').val() };
+			
+			for (var index = 0; index <this.controls.length; index++) {
+				var name 	 = this.controls[index].name;
+				params[name] = this.controls[index].serialize();			
+			}
+
+			var jsondata =  $.toJSON( params );
+			var server = $("#"+this.widget_id+"-schedulejob-server").find('option:selected').attr('id');
+			$.ajax({
+				method: 'post',
+				cache: false,
+				dataType: "json",
+				url: '/queue/'+this.name+'/'+server+'/',
+				contentType: "application/json; charset=utf-8",
+				data: jsondata,
+				success: function(res){
+					success_msg(res.msg);
+				},
+				error: function(xhr){
+					error_msg(xhr.status+" "+xhr.statusText+": "+xhr.responseText);
+				}
+			});
+			$('#'+this.widget_id+'-schedulejob-window').modal('hide');
+		}
+
+		BaseWidget.prototype.batch_file = function(){
+			$('#dialog-window').modal('show');
+			$('#dialog-window').load('/load/'+this.application+'/batchfile/');
+		}
+
+	});
