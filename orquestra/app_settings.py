@@ -1,5 +1,8 @@
 import os
-from django.conf import settings
+from pyforms_web.web.django import ApplicationsLoader
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+PYFORMS_APPLICATIONS_PATH = '/home/ricardo/subversion/applications/'
+
+PYFORMS_APPLICATIONS = ApplicationsLoader(PYFORMS_APPLICATIONS_PATH)
 

@@ -54,3 +54,11 @@ function select_main_tab(){
 function open_application(application){
 	add_tab(application, application, "/plugins/applist/load/"+application+"/");
 }
+
+var refreshEvent = setInterval(function(){},100000);
+
+function success_msg(msg){
+};
+
+function error_msg(msg){
+};

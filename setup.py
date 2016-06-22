@@ -45,6 +45,7 @@ setup(
 		'static/semantic-ui/themes/default/assets/fonts/*.*',
 		'templates/*.html',
 		'templates/account/*.html',
+		'templates/plugins/*.js',		
 		]
 	},
 )
