@@ -31,11 +31,11 @@ setup(
 		'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
 	],
 	package_data={'orquestra': [
-		'static/js/*.js',
+		'static/*.js',
 		'static/jquery-ui/*.js',
 		'static/jquery-ui/*.css',
 		'static/jquery-ui/images/*.png',
-		'static/css/*.css',
+		'static/*.css',
 		'static/semantic-ui/*.css',
 		'static/semantic-ui/*.js',
 		'static/semantic-ui/components/*.css',

@@ -53,19 +53,6 @@ class PluginsManager(object):
 		return res
 
 
-	def copy_static_files(self, static_folder):
-
-		static_folder = os.path.join(static_folder, 'plugins')
-		if not os.path.exists(static_folder): os.makedirs(static_folder)
-
-		for p in self.plugins:
-			class_file = inspect.getfile(p)
-			print os.path.realpath(class_file), '-'
-			plugin_folder = os.path.dirname(os.path.realpath(class_file))
-			print plugin_folder
-			for filename in p.static_files:
-				shutil.copyfile( os.path.join(plugin_folder, filename),os.path.join(static_folder, filename))
-
 
 	def export_urls_file(self, filename):
 		out = open(filename, 'w')
@@ -214,13 +201,12 @@ class Command(BaseCommand):
 		static_dir = os.path.join(OUTPUT_PLUGINS_DIR, 'static')
 		if not os.path.exists(static_dir): os.makedirs(static_dir)
 
-		js_dir = os.path.join(static_dir, 'js')
+		js_dir = static_dir
 		if not os.path.exists(js_dir): os.makedirs(js_dir)
 		
 
 		print("Updating plugins scripts")
 		manager.export_js_file( os.path.join(js_dir,'commands.js') )
-		manager.copy_static_files(settings.STATIC_ROOT)
-
+		
 		#environment_file = os.path.join(OUTPUT_PLUGINS_DIR,'environments.py')
 		#self.export_environments(environment_file)
