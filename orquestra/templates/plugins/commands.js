@@ -4,7 +4,7 @@ function activateMenu(menulink) {
 	$('#'+menulink).addClass('active');
 }
 
-function LoadCurrentView(){
+function orquestra_load_current_view(){
 	var href = window.location.href;
 	var anchor = href.substring( href.indexOf('#')+1);
 	if( anchor.substring(0,5)!='view-' ) return;
@@ -14,4 +14,6 @@ function LoadCurrentView(){
 	var params = anchor.substring(paramsStartIndex+1).split('+');
 
 	{% for ifcode in views_ifs %}{{ ifcode|safe }}{% endfor %}	
-}
+};
+
+$(orquestra_load_current_view);

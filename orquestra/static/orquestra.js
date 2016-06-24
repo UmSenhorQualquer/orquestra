@@ -52,7 +52,10 @@ function select_main_tab(){
 }
 
 function open_application(application){
-	add_tab(application, application, "/plugins/applist/load/"+application+"/");
+	var label = application;
+
+	if(label.length>30) label = '...'+label.substring(label.length-30, label.length);
+	add_tab(application, label, "/plugins/applist/load/"+application+"/");
 }
 
 var refreshEvent = setInterval(function(){},100000);

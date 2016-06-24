@@ -6,8 +6,6 @@ from orquestra.orquestra_plugin 					import MenusPositions
 @login_required
 def index(request):
 	manager = PluginsManager()
-
-
 	context = {'user': request.user}
 	context.update({
 		'plugins':manager.menu(request.user, menus=[MenusPositions.MAIN_MENU, MenusPositions.USER_MENU]) 
