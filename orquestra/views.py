@@ -1,7 +1,7 @@
 from django.shortcuts 								import render_to_response
 from django.contrib.auth.decorators 				import login_required
 from orquestra.management.commands.install_plugins 	import PluginsManager
-from orquestra.orquestra_plugin 					import MenusPositions
+from orquestra.plugins.baseplugin 					import MenusPositions
 
 @login_required
 def index(request):

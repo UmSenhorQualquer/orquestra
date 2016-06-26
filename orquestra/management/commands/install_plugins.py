@@ -5,7 +5,7 @@ import inspect, os, shutil, pkgutil, importlib
 from django.conf import settings
 from django.conf.urls import url
 from django.template.loader import render_to_string
-from orquestra.orquestra_plugin import LayoutPositions, OrquestraPlugin
+from orquestra.plugins.baseplugin import LayoutPositions, BasePlugin
 
 
 class PluginsManager(object):
@@ -75,14 +75,14 @@ class PluginsManager(object):
 				if not hasattr(plugin, '%s_argstype' % view.__name__): continue
 				if hasattr(plugin, '%s_name' % view.__name__):
 					out.write( "\turl(r'^{0}', {1}, name='{2}'),\n".format( 
-						OrquestraPlugin.viewURL(pluginClass, view), 
-						OrquestraPlugin.viewName(pluginClass, view),
+						BasePlugin.viewURL(pluginClass, view), 
+						BasePlugin.viewName(pluginClass, view),
 						getattr(plugin, '%s_name' % view.__name__)
 					))
 				else:
 					out.write( "\turl(r'^%s', %s),\n" % ( 
-						OrquestraPlugin.viewURL(pluginClass, view), 
-						OrquestraPlugin.viewName(pluginClass, view) ) )
+						BasePlugin.viewURL(pluginClass, view), 
+						BasePlugin.viewName(pluginClass, view) ) )
 		out.write( "]" )
 
 		out.close()
@@ -111,7 +111,7 @@ class PluginsManager(object):
 				label_attr = '{0}_label'.format(view.__name__)
 				label = getattr(plugin, label_attr) if hasattr(plugin, label_attr) else view.__name__
 				
-				breadcrumbs = OrquestraPlugin.viewBreadcrumbs(plugin, view)
+				breadcrumbs = BasePlugin.viewBreadcrumbs(plugin, view)
 				#if position==LayoutPositions.TOP:
 				#	out.write( "\tshowBreadcrumbs(%s, '%s');\n" % (breadcrumbs, label) )
 				
@@ -127,20 +127,20 @@ class PluginsManager(object):
 						$('#top-pane').load("/plugins/%s", function(response, status, xhr){
 							if(status=='error') error_msg(xhr.status+" "+xhr.statusText+": "+xhr.responseText);
 							not_loading();
-						});\n""" % OrquestraPlugin.viewJsURL(pluginClass, view) )
+						});\n""" % BasePlugin.viewJsURL(pluginClass, view) )
 					
 					if position==LayoutPositions.NEW_TAB:
 
-						out.write('add_tab("{0}", "{1}", "/plugins/{2}");'.format(view.__name__, label, OrquestraPlugin.viewJsURL(pluginClass, view)) )
+						out.write('add_tab("{0}", "{1}", "/plugins/{2}");'.format(view.__name__, label, BasePlugin.viewJsURL(pluginClass, view)) )
 
 					if position==LayoutPositions.WINDOW:
 						out.write( "\tloading();" )
 						out.write( "\t$('#opencsp-window').dialog('open');\n" )
-						out.write( """\t$('#opencsp-window').load("/plugins/%s",function() {\n"""  %  OrquestraPlugin.viewJsURL(pluginClass, view) )
+						out.write( """\t$('#opencsp-window').load("/plugins/%s",function() {\n"""  %  BasePlugin.viewJsURL(pluginClass, view) )
 						out.write( """\t\tnot_loading();$(this).scrollTop($(this)[0].scrollHeight);\n""" )
 						out.write( """\t});\n""" )
 					if position==LayoutPositions.NEW_WINDOW:
-						out.write( """window.open('/plugins/%s');""" % OrquestraPlugin.viewJsURL(pluginClass, view) )
+						out.write( """window.open('/plugins/%s');""" % BasePlugin.viewJsURL(pluginClass, view) )
 
 				out.write( "}\n" )
 				out.write( "\n" )
@@ -153,7 +153,7 @@ class PluginsManager(object):
 				sufix = view.__name__.capitalize()
 				if prefix==sufix: sufix=''
 				params = [x for x in inspect.getargspec(view)[0][1:]]
-				views_ifs.append( "\tif(view=='%s') run%s%s.apply(null, params);\n" % ( OrquestraPlugin.viewJsAnchor(pluginClass, view), prefix, sufix) )
+				views_ifs.append( "\tif(view=='%s') run%s%s.apply(null, params);\n" % ( BasePlugin.viewJsAnchor(pluginClass, view), prefix, sufix) )
 
 
 		out.write( render_to_string( os.path.join( os.path.dirname(__file__), '..', '..','templates','plugins','commands.js'), {'views_ifs': views_ifs} ) )
@@ -163,23 +163,11 @@ class PluginsManager(object):
 	def search_4_plugins(self):
 		
 		for app in apps.get_app_configs():
-			if not(hasattr(app, 'orquestra_plugin') and app.orquestra_plugin): continue
-			
-			pkg_dir = app.module.__path__
-			for module_loader, name, ispkg in pkgutil.iter_modules(pkg_dir):
-				module = importlib.import_module('.{0}'.format(name), app.module.__name__)
-				for key in dir(module):
-					attr = getattr(module, key)
-					if inspect.isclass(attr) \
-					   and isinstance(attr, type) and \
-					   str(attr.__module__)==str(module.__name__) and \
-					   issubclass(attr, OrquestraPlugin):
-						
-						self.append(attr)
-
-
-
-
+			if hasattr(app, 'orquestra_plugins'):
+				for modulename in app.orquestra_plugins:
+					modules = modulename.split('.')
+					moduleclass = __import__( '.'.join(modules[:-1]) , fromlist=[modules[-1]] )
+					self.append( getattr(moduleclass, modules[-1]) )
 
 
 

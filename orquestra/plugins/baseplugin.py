@@ -26,7 +26,7 @@ class IntArgType(object):
 	def argument(name): return "(?P<%s>\d+)" % name
 
 
-class OrquestraPlugin(object):
+class BasePlugin(object):
 	_menuOrder = 1000
 
 	menu = MenusPositions.MAIN_MENU
@@ -123,7 +123,7 @@ class OrquestraPlugin(object):
 		if view.__name__!=plugin.__class__.__name__:
 			breadcrumb = [
 				linkname, 
-				OrquestraPlugin.viewJsAnchor(plugin.__class__, function), 
+				BasePlugin.viewJsAnchor(plugin.__class__, function), 
 				plugin.JsFunction
 			]
 			breadcrumbs.append(breadcrumb)
@@ -133,7 +133,7 @@ class OrquestraPlugin(object):
 				linkname = getattr(plugin, '%s_label' % function.__name__) if hasattr(plugin, '%s_label' % function.__name__ ) else function.__name__
 				breadcrumb = [
 					linkname, 
-					OrquestraPlugin.viewJsAnchor(plugin.__class__, view), 
+					BasePlugin.viewJsAnchor(plugin.__class__, view), 
 					plugin.JsFunction
 				]
 				breadcrumbs.append(breadcrumb)
