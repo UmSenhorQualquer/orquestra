@@ -102,6 +102,7 @@ class PluginsManager(object):
 				sufix = view.__name__.capitalize()
 				if prefix==sufix: sufix=''
 				params = [x for x in inspect.getargspec(view)[0][1:]]
+
 				out.write( "function run%s%s(%s){\n" % ( prefix, sufix, ','.join(params) ) )
 				out.write( "\tloading();\n" )
 				out.write( "\tactivateMenu('menu-%s');\n" % plugin.anchor )
