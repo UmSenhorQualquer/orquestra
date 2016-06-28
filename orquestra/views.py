@@ -7,7 +7,9 @@ from orquestra.plugins.baseplugin 					import MenusPositions
 def index(request):
 	manager = PluginsManager()
 	context = {'user': request.user}
+
 	context.update({
-		'plugins':manager.menu(request.user, menus=[MenusPositions.MAIN_MENU, MenusPositions.USER_MENU]) 
+		'plugins': 		[plugin() for plugin in manager.plugins],
+		'menu_plugins': manager.menu(request.user, menus=[MenusPositions.MAIN_MENU, MenusPositions.USER_MENU]) 
 	})
 	return render_to_response('authenticated_base.html', context )

@@ -33,6 +33,8 @@ class BasePlugin(object):
 
 	static_files = []
 
+
+
 	@staticmethod
 	def top_view(request): return None
 
@@ -80,6 +82,16 @@ class BasePlugin(object):
 
 	@property
 	def anchor(self): return self.__class__.__name__.lower()
+
+	@property
+	def html_header(self):
+		html = ''
+		for staticfile in self.static_files:
+			if   staticfile.endswith('.css'): 
+				html += '<link rel="stylesheet" type="text/css" href="/static/{0}">'.format(staticfile)
+			elif staticfile.endswith('.js'): 
+				html += '<script type="text/javascript" src="/static/{0}"></script>'.format(staticfile)
+		return html
 
 	@staticmethod
 	def viewName(plugin, view): return "%s.%s" % (plugin.__name__, view.__name__)

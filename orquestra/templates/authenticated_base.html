@@ -13,6 +13,9 @@
 	<script type="text/javascript" src="/static/base64.js"></script>
 	<script type="text/javascript" src="/static/pyformsjs/pyforms.js"></script>
 	<script type="text/javascript" src="/static/jquery-ui/jquery-ui.min.js"></script>
+
+	{% for plugin in menu_plugins %}{{ plugin.html_header|safe }}{% endfor %}
+
 {% endblock %}
 
 {% block top_menu %}{% include "menu.html" %}{% endblock %}
