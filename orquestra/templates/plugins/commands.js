@@ -7,7 +7,9 @@ function activateMenu(menulink) {
 function orquestra_load_current_view(){
 	var href = window.location.href;
 	var anchor = href.substring( href.indexOf('#')+1);
-	if( anchor.substring(0,5)!='view-' ) return;
+	if( anchor.substring(0,5)!='view-' ){ 
+		{{ home_function|safe }};
+	};
 	var paramsStartIndex = anchor.indexOf('|');
 	if( paramsStartIndex<0) paramsStartIndex = paramsStartIndex.length;
 	var view = anchor.substring(5, paramsStartIndex);

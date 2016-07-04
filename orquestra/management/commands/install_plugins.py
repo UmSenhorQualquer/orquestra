@@ -147,17 +147,22 @@ class PluginsManager(object):
 				out.write( "\n" )
 			
 		views_ifs = []
+		home_function = 'function(){};';
 		for pluginClass in self.plugins:
 			plugin = pluginClass()
-			for view in plugin.views:
+			for index, view in enumerate(plugin.views):
 				prefix = pluginClass.__name__.capitalize()
 				sufix = view.__name__.capitalize()
 				if prefix==sufix: sufix=''
 				params = [x for x in inspect.getargspec(view)[0][1:]]
+				if index==0:
+					home_function = "run%s%s.apply(null, params);" % ( prefix, sufix)
+
+
 				views_ifs.append( "\tif(view=='%s') run%s%s.apply(null, params);\n" % ( BasePlugin.viewJsAnchor(pluginClass, view), prefix, sufix) )
 
 
-		out.write( render_to_string( os.path.join( os.path.dirname(__file__), '..', '..','templates','plugins','commands.js'), {'views_ifs': views_ifs} ) )
+		out.write( render_to_string( os.path.join( os.path.dirname(__file__), '..', '..','templates','plugins','commands.js'), {'views_ifs': views_ifs, 'home_function':home_function} ) )
 		out.close()
 
 
