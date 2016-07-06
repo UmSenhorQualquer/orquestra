@@ -13,7 +13,7 @@ class LayoutPositions:
 	WINDOW 		= 2
 	JSON 		= 3
 	NEW_WINDOW 	= 4
-	NEW_TAB 	= 1
+	NEW_TAB 	= 5
 	HOME 		= 0
 	NONE 		= 100
 
