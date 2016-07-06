@@ -57,7 +57,7 @@ class PluginsManager(object):
 	def export_urls_file(self, filename):
 		out = open(filename, 'w')
 
-		out.write( "from django.conf.urls import url\n" )
+		out.write( "from django.conf.urls import url\nfrom django.views.decorators.csrf import csrf_exempt\n" )
 		for plugin in self.plugins:
 			out.write( 
 				"from {0} import {1}\n".format(

@@ -94,12 +94,15 @@ class BasePlugin(object):
 		return html
 
 	@staticmethod
-	def viewName(plugin, view): return "%s.%s" % (plugin.__name__, view.__name__)
+	def viewName(plugin, view): 
+		if hasattr(plugin, '{0}_csrf_exempt'.format(view.__name__) ):
+			return "csrf_exempt(%s.%s)" % (plugin.__name__, view.__name__)
+		return "%s.%s" % (plugin.__name__, view.__name__)
 
 	@staticmethod
 	def viewURL(plugin, view):
 		argstype 	= getattr(plugin, '%s_argstype' % view.__name__)
-		args 		= [x for x in inspect.getargspec(view)[0][1:]]
+		args = [x for x in inspect.getargspec(view)[0][1:]]
 
 		arguments = [view.__name__.lower()]
 		for argtype, arg in zip(argstype, args):

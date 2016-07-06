@@ -107,7 +107,7 @@ function get_current_folder(){
 			$.ajax({
 				dataType: "json",
 				cache: false,
-				url: '/browseservers/'+this.name+'/',
+				url: '/plugins/applist/browseappservers/'+this.name+'/',
 				success: function(res){
 					var select = document.getElementById(self.widget_id+'-schedulejob-server');
 					select.options.length = 0;
@@ -144,7 +144,7 @@ function get_current_folder(){
 				method: 'post',
 				cache: false,
 				dataType: "json",
-				url: '/queue/'+this.name+'/'+server+'/',
+				url: '/plugins/applist/queue/'+this.name+'/'+server+'/',
 				contentType: "application/json; charset=utf-8",
 				data: jsondata,
 				success: function(res){
