@@ -1,0 +1,30 @@
+{% extends "base.html" %}{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+<style type="text/css">body{ background-color: #DADADA; }</style>
+
+<div style="margin: auto;position:relative; width:500px; top: 50vh;transform: translateY(-50%);" class="ui middle aligned center aligned basic segment">
+
+	<div class="ui column middle aligned very relaxed stackable grid">
+		<div class="column">
+			<h1>{% trans "Sign Up" %}</h1>
+			<div class="ui message">
+				<form  method="post" class='ui form'  id="signup_form" action="{% url 'account_signup' %}">
+					{% csrf_token %}
+					{{ form.as_p }}
+					{% if redirect_field_value %}
+					<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+					{% endif %}
+					<button class="ui fluid large teal submit button" type="submit">{% trans "Sign Up" %} &raquo;</button>
+				</form>
+			</div>
+
+		
+			<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
