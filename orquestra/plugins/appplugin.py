@@ -17,5 +17,6 @@ class AppPlugin(BasePlugin):
 		params = { 'application': app_module, 'appInstance': model}
 		params.update( model.initForm() )
 
-		return render_to_response(template,params, context_instance=RequestContext(request))
+		#return render_to_response(template,params, context_instance=RequestContext(request)) #Django 1.9
+		return render_to_response(template,params)
 		

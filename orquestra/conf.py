@@ -1,7 +1,7 @@
 import os
 from django.conf import settings as django_settings
 from orquestra import settings as orquestra_settings
-from proscenium.storage.storagemanager import StorageManager
+from pyforms_web.web.storage.storagemanager import StorageManager
 
 class Settings(dict):
 

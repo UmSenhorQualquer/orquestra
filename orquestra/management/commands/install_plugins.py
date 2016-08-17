@@ -36,11 +36,11 @@ class PluginsManager(object):
 	def plugins(self): return self._plugins_list
 
 	
-	def menu(self, user=None, menus=None):
+	def menu(self, user=None, menus=[]):
 		res = []
 		for plugin in self._plugins_list:
-			if menus!=None and not plugin.menu in menus: continue
-			
+			if not hasattr(plugin, 'menu') or not plugin.menu in menus: continue
+
 			add = False
 			if hasattr(plugin, 'groups'):
 				if 'superuser' in plugin.groups and user.is_superuser:  add = True
@@ -150,7 +150,11 @@ class PluginsManager(object):
 		home_function = 'function(){};';
 		for pluginClass in self.plugins:
 			plugin = pluginClass()
+
 			for index, view in enumerate(plugin.views):
+				if not hasattr(plugin, '%s_position' % view.__name__): continue
+				if not hasattr(plugin, '%s_argstype' % view.__name__): continue
+
 				prefix = pluginClass.__name__.capitalize()
 				sufix = view.__name__.capitalize()
 				if prefix==sufix: sufix=''
@@ -171,6 +175,7 @@ class PluginsManager(object):
 		for app in apps.get_app_configs():
 			if hasattr(app, 'orquestra_plugins'):
 				for modulename in app.orquestra_plugins:
+					print("Found plugin: {0}".format(modulename))					
 					modules = modulename.split('.')
 					moduleclass = __import__( '.'.join(modules[:-1]) , fromlist=[modules[-1]] )
 					self.append( getattr(moduleclass, modules[-1]) )

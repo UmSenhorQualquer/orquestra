@@ -42,7 +42,11 @@ class BasePlugin(object):
 	def bottom_view(request): return None
 
 	@property
-	def label(self): return getattr(self.__class__, '%s_label' % self.__class__.__name__)
+	def label(self): 
+		try:
+			return getattr(self.__class__, '%s_label' % self.__class__.__name__)
+		except:
+			return self.__class__.__name__
 
 	@property
 	def hash(self): return self._hash
