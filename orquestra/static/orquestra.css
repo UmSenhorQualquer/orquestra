@@ -332,6 +332,10 @@ input[type="range"]::-webkit-slider-thumb {
 	color: rgba(0,0,0,.27) !important;
 }*/
 
+.ui.grid > .column + .divider, .ui.grid > .row > .column + .divider{
+	left: 50%;
+}
+
 
 #applications-tab{
 	background-color: #efefef;

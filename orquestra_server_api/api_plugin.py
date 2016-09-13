@@ -5,11 +5,10 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 import os, csv
 import simplejson, os, inspect
-from maestro.conf import settings
 from django.http import HttpResponse, HttpResponseServerError
 from django.views.decorators.csrf import csrf_exempt
 import simplejson, json, glob, inspect, mimetypes, os
-
+from pysettings import conf
 
 from maestro.models import AlgorithmSubject, Algorithm, Server, Job
 
@@ -46,7 +45,7 @@ class OrquestraApi(BasePlugin):
 
 	@staticmethod
 	def list_files(request):
-		storage 	= settings['MAESTRO_STORAGE_MANAGER'].get(request.user)
+		storage 	= conf.MAESTRO_STORAGE_MANAGER.get(request.user)
 		path 		= request.POST.get('path', '/')
 
 		print request.POST
@@ -70,7 +69,7 @@ class OrquestraApi(BasePlugin):
 		path 	 = request.POST.get('path','/')
 		filename = request.FILES.get('file', None).name
 		
-		storage = settings['MAESTRO_STORAGE_MANAGER'].get(request.user)
+		storage = conf.MAESTRO_STORAGE_MANAGER.get(request.user)
 
 		filepath = os.path.join(path, filename)
 		storage.put_file_contents(filepath, request.FILES['file'])
@@ -89,7 +88,7 @@ class OrquestraApi(BasePlugin):
 	def download_file(request):
 		path 	 = request.POST.get('path',None)
 		
-		storage = settings['MAESTRO_STORAGE_MANAGER'].get(request.user)
+		storage = conf.MAESTRO_STORAGE_MANAGER.get(request.user)
 		handler = storage.get_file_handler(path)
 		
 		response = StreamingHttpResponse(handler)
@@ -102,7 +101,7 @@ class OrquestraApi(BasePlugin):
 	@staticmethod
 	def delete_file(request):
 		path 	 	= request.POST.get('path',None)
-		storage 	= settings['MAESTRO_STORAGE_MANAGER'].get(request.user)
+		storage 	= conf.MAESTRO_STORAGE_MANAGER.get(request.user)
 		storage.delete(path)
 		return HttpResponse(json.dumps({'RESPONSE':'OK'}), "application/json")
 	delete_file_argstype = []
@@ -110,7 +109,7 @@ class OrquestraApi(BasePlugin):
 	@staticmethod
 	def create_folder(request):
 		path 	 	= request.POST.get('path',None)
-		storage 	= settings['MAESTRO_STORAGE_MANAGER'].get(request.user)
+		storage 	= conf.MAESTRO_STORAGE_MANAGER.get(request.user)
 		storage.mkdir(path)
 		return HttpResponse(json.dumps({'RESPONSE':'OK'}), "application/json")
 	create_folder_argstype = []
