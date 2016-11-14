@@ -15,7 +15,7 @@ class AppPlugin(BasePlugin):
 		if template==None: template = os.path.join('pyforms', 'pyforms-template.html')
 
 		params = { 'application': app_module, 'appInstance': model}
-		params.update( model.initForm() )
+		params.update( model.init_form() )
 
 
 		#return render_to_response(template,params, context_instance=RequestContext(request)) #Django 1.9

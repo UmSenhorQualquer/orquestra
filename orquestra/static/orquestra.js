@@ -10,7 +10,7 @@ function add_tab(name, label, url) {
 		$('#applications-tab .app-tab.item').removeClass('active');
 		$('#applications-tab .app-tab.tab').removeClass('active');
 
-		var html = '<a class="item active app-tab" data-tab="'+tabname+'">'+label+' &nbsp;&nbsp;<i class="power icon"></i></a>';
+		var html = '<a class="item active app-tab" data-tab="'+tabname+'">'+label+' &nbsp;&nbsp;<i class="remove icon"></i></a>';
 		$('#applications-tab .apps-tabs').append(html);
 
 		var html = '<div class="ui attached active tab app-tab" id="top-pane" data-tab="'+tabname+'"></div>';
@@ -24,7 +24,7 @@ function add_tab(name, label, url) {
 			$('#applications-tab .tab.app-tab[data-tab="'+$(this).attr('data-tab')+'"]').addClass('active');
 		});
 
-		$('#applications-tab .app-tab.item[data-tab="'+tabname+'"] i.power').on('click', function(){
+		$('#applications-tab .app-tab.item[data-tab="'+tabname+'"] i.remove').on('click', function(){
 
 			$('#confirm-tab-close').modal({
 				closable  : false,
