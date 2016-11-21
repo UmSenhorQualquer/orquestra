@@ -8,7 +8,7 @@ class AppPlugin(BasePlugin):
 
 	@staticmethod
 	def render_app(request, app_module, template=None):
-		model 				= ApplicationsLoader.createInstance(app_module)
+		model 				= ApplicationsLoader.createInstance(app_module, request.user)
 		model.httpRequest 	= request
 		model_path 			= inspect.getfile(model.__class__)
 
