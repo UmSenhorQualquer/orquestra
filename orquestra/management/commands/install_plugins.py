@@ -6,6 +6,7 @@ from django.conf import settings
 from django.conf.urls import url
 from django.template.loader import render_to_string
 from orquestra.plugins.baseplugin import LayoutPositions, BasePlugin
+from pyforms_web.web.BaseWidget import BaseWidget
 
 
 class PluginsManager(object):
@@ -14,23 +15,7 @@ class PluginsManager(object):
 		self._plugins_list = []
 		self.search_4_plugins()
 
-	def append(self, plugin):
-		self._plugins_list.append(plugin)
-
-	def urls(self):
-		params = ['']
-
-		for plugin in self._plugins_list:
-			if hasattr(plugin,'top_view_url'):
-				params.append( 
-					url( plugin.top_view_url, plugin.top_view, name="%s-top" % plugin._hash ) 
-				)
-			if hasattr(plugin,'bottom_view_url'):
-				params.append( 
-					url( plugin.bottom_view_url, plugin.bottom_view, name="%s-bottom" % plugin._hash )
-				)
-		
-		return params
+	def append(self, plugin): self._plugins_list.append(plugin)
 
 	@property
 	def plugins(self): return self._plugins_list
@@ -38,17 +23,17 @@ class PluginsManager(object):
 	
 	def menu(self, user=None, menus=[]):
 		res = []
-		for plugin in self._plugins_list:
-			if not hasattr(plugin, 'menu') or not plugin.menu in menus: continue
+		for plugin_class in self.plugins:
+			if not hasattr(plugin_class, 'menu') or not plugin_class.menu in menus: continue
 
 			add = False
-			if hasattr(plugin, 'groups'):
-				if 'superuser' in plugin.groups and user.is_superuser:  add = True
-				if user.groups.filter(name__in=plugin.groups).exists():  add = True
+			if hasattr(plugin_class, 'groups'):
+				if 'superuser' in plugin_class.groups and user.is_superuser:  add = True
+				if user.groups.filter(name__in=plugin_class.groups).exists():  add = True
 			else:
 				add = True
 
-			if add: res.append(plugin)
+			if add: res.append(plugin_class)
 
 		return res
 
@@ -58,31 +43,34 @@ class PluginsManager(object):
 		out = open(filename, 'w')
 
 		out.write( "from django.conf.urls import url\nfrom django.views.decorators.csrf import csrf_exempt\n" )
-		for plugin in self.plugins:
+		for plugin_class in self.plugins:
+			if issubclass(plugin_class, BaseWidget): continue
+
 			out.write( 
 				"from {0} import {1}\n".format(
-					plugin.__module__,
-					plugin.__name__
+					plugin_class.__module__,
+					plugin_class.__name__
 				) 
 			)
 		out.write( "\n" )
 
 		out.write( "urlpatterns = [\n" )
-		for pluginClass in self.plugins:
-			plugin = pluginClass()
-			
+		for plugin_class in self.plugins:
+			if issubclass(plugin_class, BaseWidget): continue
+			plugin = plugin_class()
+
 			for view in plugin.views:
 				if not hasattr(plugin, '%s_argstype' % view.__name__): continue
 				if hasattr(plugin, '%s_name' % view.__name__):
 					out.write( "\turl(r'^{0}', {1}, name='{2}'),\n".format( 
-						BasePlugin.viewURL(pluginClass, view), 
-						BasePlugin.viewName(pluginClass, view),
+						BasePlugin.viewURL(plugin_class, view), 
+						BasePlugin.viewName(plugin_class, view),
 						getattr(plugin, '%s_name' % view.__name__)
 					))
 				else:
 					out.write( "\turl(r'^%s', %s),\n" % ( 
-						BasePlugin.viewURL(pluginClass, view), 
-						BasePlugin.viewName(pluginClass, view) ) )
+						BasePlugin.viewURL(plugin_class, view), 
+						BasePlugin.viewName(plugin_class, view) ) )
 		out.write( "]" )
 
 		out.close()
@@ -92,78 +80,94 @@ class PluginsManager(object):
 	def export_js_file(self, filename):
 		out = open(filename, 'w')
 		
-		for pluginClass in self.plugins:
-			plugin = pluginClass()
-			for view in plugin.views:
-				if not hasattr(plugin, '%s_position' % view.__name__): continue
-				if not hasattr(plugin, '%s_argstype' % view.__name__): continue
+		for plugin_class in self.plugins:
+			if issubclass(plugin_class, BaseWidget):
 
-				prefix = pluginClass.__name__.capitalize()
-				sufix = view.__name__.capitalize()
-				if prefix==sufix: sufix=''
-				params = [x for x in inspect.getargspec(view)[0][1:]]
-
-				out.write( "function run%s%s(%s){\n" % ( prefix, sufix, ','.join(params) ) )
+				out.write( "function run%s(){\n" % ( plugin_class.__name__.capitalize(), ) )
 				out.write( "\tloading();\n" )
-				out.write( "\tactivateMenu('menu-%s');\n" % plugin.anchor )
-
-				position = getattr(plugin, '%s_position' % view.__name__)
-				
-				label_attr = '{0}_label'.format(view.__name__)
-				label = getattr(plugin, label_attr) if hasattr(plugin, label_attr) else view.__name__
-				
-				breadcrumbs = BasePlugin.viewBreadcrumbs(plugin, view)
-				#if position==LayoutPositions.TOP:
-				#	out.write( "\tshowBreadcrumbs(%s, '%s');\n" % (breadcrumbs, label) )
-				
-				
-				if hasattr(plugin, '%s_js' % view.__name__):
-					javascript = getattr(plugin, '%s_js' % view.__name__)
-					out.write( """\t%s\n""" % javascript )
-				else:		
-					if position==LayoutPositions.HOME:
-						out.write( "\tclearInterval(refreshEvent);\n")
-						out.write( """
-						select_main_tab();
-						$('#top-pane').load("/plugins/%s", function(response, status, xhr){
-							if(status=='error') error_msg(xhr.status+" "+xhr.statusText+": "+xhr.responseText);
-							not_loading();
-						});\n""" % BasePlugin.viewJsURL(pluginClass, view) )
-					
-					if position==LayoutPositions.NEW_TAB:
-
-						out.write('add_tab("{0}", "{1}", "/plugins/{2}");'.format(view.__name__, label, BasePlugin.viewJsURL(pluginClass, view)) )
-
-					if position==LayoutPositions.WINDOW:
-						out.write( "\tloading();" )
-						out.write( "\t$('#opencsp-window').dialog('open');\n" )
-						out.write( """\t$('#opencsp-window').load("/plugins/%s",function() {\n"""  %  BasePlugin.viewJsURL(pluginClass, view) )
-						out.write( """\t\tnot_loading();$(this).scrollTop($(this)[0].scrollHeight);\n""" )
-						out.write( """\t});\n""" )
-					if position==LayoutPositions.NEW_WINDOW:
-						out.write( """window.open('/plugins/%s');""" % BasePlugin.viewJsURL(pluginClass, view) )
-
+				out.write( "\tactivateMenu('menu-{0}');\n".format( 	 plugin_class.__name__.lower() ) )
+				out.write( "\trun_application('{0}.{1}');\n".format( plugin_class.__module__,plugin_class.__name__ ) )
 				out.write( "}\n" )
 				out.write( "\n" )
+				
+			else:
+				plugin = plugin_class()
+				for view in plugin.views:
+					if not hasattr(plugin, '%s_position' % view.__name__): continue
+					if not hasattr(plugin, '%s_argstype' % view.__name__): continue
+
+					prefix = plugin_class.__name__.capitalize()
+					sufix = view.__name__.capitalize()
+					if prefix==sufix: sufix=''
+					params = [x for x in inspect.getargspec(view)[0][1:]]
+
+					out.write( "function run%s%s(%s){\n" % ( prefix, sufix, ','.join(params) ) )
+					out.write( "\tloading();\n" )
+					out.write( "\tactivateMenu('menu-%s');\n" % plugin.anchor )
+
+					position = getattr(plugin, '%s_position' % view.__name__)
+					
+					label_attr = '{0}_label'.format(view.__name__)
+					label = getattr(plugin, label_attr) if hasattr(plugin, label_attr) else view.__name__
+					
+					breadcrumbs = BasePlugin.viewBreadcrumbs(plugin, view)
+					#if position==LayoutPositions.TOP:
+					#	out.write( "\tshowBreadcrumbs(%s, '%s');\n" % (breadcrumbs, label) )
+					
+					
+					if hasattr(plugin, '%s_js' % view.__name__):
+						javascript = getattr(plugin, '%s_js' % view.__name__)
+						out.write( """\t%s\n""" % javascript )
+					else:		
+						if position==LayoutPositions.HOME:
+							out.write( "\tclearInterval(refreshEvent);\n")
+							out.write( """
+							select_main_tab();
+							$('#top-pane').load("/plugins/%s", function(response, status, xhr){
+								if(status=='error') error_msg(xhr.status+" "+xhr.statusText+": "+xhr.responseText);
+								not_loading();
+							});\n""" % BasePlugin.viewJsURL(plugin_class, view) )
+						
+						if position==LayoutPositions.NEW_TAB:
+
+							out.write('add_tab("{0}", "{1}", "/plugins/{2}");'.format(view.__name__, label, BasePlugin.viewJsURL(plugin_class, view)) )
+
+						if position==LayoutPositions.WINDOW:
+							out.write( "\tloading();" )
+							out.write( "\t$('#opencsp-window').dialog('open');\n" )
+							out.write( """\t$('#opencsp-window').load("/plugins/%s",function() {\n"""  %  BasePlugin.viewJsURL(plugin_class, view) )
+							out.write( """\t\tnot_loading();$(this).scrollTop($(this)[0].scrollHeight);\n""" )
+							out.write( """\t});\n""" )
+						if position==LayoutPositions.NEW_WINDOW:
+							out.write( """window.open('/plugins/%s');""" % BasePlugin.viewJsURL(plugin_class, view) )
+
+					out.write( "}\n" )
+					out.write( "\n" )
 			
 		views_ifs = []
 		home_function = 'function(){};';
-		for pluginClass in self.plugins:
-			plugin = pluginClass()
+		for plugin_class in self.plugins:
+			if issubclass(plugin_class, BaseWidget):
+				function = plugin_class.__name__.capitalize()
+				anchor 	 = plugin_class.__name__.lower()
+				views_ifs.append( "\tif(view=='{0}') run{1}.apply(null, params);\n".format(anchor, function) )
+			else:
+			
+				plugin = plugin_class()
 
-			for index, view in enumerate(plugin.views):
-				if not hasattr(plugin, '%s_position' % view.__name__): continue
-				if not hasattr(plugin, '%s_argstype' % view.__name__): continue
+				for index, view in enumerate(plugin.views):
+					if not hasattr(plugin, '%s_position' % view.__name__): continue
+					if not hasattr(plugin, '%s_argstype' % view.__name__): continue
 
-				prefix = pluginClass.__name__.capitalize()
-				sufix = view.__name__.capitalize()
-				if prefix==sufix: sufix=''
-				params = [x for x in inspect.getargspec(view)[0][1:]]
-				if index==0:
-					home_function = "run%s%s.apply(null, params);" % ( prefix, sufix)
+					prefix = plugin_class.__name__.capitalize()
+					sufix = view.__name__.capitalize()
+					if prefix==sufix: sufix=''
+					params = [x for x in inspect.getargspec(view)[0][1:]]
+					if index==0:
+						home_function = "run%s%s.apply(null, params);" % ( prefix, sufix)
 
 
-				views_ifs.append( "\tif(view=='%s') run%s%s.apply(null, params);\n" % ( BasePlugin.viewJsAnchor(pluginClass, view), prefix, sufix) )
+					views_ifs.append( "\tif(view=='%s') run%s%s.apply(null, params);\n" % ( BasePlugin.viewJsAnchor(plugin_class, view), prefix, sufix) )
 
 
 		out.write( render_to_string( os.path.join( os.path.dirname(__file__), '..', '..','templates','plugins','commands.js'), {'views_ifs': views_ifs, 'home_function':home_function} ) )

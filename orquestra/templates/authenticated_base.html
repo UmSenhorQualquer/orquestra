@@ -14,8 +14,12 @@ f{% extends "base.html" %}
 	<script type="text/javascript" src="/static/pyformsjs/pyforms.js"></script>
 	<script type="text/javascript" src="/static/jquery-ui/jquery-ui.min.js"></script>
 
-	{% for plugin in menu_plugins %}{{ plugin.html_header|safe }}{% endfor %}
-
+	{% for staticfile in styles_files %}
+	<link rel="stylesheet" type="text/css" href="/static/{{staticfile}}">
+	{% endfor %}
+	{% for staticfile in javascript_files %}
+	<script type="text/javascript" src="/static/{{staticfile}}"></script>
+	{% endfor %}
 {% endblock %}
 
 {% block top_menu %}{% include "menu.html" %}{% endblock %}

@@ -19,7 +19,7 @@ class LayoutPositions:
 
 class StringArgType(object):
 	@staticmethod
-	def argument(name): return "(?P<%s>[a-zA-Z._ 0-9]+)" % name
+	def argument(name): return "(?P<%s>[a-zA-Z._\- 0-9]+)" % name
 
 class IntArgType(object):
 	@staticmethod
