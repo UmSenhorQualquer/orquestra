@@ -81,8 +81,7 @@ function open_application(app_data){
 	var layout_position = app_data['layout_position'];
 	var application_id  = app_data['uid'];
 	if(layout_position===5){
-		var label = app_data['uid'];
-		add_tab(application_id, label, "/plugins/applist/openapp/"+application_id+"/");
+		add_tab(application_id, app_data['title'], "/plugins/applist/openapp/"+application_id+"/");
 	}else
 	if(layout_position===0){
 		$('#top-pane').load("/plugins/applist/openapp/"+application_id+"/", function(response, status, xhr){
