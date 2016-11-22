@@ -67,6 +67,7 @@ function run_application(application){
 					if( app!=undefined){
 						//pyforms.remove_app(res[i]['uid']);
 						//run_application(application);
+						not_loading();
 					}else
 						open_application(res[i]);
 				};
