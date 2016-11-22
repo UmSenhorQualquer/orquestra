@@ -60,19 +60,19 @@ function run_application(application){
 		contentType: "application/json; charset=utf-8",
 		success: function(res){
 			if( res.result=='error' )
-				error(res.msg);
+				error_msg(res.msg);
 			else
 				for(var i=0; i<res.length; i++){
 					var app = pyforms.find_app(res[i]['uid']);
 					if( app!=undefined){
-						pyforms.remove_app(res[i]['uid']);
-						run_application(application);
+						//pyforms.remove_app(res[i]['uid']);
+						//run_application(application);
 					}else
 						open_application(res[i]);
 				};
 		}
 	}).fail(function(xhr){
-		error(xhr.status+" "+xhr.statusText+": "+xhr.responseText);
+		error_msg(xhr.status+" "+xhr.statusText+": "+xhr.responseText);
 	});
 
 };
@@ -93,12 +93,20 @@ function open_application(app_data){
 
 var refreshEvent = setInterval(function(){},100000);
 
+var msg_timeout = undefined;
+
 function success_msg(msg){
+	if(msg_timeout!=undefined) clearTimeout(msg_timeout);
+	$('#top-menu').popup({title: 'Success', variation:'basic', on:'manual', content: msg, position:'top center'}).popup('show');
+	msg_timeout = setTimeout(function(){$('#top-menu').popup('destroy');}, 5000);
 };
+
 
 function error_msg(msg){
+	if(msg_timeout!=undefined) clearTimeout(msg_timeout);
+	$('#top-menu').popup({title: 'Error', variation:'basic', on:'manual', content: msg, position:'top center'}).popup('show');
+	msg_timeout = setTimeout(function(){$('#top-menu').popup('destroy');}, 10000);
 };
-
 
 function get_current_folder(){
 	if($('#MyAreaAppID-_directory').length)
