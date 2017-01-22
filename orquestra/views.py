@@ -16,14 +16,13 @@ def index(request):
 
 	menus = []
 	for plugin_class in manager.menu(request.user, menus=[MenusPositions.MAIN_MENU, MenusPositions.USER_MENU]):
-		print plugin_class.menu
 		menus += [(
-				plugin_class.menu, 
-				plugin_class.label, 
-				plugin_class.icon if hasattr(plugin_class, 'icon') else None, 
-				plugin_class.__name__.lower(), 
-				"run{0}();".format( plugin_class.__name__.capitalize())
-				)]
+			plugin_class.menu,
+			plugin_class.label,
+			plugin_class.icon if hasattr(plugin_class, 'icon') else None,
+			plugin_class.__name__.lower(),
+			"run{0}();".format( plugin_class.__name__.capitalize())
+		)]
 
 	context.update({
 		'menu_plugins': menus,
