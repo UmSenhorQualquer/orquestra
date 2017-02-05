@@ -18,6 +18,7 @@ def index(request):
 			if staticfile.endswith('.js'):  javascript_files.append(staticfile)
 
 	menus = []
+
 	for plugin_class in manager.menu(request.user):
 		menu = type('MenuOption', (object,), {})
 		menu.topmenu 	= plugin_class.menu == MenusPositions.MAIN_MENU
@@ -28,6 +29,7 @@ def index(request):
 		menu.anchor 	= plugin_class.__name__.lower()
 		menu.js_call 	= "run{0}();".format( plugin_class.__name__.capitalize())
 		menus.append(menu)
+
 
 	menus = sorted(menus, key=lambda x: x.order)
 	context.update({
