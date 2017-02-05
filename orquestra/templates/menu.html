@@ -1,9 +1,10 @@
 <div id='left-menu' class="ui left visible vertical push inverted very thin sidebar labeled icon menu">
 
-{% for menu_pos, menu_label, menu_icon, menu_anchor, menu_jsfunction in menu_plugins %}
-<a class="item" href="#view-{{ menu_anchor }}" onclick="{{ menu_jsfunction }}" >
-	{% if menu_icon %}<i class="{{menu_icon}} icon"></i>{% endif %}
-	{{ menu_label }}
+
+{% for menu in menu_plugins %}
+<a class="item" href="#view-{{ menu.icon.anchor }}" onclick="{{ menu.js_call }}" >
+	{% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
+	{{ menu.label }}
 </a>
 {% endfor %}
 </div>

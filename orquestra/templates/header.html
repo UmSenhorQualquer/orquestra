@@ -1,21 +1,21 @@
 {% if user.is_authenticated %}
 <div class="ui teal inverted small fixed top menu" id='top-menu'>
-  {% for menu_pos, menu_label, menu_icon, menu_anchor, menu_jsfunction in menu_plugins %}{% ifequal menu_pos 0 %}
-	<a class="item" id='menu-{{menu_anchor}}' href="#view-{{menu_anchor}}" onclick="{{ menu_jsfunction }}" >
-		{% if menu_icon %}<i class="{{menu_icon}} icon"></i>{% endif %}
-		{{ menu_label }}
+  {% for menu in menu_plugins %}{% if menu.topmenu %}
+	<a class="item" href="#view-{{ menu.anchor }}" onclick="{{ menu.js_call }}" >
+		{% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
+		{{ menu.label }}
 	</a>
-  {% endifequal %}{% endfor %}
+  {% endif %}{% endfor %}
  
   <div class="right item ui simple dropdown" id='user-menu' >
 		<i class="user icon"></i> {{ user }} <i class="dropdown icon"></i>
 		<div class="menu">
-			{% for menu_pos, menu_label, menu_icon, menu_anchor, menu_jsfunction in menu_plugins %}{% ifequal menu_pos 1 %}
-				<a class="item" href="#view-{{menu_anchor}}" onclick="{{ menu_jsfunction }}" >
-					{% if menu_icon %}<i class="{{menu_icon}} icon"></i>{% endif %}
-					{{ menu_label }}
-				</a>
-		  	{% endifequal %}{% endfor %}
+			{% for menu in menu_plugins %}{% if menu.usermenu %}
+			<a class="item" href="#view-{{ menu.anchor }}" onclick="{{ menu.js_call }}" >
+				{% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
+				{{ menu.label }}
+			</a>
+			{% endif %}{% endfor %}
 			<a class="item" href='/accounts/logout/'><i class="sign out icon"></i> Logout</a>
 
 		</div>
