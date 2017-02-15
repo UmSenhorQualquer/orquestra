@@ -12,7 +12,7 @@ from pysettings import conf
 
 from maestro.models import AlgorithmSubject, Algorithm, Server, Job
 
-from pyforms_web.web.django import ApplicationsLoader
+from pyforms_web.web.djangoapp import ApplicationsLoader
 from django.http import StreamingHttpResponse
 
 

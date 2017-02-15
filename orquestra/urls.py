@@ -22,6 +22,6 @@ from orquestra.views   import index
 urlpatterns = [
     url(r'^$', index),
     url(r'^accounts/', include('allauth.urls')),
-    url(r'^pyforms/', include('pyforms_web.web.django.urls') ),
+    url(r'^pyforms/', include('pyforms_web.web.djangoapp.urls') ),
     url(r'^admin/', admin.site.urls),
 ]

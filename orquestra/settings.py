@@ -1,5 +1,5 @@
 import os
-from pyforms_web.web.django import ApplicationsLoader
+from pyforms_web.web.djangoapp import ApplicationsLoader
 
 
 MAESTRO_STORAGE_MANAGERS 	 = []

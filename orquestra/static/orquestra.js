@@ -1,5 +1,5 @@
-function loading()		{ $("#loading-label").addClass('active'); 		};
-function not_loading()	{ $("#loading-label").removeClass('active'); 	};
+function loading()		{ /*$("#loading-label").addClass('active'); */		};
+function not_loading()	{/* $("#loading-label").removeClass('active'); */	};
 
 // actual addTab function: adds new tab using the input from the form above
 function add_tab(name, label, url) {
