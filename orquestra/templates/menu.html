@@ -1,6 +1,4 @@
 <div id='left-menu' class="ui left visible vertical push inverted very thin sidebar labeled icon menu">
-
-
 {% for menu in menu_plugins %}
 <a class="item" href="#view-{{ menu.icon.anchor }}" onclick="{{ menu.js_call }}" >
 	{% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
@@ -12,6 +10,5 @@
 
 <script type="text/javascript">
 	$('#left-menu').sidebar();
-
 </script>
 

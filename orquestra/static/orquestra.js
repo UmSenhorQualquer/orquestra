@@ -69,7 +69,7 @@ function run_application(application){
 						//run_application(application);
 						not_loading();
 					}else
-						open_application(res[i]);
+						pyforms.open_application(res[i]);
 				};
 		}
 	}).fail(function(xhr){
@@ -78,19 +78,13 @@ function run_application(application){
 
 };
 
-function open_application(app_data){
-	var layout_position = app_data['layout_position'];
-	var application_id  = app_data['uid'];
-	if(layout_position===5){
-		add_tab(application_id, app_data['title'], "/pyforms/app/open/"+application_id+"/");
-	}else
-	if(layout_position===0){
-		$('#top-pane').load("/pyforms/app/open/"+application_id+"/", function(response, status, xhr){
-			if(status=='error') error_msg(xhr.status+" "+xhr.statusText+": "+xhr.responseText);
-			not_loading();
-		});
-	};
-}
+
+function home(name, label, url){
+	$('#top-pane').load(url, function(response, status, xhr){
+		if(status=='error') error_msg(xhr.status+" "+xhr.statusText+": "+xhr.responseText);
+		not_loading();
+	});
+};
 
 var refreshEvent = setInterval(function(){},100000);
 var msg_timeout = undefined;
@@ -114,3 +108,8 @@ function get_current_folder(){
 	else
 		return '/';
 };
+
+(function($) {
+	pyforms.register_layout_place(5, add_tab);
+	pyforms.register_layout_place(0, home);
+})(jQuery);

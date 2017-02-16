@@ -1,75 +1,29 @@
 {% load jfutags %}{% load thumbnail %}
-<!DOCTYPE html>
+<!DOCTYPE html />
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <title>{{ title }}</title>
-    <link rel="stylesheet" type="text/css" href="/static/semantic-ui/semantic.css">
-    <script type="text/javascript" src="/static/jquery-2.2.3.min.js"></script>
-    <script type="text/javascript" src="/static/semantic-ui/semantic.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/static/orquestra.css" />
-    
-    {% block head %}{% endblock %}
-    {% block css %}{% endblock %}
-    {% block js %}{% endblock %}
+		<meta charset="utf-8"/>
+		<title>{{ title }}</title>
+		<link rel="stylesheet" type="text/css" href="/static/semantic-ui/semantic.css"></link>
+		<link rel="stylesheet" type="text/css" href="/static/orquestra.css" /></link>
+		<script type="text/javascript" src="/static/jquery-2.2.3.min.js"></script>
+		<script type="text/javascript" src="/static/semantic-ui/semantic.min.js"></script>
+		
+		{% block head %}{% endblock %}
+		{% block css %}{% endblock %}
+		{% block js %}{% endblock %}
 </head>
 <body>
-    <div class="pusher">
-    {% include "header.html" %}
-    {% block body %}{% endblock %}
-    {% block page_content %}{% endblock %}
-    {% block content %}{% endblock %}
-    {% block extra_body %}{% endblock %}
-    {% block extra_scripts %}{% endblock %}
-    </div>
+	{% block sidebar %}{% endblock %}
 
-
-    <style class="override">.ui.button {
-  background-image: linear-gradient(center top , #F7F8FA, #E7E9EC) repeat scroll 0 0 rgba(0, 0, 0, 0);
-}
-
-.ui.primary.button {
-  color: #111111;
-  border: 1px solid;
-  border-color: #C59F43 #AA8326 #957321;
-}
-.ui.primary.button:hover {
-  border-color: #C59F43 #AA8326 #957321;
-  color: #111111;
-}
-
-.ui.secondary.button {
-  border: 1px solid;
-  border-color: #3D444C #2F353B #2C3137;
-}
-.ui.secondary.button:hover {
-  border-color: #32373E #24282D #212429;
-}
-
-
-.ui.labeled.icon.buttons .button > .icon,
-.ui.labeled.icon.button > .icon {
-  padding-bottom: 0.48em;
-  padding-top: 0.48em;
-  position: absolute;
-  text-align: center;
-  width: 2em;
-  height: 2em;
-  top: 0.35em;
-  left: 0.4em;
-  border-radius: 3px;
-}
-.ui.right.labeled.icon.buttons .button > .icon,
-.ui.right.labeled.icon.button > .icon {
-  left: auto;
-  right: 0.4em;
-  border-radius: 3px;
-}
-
-.ui.basic.labeled.icon.buttons .button > .icon,
-.ui.basic.labeled.icon.button > .icon {
-  padding-top: 0.4em !important;
-}</style>
+	<div class="ui pusher">
+		{% include "header.html" %}			
+		{% block body %}{% endblock %}
+		{% block page_content %}{% endblock %}
+		{% block content %}{% endblock %}
+		{% block extra_body %}{% endblock %}
+		{% block extra_scripts %}{% endblock %}
+	</div>
 </body>
 </html>
 
