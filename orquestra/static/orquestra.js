@@ -47,6 +47,17 @@ function add_tab(name, label, url) {
 	
 }
 
+// actual addTab function: adds new tab using the input from the form above
+function add_segment(name, label, url) {
+	var e = $('<div class="ui raised floated segment" style="margin:20px; min-width:800px; display:None;" ></div>').appendTo('#top-pane').load(url, function(response, status, xhr){
+		if(status=='error') error_msg(xhr.status+" "+xhr.statusText+": "+xhr.responseText);
+	}).transition('scale')
+
+	$('html, body').animate({
+        scrollTop: e.offset().top
+    }, 500);
+}
+
 function select_main_tab(){
 	$('#applications-tab .item[data-tab="tab-home"]').click();
 }
@@ -112,4 +123,5 @@ function get_current_folder(){
 (function($) {
 	pyforms.register_layout_place(5, add_tab);
 	pyforms.register_layout_place(0, home);
+	//pyforms.register_layout_place(0, add_segment);
 })(jQuery);

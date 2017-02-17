@@ -1,25 +1,34 @@
 <div class="ui inverted left visible vertical menu sidebar">
-<div class="item">
-  <a class="ui logo icon image" href="/">
-    <img src="/images/logo.png">
-  </a>
-  <a href="/"><b>UI Docs</b></a>
-</div>
-		<a class="item">
-			Item 1
-		</a>
-		<a class="item">
-			Item 2
-		</a>
-		<a class="item">
-			Item 3
-		</a>
+	<div class="item" style="height: 37px;" >
+		&nbsp;
 	</div>
+
+	{% for menu in menu_plugins %}
+		{% ifequal menu.menu_name 'left' %}
+			{% if menu.submenus %}
+				<div class="item">
+    				<div class="header">{{ menu.label }} {% if menu.icon %}<i class="{{ menu.icon }} icon"></i>{% endif %}</div>
+    				<div class="menu">
+						{% for submenu in menu.submenus %}
+							<a class="item" href="#view-{{ submenu.anchor }}" onclick="{{ submenu.js_call }}" >
+								{{ submenu.label }}
+								{% if submenu.icon %}<i class="{{submenu.icon}} icon"></i>{% endif %}
+							</a>
+						{% endfor %}
+					</div>
+				</div>
+			{% else %}
+				<a class="item" href="#view-{{ menu.anchor }}" onclick="{{ menu.js_call }}" >
+					{% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
+					{{ menu.label }}
+				</a>
+			{% endif %}
+		{% endifequal %}
+	{% endfor %}
+
+</div>
 
 
 <style type="text/css">
-	.ui.sidebar.visible ~ .pusher {
-		width: calc(100% - 260px);
-}
-
+	.ui.sidebar.visible ~ .pusher { width: calc(100% - 260px); }
 </style>

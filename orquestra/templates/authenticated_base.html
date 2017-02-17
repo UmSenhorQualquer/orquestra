@@ -13,7 +13,6 @@
 	<script type="text/javascript" src="/static/pyformsjs/pyforms.js"></script>
 	<script type="text/javascript" src="/static/jquery-ui/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="/static/orquestra.js"></script>
-	
 	{% for staticfile in styles_files %}
 	<link rel="stylesheet" type="text/css" href="/static/{{staticfile}}">
 	{% endfor %}
@@ -22,14 +21,7 @@
 	{% endfor %}
 {% endblock %}
 
-
-
-
-{% block sidebar %}{% include "sidebar.html" %}{% endblock %}
-
-
-
-{% block top_menu %}{% include "menu.html" %}{% endblock %}
+{% block sidebar %}{% if 'left' in active_menus %}{% include "sidebar.html" %}{% endif %}{% endblock %}
 
 {% block page_content %}
 <br/>
@@ -38,28 +30,30 @@
 	<div class="ui pointing secondary tabular menu apps-tabs" >
 		<a class="item active app-tab" data-tab="tab-home"><i class="home icon"></i></a>
 	</div>
-	<div class="ui attached active tab app-tab" id="top-pane" data-tab="tab-home"></div>
+	<div class="ui attached active tab app-tab" id="top-pane" data-tab="tab-home">	
+
+	</div>
 </div>
 
 <div class="ui small basic test modal transition scrolling"  id='confirm-tab-close' >
-    <div class="ui icon header">
-      <i class="power icon"></i>
-      Close the tab
-    </div>
-    <div class="content ui center aligned segment">
-      <p>Are you sure you want to close the tab?</p>
-    </div>
-    <div class="actions">
-      <div class="ui red basic cancel inverted button">
-        <i class="remove icon"></i>
-        No
-      </div>
-      <div class="ui green ok inverted button">
-        <i class="checkmark icon"></i>
-        Yes
-      </div>
-    </div>
-  </div>
+	<div class="ui icon header">
+		<i class="power icon"></i>
+		Close the tab
+	</div>
+	<div class="content ui center aligned segment">
+		<p>Are you sure you want to close the tab?</p>
+	</div>
+	<div class="actions">
+		<div class="ui red basic cancel inverted button">
+			<i class="remove icon"></i>
+			No
+		</div>
+		<div class="ui green ok inverted button">
+			<i class="checkmark icon"></i>
+			Yes
+	  	</div>
+	</div>
+</div>
 
 
 

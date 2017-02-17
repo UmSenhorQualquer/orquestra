@@ -19,10 +19,13 @@ def index(request):
 
 	plugins4menus = sorted(manager.menu(request.user), key=lambda x: x.label )
 	menus 		  = []
+	active_menus  = []
 
 	parent_menu   = None
 	for plugin_class in plugins4menus:
 		labels = plugin_class.label.split('>')
+
+		active_menus.append( labels[0] )
 
 		menu 			= type('MenuOption', (object,), {})
 		menu.menu_name	= labels[0]
@@ -37,6 +40,7 @@ def index(request):
 			parent_menu 				= type('ParentMenuOption', (object,), {})
 			parent_menu.menu_name		= labels[0]
 			parent_menu.label 			= labels[1]
+			parent_menu.icon 			= plugin_class.parent_icon if hasattr(plugin_class,'parent_icon') else None
 			parent_menu.submenus 		= []
 			parent_menu.submenus.append(menu)
 			menus.append(parent_menu)
@@ -46,18 +50,25 @@ def index(request):
 
 		elif parent_menu.menu_name==menu.menu_name and len(labels)==3 and labels[1]==parent_menu.label:
 			parent_menu.submenus.append(menu)
+			if not parent_menu.icon:
+				parent_menu.icon = plugin_class.parent_icon if hasattr(plugin_class,'parent_icon') else None
 
 		elif parent_menu.menu_name==menu.menu_name or labels[1]!=parent_menu.label:
 			parent_menu 				= type('ParentMenuOption', (object,), {})
 			parent_menu.menu_name		= labels[0]
 			parent_menu.label 			= labels[1]
+			parent_menu.icon 			= plugin_class.parent_icon if hasattr(plugin_class,'parent_icon') else None
 			parent_menu.submenus 		= []
 			parent_menu.submenus.append(menu)
 			menus.append(parent_menu)
 
+		else:
+			menus.append(menu)
+
 	
 	context.update({
 		'menu_plugins': menus,
+		'active_menus': list(set(active_menus)),
 		'styles_files': style_files,
 		'javascript_files': javascript_files,
 	})
