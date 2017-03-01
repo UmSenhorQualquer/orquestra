@@ -6,7 +6,6 @@ function add_tab(name, label, url) {
 	var tabname = "tab-" + name;
 
 	if($('#applications-tab .app-tab.tab[data-tab="'+tabname+'"]').size()==0){
-
 		$('#applications-tab .app-tab.item').removeClass('active');
 		$('#applications-tab .app-tab.tab').removeClass('active');
 
@@ -17,7 +16,6 @@ function add_tab(name, label, url) {
 		$('#applications-tab').append(html);
 
 		$('#applications-tab .app-tab.item[data-tab="'+tabname+'"]').on('click', function() {
-
 			$('#applications-tab .item.app-tab').removeClass('active');
 			$('#applications-tab .tab.app-tab').removeClass('active');
 			$(this).addClass('active');
@@ -40,9 +38,28 @@ function add_tab(name, label, url) {
 		});
 	};
 
-	$('#applications-tab .app-tab.tab[data-tab="'+tabname+'"]').load(url, function(response, status, xhr){
-		if(status=='error') error_msg(xhr.status+" "+xhr.statusText+": "+xhr.responseText);
-		not_loading();
+	$.ajax({
+		method: 'get',
+		cache: false,
+		dataType: "json",
+		url: url,
+		contentType: "application/json; charset=utf-8",
+		success: function(res){
+			if( res.result=='error' )
+				error_msg(res.msg);
+			else{
+				var html = '<div class="html ui basic segment">';
+				html += '<h2 class="ui right floated header">'+label+'</h2>';
+				html += '<div class="ui clearing divider"></div>';
+				html += "<form class='ui form' id='app-"+res.app_id+"' >";
+				html += res.code;
+				html += '</form>';
+				html += '</div>';
+				$('#applications-tab .app-tab.tab[data-tab="'+tabname+'"]').html(html);
+			};
+		}
+	}).fail(function(xhr){
+		error_msg(xhr.status+" "+xhr.statusText+": "+xhr.responseText);
 	});
 	
 }
@@ -86,14 +103,32 @@ function run_application(application){
 	}).fail(function(xhr){
 		error_msg(xhr.status+" "+xhr.statusText+": "+xhr.responseText);
 	});
-
 };
 
 
 function home(name, label, url){
-	$('#top-pane').load(url, function(response, status, xhr){
-		if(status=='error') error_msg(xhr.status+" "+xhr.statusText+": "+xhr.responseText);
-		not_loading();
+	$.ajax({
+		method: 'get',
+		cache: false,
+		dataType: "json",
+		url: url,
+		contentType: "application/json; charset=utf-8",
+		success: function(res){
+			if( res.result=='error' )
+				error_msg(res.msg);
+			else{
+				var html = '<div class="html ui basic segment">';
+				html += '<h2 class="ui right floated header">'+label+'</h2>';
+				html += '<div class="ui clearing divider"></div>';
+				html += "<form class='ui form' id='app-"+res.app_id+"' >";
+				html += res.code;
+				html += '</form>';
+				html += '</div>';
+				$('#top-pane').html(html);
+			};
+		}
+	}).fail(function(xhr){
+		error_msg(xhr.status+" "+xhr.statusText+": "+xhr.responseText);
 	});
 };
 
@@ -120,8 +155,7 @@ function get_current_folder(){
 		return '/';
 };
 
-(function($) {
+$(document).ready(function() {
 	pyforms.register_layout_place(5, add_tab);
 	pyforms.register_layout_place(0, home);
-	//pyforms.register_layout_place(0, add_segment);
-})(jQuery);
+});

@@ -1,7 +1,7 @@
 {% if user.is_authenticated %}
 <div class="ui teal inverted small fixed top menu" id='top-menu'>
 	{% for menu in menu_plugins %}
-		{% ifequal menu.menu_name 'top' %}
+		{% ifequal menu.menu_place 'top' %}
 			{% if menu.submenus %}
 				<div class="item ui simple dropdown">
 					<i class="{{ menu.icon }} icon"></i> {{ menu.label }} <i class="dropdown icon"></i>
@@ -26,7 +26,7 @@
 	<div class="right item ui simple dropdown" id='user-menu' >
 		<i class="user icon"></i> {{ user }} <i class="dropdown icon"></i>
 		<div class="menu">
-			{% for menu in menu_plugins %}{% ifequal menu.menu_name 'user' %}
+			{% for menu in menu_plugins %}{% ifequal menu.menu_place 'user' %}
 			<a class="item" href="#view-{{ menu.anchor }}" onclick="{{ menu.js_call }}" >
 				{% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
 				{{ menu.label }}

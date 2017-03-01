@@ -4,7 +4,7 @@
 	</div>
 
 	{% for menu in menu_plugins %}
-		{% ifequal menu.menu_name 'left' %}
+		{% ifequal menu.menu_place 'left' %}
 			{% if menu.submenus %}
 				<div class="item">
     				<div class="header">{{ menu.label }} {% if menu.icon %}<i class="{{ menu.icon }} icon"></i>{% endif %}</div>

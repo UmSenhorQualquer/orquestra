@@ -17,46 +17,49 @@ def index(request):
 			if staticfile.endswith('.css'): style_files.append(staticfile)
 			if staticfile.endswith('.js'):  javascript_files.append(staticfile)
 
-	plugins4menus = sorted(manager.menu(request.user), key=lambda x: x.label )
+	plugins4menus = sorted(manager.menu(request.user), key=lambda x: x.menu )
 	menus 		  = []
 	active_menus  = []
 
 	parent_menu   = None
 	for plugin_class in plugins4menus:
-		labels = plugin_class.label.split('>')
-
-		active_menus.append( labels[0] )
-
+		menus_options = plugin_class.menu.split('>')
+		
+		active_menus.append( menus_options[0] )
+		
 		menu 			= type('MenuOption', (object,), {})
-		menu.menu_name	= labels[0]
-		menu.label 		= labels[-1]
+		menu.menu_place	= menus_options[0]
+		menu.label 		= menu.label = plugin_class.label
+		menu.order 		= plugin_class.menu_order if hasattr(plugin_class,'menu_order') else None
 		menu.icon  		= plugin_class.icon if hasattr(plugin_class, 'icon') else None
 		menu.anchor 	= plugin_class.__name__.lower()
 		menu.js_call 	= "run{0}();".format( plugin_class.__name__.capitalize())
 		menu.submenus 	= []
 
 
-		if parent_menu is None and len(labels)==3:
+		if len(menus_options)==1:
+			menus.append(menu)
+
+		elif parent_menu is None and len(menus_options)==2:
 			parent_menu 				= type('ParentMenuOption', (object,), {})
-			parent_menu.menu_name		= labels[0]
-			parent_menu.label 			= labels[1]
+			parent_menu.menu_place		= menus_options[0]
+			parent_menu.label 			= menus_options[1]
+			parent_menu.order 			= plugin_class.menu_order if hasattr(plugin_class,'menu_order') else None
 			parent_menu.icon 			= plugin_class.parent_icon if hasattr(plugin_class,'parent_icon') else None
 			parent_menu.submenus 		= []
 			parent_menu.submenus.append(menu)
 			menus.append(parent_menu)
 
-		elif len(labels)==2:
-			menus.append(menu)
-
-		elif parent_menu.menu_name==menu.menu_name and len(labels)==3 and labels[1]==parent_menu.label:
+		elif parent_menu.menu_place==menu.menu_place and menus_options[1]==parent_menu.label:
 			parent_menu.submenus.append(menu)
 			if not parent_menu.icon:
 				parent_menu.icon = plugin_class.parent_icon if hasattr(plugin_class,'parent_icon') else None
 
-		elif parent_menu.menu_name==menu.menu_name or labels[1]!=parent_menu.label:
+		elif parent_menu.menu_place==menu.menu_place or menus_options[1]!=parent_menu.label:
 			parent_menu 				= type('ParentMenuOption', (object,), {})
-			parent_menu.menu_name		= labels[0]
-			parent_menu.label 			= labels[1]
+			parent_menu.menu_place		= menus_options[0]
+			parent_menu.label 			= menus_options[1]
+			parent_menu.order 			= plugin_class.menu_order if hasattr(plugin_class,'menu_order') else None
 			parent_menu.icon 			= plugin_class.parent_icon if hasattr(plugin_class,'parent_icon') else None
 			parent_menu.submenus 		= []
 			parent_menu.submenus.append(menu)
@@ -66,6 +69,10 @@ def index(request):
 			menus.append(menu)
 
 	
+	menus = sorted(menus, key=lambda x: x.order)
+	for menu in menus:
+		menu.submenus = sorted(menu.submenus, key=lambda x: x.order)
+
 	context.update({
 		'menu_plugins': menus,
 		'active_menus': list(set(active_menus)),
