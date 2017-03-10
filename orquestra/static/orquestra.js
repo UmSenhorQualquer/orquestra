@@ -108,9 +108,9 @@ function run_application(application){
 
 function home(name, label, url){
 	$.ajax({
-		method: 'get',
-		cache: false,
-		dataType: "json",
+		method: 	'get',
+		cache: 		false,
+		dataType: 	"json",
 		url: url,
 		contentType: "application/json; charset=utf-8",
 		success: function(res){
