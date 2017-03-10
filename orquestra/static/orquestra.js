@@ -117,13 +117,13 @@ function home(name, label, url){
 			if( res.result=='error' )
 				error_msg(res.msg);
 			else{
-				var html = '<div class="html ui basic segment">';
+				var html = '<div class="html ui basic segment"><div class="ui container">';
 				html += '<h2 class="ui right floated header">'+label+'</h2>';
 				html += '<div class="ui clearing divider"></div>';
 				html += "<form class='ui form' id='app-"+res.app_id+"' >";
 				html += res.code;
 				html += '</form>';
-				html += '</div>';
+				html += '</div></div>';
 				$('#top-pane').html(html);
 			};
 		}

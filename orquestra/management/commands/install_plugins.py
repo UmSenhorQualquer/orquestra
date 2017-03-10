@@ -92,7 +92,7 @@ class Command(BaseCommand):
 	def handle(self, *args, **options):
 		manager = PluginsManager()
 
-		static_dir = os.path.join( settings.BASE_DIR, 'orquestra_plugins', 'static')
+		static_dir = os.path.join( settings.BASE_DIR, 'static', 'js')
 		if not os.path.exists(static_dir): os.makedirs(static_dir)
 		
 		print("updating plugins scripts")
