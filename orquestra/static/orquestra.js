@@ -23,18 +23,17 @@ function add_tab(name, label, url) {
 		});
 
 		$('#applications-tab .app-tab.item[data-tab="'+tabname+'"] i.remove').on('click', function(){
-
 			$('#confirm-tab-close').modal({
 				closable  : false,
 				onDeny    : function(){return true;},
 				onApprove : function() {
 					$('#applications-tab .app-tab.tab[data-tab="'+tabname+'"]').remove();
 					$('#applications-tab .app-tab.item[data-tab="'+tabname+'"]').prev().click();
-					$('#applications-tab .app-tab.item[data-tab="'+tabname+'"]').remove();				  
+					$('#applications-tab .app-tab.item[data-tab="'+tabname+'"]').remove();
+					pyforms.garbage_collector();				  
 					return true;
 				}
 			}).modal('show');
-
 		});
 	};
 
@@ -129,6 +128,8 @@ function home(name, label, url){
 		}
 	}).fail(function(xhr){
 		error_msg(xhr.status+" "+xhr.statusText+": "+xhr.responseText);
+	}).always(function(){
+		pyforms.garbage_collector();
 	});
 };
 

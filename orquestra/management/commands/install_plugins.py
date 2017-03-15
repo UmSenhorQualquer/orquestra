@@ -3,6 +3,7 @@ from django.apps import apps
 
 import inspect, os, shutil, pkgutil, importlib
 from django.conf import settings
+from pysettings import conf
 from django.conf.urls import url
 from django.template.loader import render_to_string
 from orquestra.plugins import LayoutPositions
@@ -61,15 +62,16 @@ class PluginsManager(object):
 				out.write( "\n" )
 			
 		views_ifs = []
-		home_function = '';
+		
 		for plugin_class in self.plugins:
 			if issubclass(plugin_class, BaseWidget):
 				function = plugin_class.__name__.capitalize()
 				anchor 	 = plugin_class.__name__.lower()
 				function_call = "run{0}.apply(null, params);".format(function)
 				views_ifs.append( "\tif(view=='{0}') {1}\n".format(anchor, function_call) )
-				if not home_function: home_function = function_call
-			
+		
+		home_function = conf.ORQUESTRA_HOME_FUNCTION
+
 		out.write( render_to_string( os.path.join( os.path.dirname(__file__), '..', '..','templates','plugins','commands.js'), {'views_ifs': views_ifs, 'home_function':home_function} ) )
 		out.close()
 
