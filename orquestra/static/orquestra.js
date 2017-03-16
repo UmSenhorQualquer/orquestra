@@ -63,16 +63,7 @@ function add_tab(name, label, url) {
 	
 }
 
-// actual addTab function: adds new tab using the input from the form above
-function add_segment(name, label, url) {
-	var e = $('<div class="ui raised floated segment" style="margin:20px; min-width:800px; display:None;" ></div>').appendTo('#top-pane').load(url, function(response, status, xhr){
-		if(status=='error') error_msg(xhr.status+" "+xhr.statusText+": "+xhr.responseText);
-	}).transition('scale')
 
-	$('html, body').animate({
-        scrollTop: e.offset().top
-    }, 500);
-}
 
 function select_main_tab(){
 	$('#applications-tab .item[data-tab="tab-home"]').click();
@@ -133,6 +124,39 @@ function home(name, label, url){
 	});
 };
 
+// actual addTab function: adds new tab using the input from the form above
+function add_segment(name, label, url) {
+	$.ajax({
+		method: 	'get',
+		cache: 		false,
+		dataType: 	"json",
+		url: url,
+		contentType: "application/json; charset=utf-8",
+		success: function(res){
+			if( res.result=='error' )
+				error_msg(res.msg);
+			else{
+				var html = '<div class="ui raised floated segment" style="margin:20px; min-width:650px;" >';
+				html += '<h2 class="ui right floated header">'+label+'</h2>';
+				html += '<div class="ui clearing divider"></div>';
+				html += "<form class='ui form' id='app-"+res.app_id+"' >";
+				html += res.code;
+				html += '</form>';
+				html += '</div>';
+				$(html).appendTo('#top-pane').show('fadeIn');
+			};
+		}
+	}).fail(function(xhr){
+		error_msg(xhr.status+" "+xhr.statusText+": "+xhr.responseText);
+	}).always(function(){
+		pyforms.garbage_collector();
+	});
+
+	/*$('html, body').animate({
+        scrollTop: e.offset().top
+    }, 500);*/
+}
+
 var refreshEvent = setInterval(function(){},100000);
 var msg_timeout = undefined;
 
@@ -158,5 +182,6 @@ function get_current_folder(){
 
 $(document).ready(function() {
 	pyforms.register_layout_place(5, add_tab);
+	pyforms.register_layout_place(6, add_segment);
 	pyforms.register_layout_place(0, home);
 });

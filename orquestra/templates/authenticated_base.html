@@ -66,7 +66,24 @@
 		var tab = $(this).attr('data-tab');
 		$(this).addClass('active');
 		$('.tab.app-tab[data-tab="'+tab+'"]').addClass('active');
-	});            
+	});
+
+
+	$(document).ready(function(){
+		{% for menu in menu_plugins %}
+			{% ifequal menu.menu_place 'dashboard' %}
+				{{ menu.js_call }}	
+			{% endifequal %}
+		{% endfor %}
+	});
+
+
+
+
+
+
+
+
 </script>
 
 <div class="ui dimmer" id='loading-label' ><div class="ui loader"></div></div>

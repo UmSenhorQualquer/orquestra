@@ -11,4 +11,5 @@ class LayoutPositions:
 	NEW_WINDOW 	= 4
 	NEW_TAB 	= 5
 	HOME 		= 0
+	APPEND_HOME = 6
 	NONE 		= 100
