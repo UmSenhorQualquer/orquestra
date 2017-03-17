@@ -15,7 +15,7 @@
 					</div>
 				</div>
 			{% else %}
-				<a class="item" href="#view-{{ menu.anchor }}" onclick="{{ menu.js_call }}" >
+				<a class="item" id="menu-{{ menu.anchor }}" href="#view-{{ menu.anchor }}" onclick="{{ menu.js_call }}" >
 					{% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
 					{{ menu.label }}
 				</a>
