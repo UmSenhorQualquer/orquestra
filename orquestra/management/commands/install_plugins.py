@@ -25,6 +25,7 @@ class PluginsManager(object):
 	def menu(self, user=None, menus=None):
 		res = []
 		for plugin_class in self.plugins:
+
 			if 	menus and \
 				(
 					not hasattr(plugin_class, 'menu') or \
@@ -42,9 +43,6 @@ class PluginsManager(object):
 
 		return res
 
-
-
-	
 
 
 
@@ -77,16 +75,17 @@ class PluginsManager(object):
 
 
 	def search_4_plugins(self):
-		
 		for app in apps.get_app_configs():
-			if hasattr(app, 'orquestra_plugins'):
-				for modulename in app.orquestra_plugins:
-					print("Found plugin: {0}".format(modulename))					
-					modules = modulename.split('.')
-					moduleclass = __import__( '.'.join(modules[:-1]) , fromlist=[modules[-1]] )
-					self.append( getattr(moduleclass, modules[-1]) )
-
-
+			try:
+				apss_modulename = '{0}.apps'.format(app.module.__name__)
+				apps_module = __import__( apss_modulename, fromlist=[''] )
+						
+				for name in dir(apps_module):
+					obj = getattr(apps_module, name)
+					if inspect.isclass(obj) and hasattr(obj, 'layout_position'):
+						self.append( obj )
+			except:
+				pass
 
 class Command(BaseCommand):
 	help = 'Setup orquestra plugins'

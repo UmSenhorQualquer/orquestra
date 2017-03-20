@@ -5,31 +5,32 @@ function not_loading()	{/* $("#loading-label").removeClass('active'); */	};
 function add_tab(name, label, url) {
 	var tabname = "tab-" + name;
 
-	if($('#applications-tab .app-tab.tab[data-tab="'+tabname+'"]').size()==0){
-		$('#applications-tab .app-tab.item').removeClass('active');
-		$('#applications-tab .app-tab.tab').removeClass('active');
+	if($('#applications-tab-menu .app-tab.tab[data-tab="'+tabname+'"]').size()==0){
+		//begin menu
+		$('#applications-tab-menu .app-tab.item').removeClass('active');
+		$('#applications-tab-content .app-tab.tab').removeClass('active');
 
 		var html = '<a class="item active app-tab" data-tab="'+tabname+'">'+label+' &nbsp;&nbsp;<i class="remove icon"></i></a>';
-		$('#applications-tab .apps-tabs').append(html);
+		$('#applications-tab-menu').append(html);
 
-		var html = '<div class="ui attached active tab app-tab" id="top-pane" data-tab="'+tabname+'"></div>';
-		$('#applications-tab').append(html);
+		var html = '<div class="ui attached active tab app-tab" data-tab="'+tabname+'"></div>';
+		$('#applications-tab-content').append(html);
 
-		$('#applications-tab .app-tab.item[data-tab="'+tabname+'"]').on('click', function() {
-			$('#applications-tab .item.app-tab').removeClass('active');
-			$('#applications-tab .tab.app-tab').removeClass('active');
+		$('#applications-tab-menu .app-tab.item[data-tab="'+tabname+'"]').on('click', function() {
+			$('#applications-tab-menu .item.app-tab').removeClass('active');
+			$('#applications-tab-content .tab.app-tab').removeClass('active');
 			$(this).addClass('active');
-			$('#applications-tab .tab.app-tab[data-tab="'+$(this).attr('data-tab')+'"]').addClass('active');
+			$('#applications-tab-content .tab.app-tab[data-tab="'+$(this).attr('data-tab')+'"]').addClass('active');
 		});
 
-		$('#applications-tab .app-tab.item[data-tab="'+tabname+'"] i.remove').on('click', function(){
+		$('#applications-tab-menu .app-tab.item[data-tab="'+tabname+'"] i.remove').on('click', function(){
 			$('#confirm-tab-close').modal({
 				closable  : false,
 				onDeny    : function(){return true;},
 				onApprove : function() {
-					$('#applications-tab .app-tab.tab[data-tab="'+tabname+'"]').remove();
-					$('#applications-tab .app-tab.item[data-tab="'+tabname+'"]').prev().click();
-					$('#applications-tab .app-tab.item[data-tab="'+tabname+'"]').remove();
+					$('#applications-tab-content .app-tab.tab[data-tab="'+tabname+'"]').remove();
+					$('#applications-tab-menu .app-tab.item[data-tab="'+tabname+'"]').prev().click();
+					$('#applications-tab-menu .app-tab.item[data-tab="'+tabname+'"]').remove();
 					pyforms.garbage_collector();				  
 					return true;
 				}
@@ -54,7 +55,7 @@ function add_tab(name, label, url) {
 				html += res.code;
 				html += '</form>';
 				html += '</div></div>';
-				$('#applications-tab .app-tab.tab[data-tab="'+tabname+'"]').html(html);
+				$('#applications-tab-content .app-tab.tab[data-tab="'+tabname+'"]').html(html);
 			};
 		}
 	}).fail(function(xhr){
@@ -114,7 +115,7 @@ function home(name, label, url){
 				html += res.code;
 				html += '</form>';
 				html += '</div></div>';
-				$('#top-pane').html(html);
+				$('#tab-home').html(html);
 			};
 		}
 	}).fail(function(xhr){
@@ -143,7 +144,7 @@ function add_segment(name, label, url) {
 				html += res.code;
 				html += '</form>';
 				html += '</div>';
-				$(html).appendTo('#top-pane').show('fadeIn');
+				$(html).appendTo('#tab-home').show('fadeIn');
 			};
 		}
 	}).fail(function(xhr){
