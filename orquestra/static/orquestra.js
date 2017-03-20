@@ -10,6 +10,7 @@ function add_tab(name, label, url) {
 		$('#applications-tab-menu .app-tab.item').removeClass('active');
 		$('#applications-tab-content .app-tab.tab').removeClass('active');
 
+		if(label.length>30) label = label.substring(0,27)+'...';
 		var html = '<a class="item active app-tab" data-tab="'+tabname+'">'+label+' &nbsp;&nbsp;<i class="remove icon"></i></a>';
 		$('#applications-tab-menu').append(html);
 
