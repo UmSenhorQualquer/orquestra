@@ -29,13 +29,13 @@ def index(request):
 		
 		menu 			= type('MenuOption', (object,), {})
 		menu.menu_place	= menus_options[0]
-		menu.label 		= menu.label = plugin_class.label
+		menu.uid 		= plugin_class._uid if hasattr(plugin_class,'_uid') else ''
+		menu.label 		= plugin_class.label
 		menu.order 		= plugin_class.menu_order if hasattr(plugin_class,'menu_order') else None
 		menu.icon  		= plugin_class.icon if hasattr(plugin_class, 'icon') else None
 		menu.anchor 	= plugin_class.__name__.lower()
 		menu.js_call 	= "run{0}();".format( plugin_class.__name__.capitalize())
 		menu.submenus 	= []
-
 
 		if len(menus_options)==1:
 			menus.append(menu)

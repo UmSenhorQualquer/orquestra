@@ -7,7 +7,7 @@
 					<i class="{{ menu.icon }} icon"></i> {{ menu.label }} <i class="dropdown icon"></i>
 					<div class="menu">
 						{% for submenu in menu.submenus %}
-							<a class="item" href="#view-{{ submenu.anchor }}" onclick="{{ submenu.js_call }}" >
+							<a class="item" href="#{{ submenu.anchor }}" onclick="{{ submenu.js_call }}" >
 								{% if submenu.icon %}<i class="{{submenu.icon}} icon"></i>{% endif %}
 								{{ submenu.label }}
 							</a>
@@ -15,7 +15,7 @@
 					</div>
 				</div>
 			{% else %}
-				<a class="item" id="menu-{{ menu.anchor }}" href="#view-{{ menu.anchor }}" onclick="{{ menu.js_call }}" >
+				<a class="item" id="menu-{{ menu.anchor }}" href="#{{ menu.anchor }}" onclick="{{ menu.js_call }}" >
 					{% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
 					{{ menu.label }}
 				</a>
@@ -27,7 +27,7 @@
 		<i class="user icon"></i> {{ user }} <i class="dropdown icon"></i>
 		<div class="menu">
 			{% for menu in menu_plugins %}{% ifequal menu.menu_place 'user' %}
-			<a class="item" href="#view-{{ menu.anchor }}" onclick="{{ menu.js_call }}" >
+			<a class="item" href="#{{ menu.anchor }}" onclick="{{ menu.js_call }}" >
 				{% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
 				{{ menu.label }}
 			</a>

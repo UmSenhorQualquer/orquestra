@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.apps import apps
+import traceback
 
 import inspect, os, shutil, pkgutil, importlib
 from django.conf import settings
@@ -78,6 +79,7 @@ class PluginsManager(object):
 		for app in apps.get_app_configs():
 			try:
 				apss_modulename = '{0}.apps'.format(app.module.__name__)
+
 				apps_module = __import__( apss_modulename, fromlist=[''] )
 						
 				for name in dir(apps_module):
@@ -85,7 +87,8 @@ class PluginsManager(object):
 					if inspect.isclass(obj) and hasattr(obj, 'layout_position'):
 						self.append( obj )
 			except:
-				pass
+				print app
+				traceback.print_exc()
 
 class Command(BaseCommand):
 	help = 'Setup orquestra plugins'

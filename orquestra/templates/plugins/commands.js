@@ -6,15 +6,13 @@ function activateMenu(menulink) {
 
 function orquestra_load_current_view(){
 	var href = window.location.href;
-	var anchor = href.substring( href.indexOf('#')+1);
+	var anchor = href.substring(href.indexOf('#')+1);
 	{% if home_function %}
-		if( anchor.substring(0,5)!='view-'){ 
-			{{ home_function|safe }}
-		};
+		{{ home_function|safe }}
 	{% endif %}
 	var paramsStartIndex = anchor.indexOf('|');
 	if( paramsStartIndex<0) paramsStartIndex = paramsStartIndex.length;
-	var view = anchor.substring(5, paramsStartIndex);
+	var view = anchor.substring(0, paramsStartIndex);
 	var params = anchor.substring(paramsStartIndex+1).split('+');
 
 	{% for ifcode in views_ifs %}{{ ifcode|safe }}{% endfor %}	
