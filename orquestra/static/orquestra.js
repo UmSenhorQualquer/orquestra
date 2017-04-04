@@ -1,9 +1,21 @@
 function loading()		{ /*$("#loading-label").addClass('active'); */		};
 function not_loading()	{/* $("#loading-label").removeClass('active'); */	};
 
+
+function activate_tab(name){
+	var tabname = "tab-" + name;
+	$('#applications-tab-menu .item[data-tab="'+tabname+'"]').click();
+
+	$('.menu a.item').removeClass('active');
+	$('.menu a.item[data-tab="'+tabname+'"]').addClass('active');
+	
+};
+
 // actual addTab function: adds new tab using the input from the form above
 function add_tab(name, label, url) {
 	var tabname = "tab-" + name;
+
+		
 
 	if($('#applications-tab-menu .app-tab.tab[data-tab="'+tabname+'"]').size()==0){
 		//begin menu
@@ -68,7 +80,7 @@ function add_tab(name, label, url) {
 
 
 function select_main_tab(){
-	$('#applications-tab .item[data-tab="tab-home"]').click();
+	$('#applications-tab-menu .item[data-tab="tab-home"]').click();
 }
 
 function run_application(application){
@@ -83,13 +95,7 @@ function run_application(application){
 				error_msg(res.msg);
 			else
 				for(var i=0; i<res.length; i++){
-					var app = pyforms.find_app(res[i]['uid']);
-					if( app!=undefined){
-						//pyforms.remove_app(res[i]['uid']);
-						//run_application(application);
-						not_loading();
-					}else
-						pyforms.open_application(res[i]);
+					pyforms.open_application(res[i]);
 				};
 		}
 	}).fail(function(xhr){
@@ -183,7 +189,7 @@ function get_current_folder(){
 };
 
 $(document).ready(function() {
-	pyforms.register_layout_place(5, add_tab);
+	pyforms.register_layout_place(5, add_tab, activate_tab);
 	pyforms.register_layout_place(6, add_segment);
 	pyforms.register_layout_place(0, home);
 });
