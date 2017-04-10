@@ -188,8 +188,45 @@ function get_current_folder(){
 		return '/';
 };
 
+
+
+function show_window(name, label, url) {
+	$.ajax({
+		method: 	'get',
+		cache: 		false,
+		dataType: 	"json",
+		url: url,
+		contentType: "application/json; charset=utf-8",
+		success: function(res){
+			if( res.result=='error' )
+				error_msg(res.msg);
+			else{
+				var html = '<div class="header">'+label+'</div>';
+				html += '<div class="content">';
+				html += "<form class='ui form' id='app-"+res.app_id+"' >";
+				html += res.code;
+				html += '</form>';
+				html += '</div>';
+				html += '</div>';			
+				$('#dialog').html(html);
+				$('#dialog').modal('setting', 'duration', 0).modal('show');
+			};
+		}
+	}).fail(function(xhr){
+		error_msg(xhr.status+" "+xhr.statusText+": "+xhr.responseText);
+	}).always(function(){
+		pyforms.garbage_collector();
+	});
+}
+
+function close_window() {
+	$('#dialog').modal('hide');
+}
+
+
 $(document).ready(function() {
 	pyforms.register_layout_place(5, add_tab, activate_tab);
 	pyforms.register_layout_place(6, add_segment);
 	pyforms.register_layout_place(0, home);
+	pyforms.register_layout_place(4, show_window, undefined, close_window);
 });

@@ -17,7 +17,7 @@
 	{% block sidebar %}{% endblock %}
 
 	<div class="ui pusher tertiary inverted" style='clear:both;'>
-		{% include "header.html" %}			
+		{% block header %}{% include "header.html" %}{% endblock %}		
 		{% block body %}{% endblock %}
 		{% block page_content %}{% endblock %}
 		{% block content %}{% endblock %}
