@@ -1,14 +1,12 @@
 function loading()		{ /*$("#loading-label").addClass('active'); */		};
 function not_loading()	{/* $("#loading-label").removeClass('active'); */	};
 
-
 function activate_tab(name){
 	var tabname = "tab-" + name;
-	$('#applications-tab-menu .item[data-tab="'+tabname+'"]').click();
-
+	$('.app-tab').removeClass('active');
+	$('.app-tab[data-tab="'+tabname+'"]').addClass('active');
 	$('.menu a.item').removeClass('active');
 	$('.menu a.item[data-tab="'+tabname+'"]').addClass('active');
-	
 };
 
 // actual addTab function: adds new tab using the input from the form above
@@ -72,7 +70,6 @@ function add_tab(name, label, url) {
 	}).fail(function(xhr){
 		error_msg(xhr.status+" "+xhr.statusText+": "+xhr.responseText);
 	});
-	
 }
 
 
