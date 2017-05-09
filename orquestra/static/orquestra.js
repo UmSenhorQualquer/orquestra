@@ -13,7 +13,7 @@ function activate_tab(name){
 function add_tab(name, label, url) {
 	var tabname = "tab-" + name;
 
-	if($('#applications-tab-menu .app-tab.tab[data-tab="'+tabname+'"]').size()==0){
+	if($('#applications-tab-menu .app-tab.tab[data-tab="'+tabname+'"]').length==0){
 		//begin menu
 		$('#applications-tab-menu .app-tab.item').removeClass('active');
 		$('#applications-tab-content .app-tab.tab').removeClass('active');
