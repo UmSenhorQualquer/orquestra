@@ -217,8 +217,12 @@ function show_window(name, label, url) {
 		pyforms.garbage_collector();
 	});
 }
-function activate_window(name, label, url) {$('#dialog').modal('show');}
-function close_window() {$('#dialog').modal('hide');}
+function activate_window(name, label, url) {
+	$('#dialog').modal('show');
+}
+function close_window(){
+	$('#dialog').modal('hide');
+}
 /*********************************************************/
 /*********************************************************/
 /*********************************************************/
