@@ -79,9 +79,20 @@ function select_main_tab(){
 }
 
 function run_application(application){
+	
+	var query = window.location.hash.substr(1);
+	
+	var arr=query.split("&");
+	result={};
+	for(i=0;i<arr.length;i++) {
+	    k = arr[i].split('=');
+	    result[k[0]] = (k[1] || '');
+	}; 
+	
 	$.ajax({
 		method: 'get',
 		cache: false,
+		data: result,
 		dataType: "json",
 		url: '/pyforms/app/register/'+application+'/?nocache='+$.now(),
 		contentType: "application/json; charset=utf-8",
