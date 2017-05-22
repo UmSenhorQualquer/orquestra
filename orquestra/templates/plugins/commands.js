@@ -10,9 +10,9 @@ function orquestra_load_current_view(){
 	{% if home_function %}
 		{{ home_function|safe }}
 	{% endif %}
-	var paramsStartIndex = anchor.indexOf('?');
+	var paramsStartIndex = href.indexOf('?');
 	if( paramsStartIndex<0) paramsStartIndex = paramsStartIndex.length;
-	var view = anchor.substring(0, paramsStartIndex);
+	var view   = anchor.substring(0, paramsStartIndex);
 	var params = anchor.substring(paramsStartIndex+1).split('&');
 
 	{% for ifcode in views_ifs %}{{ ifcode|safe }}{% endfor %}	

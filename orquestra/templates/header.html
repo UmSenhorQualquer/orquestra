@@ -1,5 +1,6 @@
 {% if user.is_authenticated %}
 <div class="ui orange inverted small fixed top menu" id='top-menu'>
+<div class='ui container'>
 	{% for menu in menu_plugins %}
 		{% ifequal menu.menu_place 'top' %}
 			{% if menu.submenus %}
@@ -7,7 +8,7 @@
 					<i class="{{ menu.icon }} icon"></i> {{ menu.label }} <i class="dropdown icon"></i>
 					<div class="menu">
 						{% for submenu in menu.submenus %}
-							<a class="item" href="#{{ submenu.anchor }}" onclick="{{ submenu.js_call }}" >
+							<a class="item" href="#/{{ submenu.anchor }}" >
 								{% if submenu.icon %}<i class="{{submenu.icon}} icon"></i>{% endif %}
 								{{ submenu.label }}
 							</a>
@@ -15,7 +16,7 @@
 					</div>
 				</div>
 			{% else %}
-				<a class="item" id="menu-{{ menu.anchor }}" href="#{{ menu.anchor }}" onclick="{{ menu.js_call }}" >
+				<a class="item" id="menu-{{ menu.anchor }}" href="#/{{ menu.anchor }}" >
 					{% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
 					{{ menu.label }}
 				</a>
@@ -27,13 +28,14 @@
 		<i class="user icon"></i> {{ user }} <i class="dropdown icon"></i>
 		<div class="menu">
 			{% for menu in menu_plugins %}{% ifequal menu.menu_place 'user' %}
-			<a class="item" href="#{{ menu.anchor }}" onclick="{{ menu.js_call }}" >
+			<a class="item" href="#/{{ menu.anchor }}" >
 				{% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
 				{{ menu.label }}
 			</a>
 			{% endifequal %}{% endfor %}
 			<a class="item" href='/accounts/logout/'><i class="sign out icon"></i> Logout</a>
 		</div>
+	</div>
 	</div>
 </div>
 {% endif %}

@@ -46,7 +46,6 @@ class PluginsManager(object):
 
 
 
-
 	def export_js_file(self, filename):
 		out = open(filename, 'w')
 		
@@ -74,6 +73,22 @@ class PluginsManager(object):
 		out.write( render_to_string( os.path.join( os.path.dirname(__file__), '..', '..','templates','plugins','commands.js'), {'views_ifs': views_ifs, 'home_function':home_function} ) )
 		out.close()
 
+	def export_settings(self, filename):
+		out = open(filename, 'w')
+
+		apps = {}
+		
+		for plugin_class in self.plugins:
+			if issubclass(plugin_class, BaseWidget):
+				print(plugin_class)
+				apps[plugin_class.__name__.lower()] = '{0}.{1}'.format(
+					plugin_class.__module__,
+					plugin_class.__name__
+				)
+
+		out.write( "PYFORMS_APPS = "+str(apps) )
+		out.close()
+
 
 	def search_4_plugins(self):
 		for app in apps.get_app_configs():
@@ -96,9 +111,11 @@ class Command(BaseCommand):
 	def handle(self, *args, **options):
 		manager = PluginsManager()
 
-		static_dir = os.path.join( settings.BASE_DIR, 'static', 'js')
+		static_dir = os.path.join( settings.BASE_DIR, 'pyforms_plugins')
 		if not os.path.exists(static_dir): os.makedirs(static_dir)
+
+		f = open(os.path.join(static_dir,'__init__.py'), 'w')
+		f.write("from pysettings import conf\nconf += 'pyforms_plugins.settings'")
+		f.close()
 		
-		print("updating plugins scripts")
-		manager.export_js_file( os.path.join(static_dir,'commands.js') )
-		
+		manager.export_settings(os.path.join(static_dir,'settings.py'))

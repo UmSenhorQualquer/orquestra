@@ -78,36 +78,6 @@ function select_main_tab(){
 	$('#applications-tab-menu .item[data-tab="tab-home"]').click();
 }
 
-function run_application(application){
-	
-	var query = window.location.hash.substr(1);
-	
-	var arr=query.split("&");
-	result={};
-	for(i=0;i<arr.length;i++) {
-	    k = arr[i].split('=');
-	    result[k[0]] = (k[1] || '');
-	}; 
-	
-	$.ajax({
-		method: 'get',
-		cache: false,
-		data: result,
-		dataType: "json",
-		url: '/pyforms/app/register/'+application+'/?nocache='+$.now(),
-		contentType: "application/json; charset=utf-8",
-		success: function(res){
-			if( res.result=='error' )
-				error_msg(res.msg);
-			else
-				for(var i=0; i<res.length; i++){
-					pyforms.open_application(res[i]);
-				};
-		}
-	}).fail(function(xhr){
-		error_msg(xhr.status+" "+xhr.statusText+": "+xhr.responseText);
-	});
-};
 
 
 function home(name, label, url){

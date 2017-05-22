@@ -8,11 +8,11 @@
 {% block extra_css %}{% endblock %}
 
 {% block js %}
-	<script type="text/javascript" src="/static/commands.js"></script>
 	<script type="text/javascript" src="/static/base64.js"></script>
 	<script type="text/javascript" src="/static/pyformsjs/pyforms.js"></script>
+	<script type="text/javascript" src="/static/pyformsjs/pyforms-hub.js"></script>
 	<script type="text/javascript" src="/static/jquery-ui/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="/static/orquestra.js"></script>
+	<script type="text/javascript" src="/static/orquestra.js"></script>	
 	{% for staticfile in styles_files %}
 	<link rel="stylesheet" type="text/css" href="/static/{{staticfile}}">
 	{% endfor %}
@@ -26,7 +26,9 @@
 {% block page_content %}
 <br/>
 <br/>
-<div id='applications-tab-content' >
+
+
+<div id='applications-tab-content' class='ui container' >
 	<div class="ui pointing secondary tabular menu apps-tabs" id='applications-tab-menu' >
 		<a class="item active app-tab" data-tab="tab-home"><i class="home icon"></i></a>
 	</div>
@@ -57,6 +59,7 @@
 
 
 <script type="text/javascript">
+
 	$('.ui.tabular .item.app-tab').on('click', function() {
 		$('.ui.tabular .item.app-tab').removeClass('active');
 		$('.tab.app-tab').removeClass('active');
@@ -70,17 +73,10 @@
 	$(document).ready(function(){
 		{% for menu in menu_plugins %}
 			{% ifequal menu.menu_place 'dashboard' %}
-				{{ menu.js_call }}	
+				run_application('{{ menu.anchor }}');
 			{% endifequal %}
 		{% endfor %}
 	});
-
-
-
-
-
-
-
 
 </script>
 
