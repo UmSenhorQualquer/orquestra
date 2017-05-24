@@ -48,7 +48,7 @@ class OrquestraApi(BasePlugin):
 		storage 	= conf.MAESTRO_STORAGE_MANAGER.get(request.user)
 		path 		= request.POST.get('path', '/')
 
-		print request.POST
+		print(request.POST)
 
 		files 		= []
 		for index, f in enumerate(storage.list(path)):
