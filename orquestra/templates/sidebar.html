@@ -5,23 +5,21 @@
 
 	{% for menu in menu_plugins %}
 		{% ifequal menu.menu_place 'left' %}
-			{% if menu.submenus %}
+			<a class="item {% if menu.active %}active{% endif %}" href="/app/{{ menu.uid }}/">
+				{% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
+				{{ menu.label }}
+			</a>
+			{% if menu.show_submenu and menu.submenus %}
 				<div class="item">
-    				<div class="header">{{ menu.label }} {% if menu.icon %}<i class="{{ menu.icon }} icon"></i>{% endif %}</div>
     				<div class="menu">
 						{% for submenu in menu.submenus %}
-							<a class="item" href="#view-{{ submenu.anchor }}" onclick="{{ submenu.js_call }}" >
+							<a class="item {% if submenu.active %}active{% endif %}" href="/app/{{ submenu.uid }}/" onclick="{{ submenu.js_call }}" >
 								{{ submenu.label }}
 								{% if submenu.icon %}<i class="{{submenu.icon}} icon"></i>{% endif %}
 							</a>
 						{% endfor %}
 					</div>
 				</div>
-			{% else %}
-				<a class="item" href="#view-{{ menu.anchor }}" onclick="{{ menu.js_call }}" >
-					{% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
-					{{ menu.label }}
-				</a>
 			{% endif %}
 		{% endifequal %}
 	{% endfor %}

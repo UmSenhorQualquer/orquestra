@@ -42,6 +42,8 @@ class PluginsManager(object):
 
 			if add: res.append(plugin_class)
 
+			plugin_class.fullname = '{0}.{1}'.format( plugin_class.__module__,plugin_class.__name__)
+
 		return res
 
 

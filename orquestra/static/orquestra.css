@@ -353,3 +353,9 @@ input[type="range"]::-webkit-slider-thumb {
 #applications-tab .apps-tabs{
 	background-color: white;
 }
+
+
+.ui.vertical.menu .item > .menu {
+    margin: -1.0em -1.14285714em 1em;
+
+}

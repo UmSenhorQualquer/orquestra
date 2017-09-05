@@ -57,7 +57,7 @@ function add_tab(name, label, url) {
 			if( res.result=='error' )
 				error_msg(res.msg);
 			else{
-				var html = '<div class="html ui basic segment"><div class="ui container">';
+				var html = '<div class="html ui basic segment"><div >';
 				html += '<h2 class="ui right floated header">'+label+'</h2>';
 				html += '<div class="ui clearing divider"></div>';
 				html += "<form class='ui form' id='app-"+res.app_id+"' >";
@@ -91,7 +91,7 @@ function home(name, label, url){
 			if( res.result=='error' )
 				error_msg(res.msg);
 			else{
-				var html = '<div class="html ui basic segment"><div class="ui container">';
+				var html = '<div class="html ui basic segment"><div >';
 				html += '<h2 class="ui right floated header">'+label+'</h2>';
 				html += '<div class="ui clearing divider"></div>';
 				html += "<form class='ui form' id='app-"+res.app_id+"' >";
