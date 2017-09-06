@@ -16,5 +16,6 @@ class OrquestraSocialAccountAdapter(DefaultSocialAccountAdapter):
 	def pre_social_login(self, request, sociallogin):
 		if hasattr( settings, 'ORQUESTRA_ALLOW_DOMAINS_LOGIN') and settings.ORQUESTRA_ALLOW_DOMAINS_LOGIN:
 			u = sociallogin.user
-			if u.email.split('@')[1] not in settings.ORQUESTRA_ALLOW_DOMAINS_LOGIN:
+			email = u.email
+			if email.split('@')[1] not in settings.ORQUESTRA_ALLOW_DOMAINS_LOGIN:
 				raise ImmediateHttpResponse(render_to_response('error.html'))
