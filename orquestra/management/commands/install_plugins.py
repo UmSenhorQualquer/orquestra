@@ -26,7 +26,8 @@ class PluginsManager(object):
 	def menu(self, user=None, menus=None):
 		res = []
 		for plugin_class in self.plugins:
-
+			if not hasattr(plugin_class, 'menu'): continue
+		
 			if 	menus and \
 				(
 					not hasattr(plugin_class, 'menu') or \
