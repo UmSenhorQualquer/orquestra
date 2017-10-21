@@ -49,33 +49,6 @@ class PluginsManager(object):
 
 
 
-	def export_js_file(self, filename):
-		out = open(filename, 'w')
-		
-		for plugin_class in self.plugins:
-			if issubclass(plugin_class, BaseWidget):
-				print(plugin_class)
-				out.write( "function run%s(){\n" % ( plugin_class.__name__.capitalize(), ) )
-				out.write( "\tloading();\n" )
-				out.write( "\tactivateMenu('menu-{0}');\n".format( 	 plugin_class.__name__.lower() ) )
-				out.write( "\trun_application('{0}.{1}');\n".format( plugin_class.__module__,plugin_class.__name__ ) )
-				out.write( "}\n" )
-				out.write( "\n" )
-			
-		views_ifs = []
-		
-		for plugin_class in self.plugins:
-			if issubclass(plugin_class, BaseWidget):
-				function = plugin_class.__name__.capitalize()
-				anchor 	 = plugin_class.__name__.lower()
-				function_call = "run{0}.apply(null, params);".format(function)
-				views_ifs.append( "\tif(view=='{0}') {1}\n".format(anchor, function_call) )
-		
-		home_function = conf.ORQUESTRA_HOME_FUNCTION
-
-		out.write( render_to_string( os.path.join( os.path.dirname(__file__), '..', '..','templates','plugins','commands.js'), {'views_ifs': views_ifs, 'home_function':home_function} ) )
-		out.close()
-
 	def export_settings(self, filename):
 		out = open(filename, 'w')
 

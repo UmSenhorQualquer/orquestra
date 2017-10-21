@@ -70,7 +70,7 @@ def index(request, app_uid=None):
 	#################################################################################################
 
 	if running_menu is None and len(menus)>0: running_menu = menus[0]
-	
+
 	context = {'user': request.user}
 	context.update({
 		'menu_plugins': menus,
