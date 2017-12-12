@@ -20,13 +20,15 @@ def index(request, app_uid=None):
 	###########################################################################################
 
 	#### load menus ###########################################################################
-	plugins4menus = sorted(manager.menu(request.user), key=lambda x: (x.menu,len(x.menu)) )
+	plugins4menus = sorted(manager.menu(request.user), key=lambda x: (x.ORQUESTRA_MENU,len(x.ORQUESTRA_MENU)) )
 	menus 		  = {}
 	active_menus  = {}
 
 	running_menu = None
+
+	print(plugins4menus)
 	for plugin_class in plugins4menus:
-		menus_options = plugin_class.menu.split('>')
+		menus_options = plugin_class.ORQUESTRA_MENU.split('>')
 
 		# used to check if a menu should be activated or not
 		active_menus[menus_options[0]] = True
@@ -37,9 +39,9 @@ def index(request, app_uid=None):
 		menu 			= type('MenuOption', (object,), {})
 		menu.menu_place	= menus_options[0]
 		menu.uid 		= plugin_class._uid if hasattr(plugin_class,'_uid') else ''
-		menu.label 		= plugin_class.label if plugin_class.label else plugin_class.__name__.lower()
-		menu.order 		= plugin_class.menu_order if hasattr(plugin_class,'menu_order') else None
-		menu.icon  		= plugin_class.icon if hasattr(plugin_class, 'icon') else None
+		menu.label 		= plugin_class.TITLE if plugin_class.TITLE else plugin_class.__name__.lower()
+		menu.order 		= plugin_class.ORQUESTRA_MENU_ORDER if hasattr(plugin_class,'ORQUESTRA_MENU_ORDER') else None
+		menu.icon  		= plugin_class.ORQUESTRA_MENU_ICON if hasattr(plugin_class, 'ORQUESTRA_MENU_ICON') else None
 		menu.anchor 	= plugin_class.__name__.lower()
 		menu.fullname 	= plugin_class.fullname # full name of the class
 		menu.parent_menu= None

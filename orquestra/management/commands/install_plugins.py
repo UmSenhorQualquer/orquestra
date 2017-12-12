@@ -25,19 +25,19 @@ class PluginsManager(object):
 	
 	def menu(self, user=None, menus=None):
 		res = []
+
 		for plugin_class in self.plugins:
-			if not hasattr(plugin_class, 'menu'): continue
-		
+			if not hasattr(plugin_class, 'ORQUESTRA_MENU'): continue
 			if 	menus and \
 				(
-					not hasattr(plugin_class, 'menu') or \
-					not plugin_class.menu in menus
+					not hasattr(plugin_class, 'ORQUESTRA_MENU') or \
+					not plugin_class.ORQUESTRA_MENU in menus
 				): continue
 
 			add = False
-			if hasattr(plugin_class, 'groups'):
-				if 'superuser' in plugin_class.groups and user.is_superuser:  add = True
-				if user.groups.filter(name__in=plugin_class.groups).exists():  add = True
+			if hasattr(plugin_class, 'AUTHORIZED_GROUPS'):
+				if 'superuser' in plugin_class.AUTHORIZED_GROUPS and user.is_superuser:   add = True
+				if user.groups.filter(name__in=plugin_class.AUTHORIZED_GROUPS).exists():  add = True
 			else:
 				add = True
 
@@ -72,13 +72,14 @@ class PluginsManager(object):
 				apss_modulename = '{0}.apps'.format(app.module.__name__)
 
 				apps_module = __import__( apss_modulename, fromlist=[''] )
-						
+				
 				for name in dir(apps_module):
 					obj = getattr(apps_module, name)
-					if inspect.isclass(obj) and hasattr(obj, 'layout_position'):
+					if inspect.isclass(obj) and hasattr(obj, 'LAYOUT_POSITION'):
 						self.append( obj )
+
 			except:
-				print(app)
+				#print(app)
 				traceback.print_exc()
 
 class Command(BaseCommand):
