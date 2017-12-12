@@ -26,7 +26,6 @@ def index(request, app_uid=None):
 
 	running_menu = None
 
-	print(plugins4menus)
 	for plugin_class in plugins4menus:
 		menus_options = plugin_class.ORQUESTRA_MENU.split('>')
 
