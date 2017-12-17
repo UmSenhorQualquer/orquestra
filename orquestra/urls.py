@@ -16,14 +16,9 @@ Including another URLconf
 
 from django.conf.urls  import url, include
 from django.conf       import settings
-from django.contrib    import admin
 from orquestra.views   import index
 
 urlpatterns = [
     url(r'^app/(?P<app_uid>[-\w]+)/', index),
-
-    url(r'^accounts/', include('allauth.urls')),
-    url(r'^pyforms/', include('pyforms_web.web.djangoapp.urls') ),
-    url(r'^admin/', admin.site.urls),
     url(r'^$', index),    
 ]
