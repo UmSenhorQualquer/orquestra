@@ -20,6 +20,5 @@ from orquestra.views   import index
 
 urlpatterns = [
     url(r'^app/(?P<app_uid>[-\w]+)/', index),
-    url(r'^pyforms/', include('pyforms_web.web.django_pyforms.urls') ),
     url(r'^$', index),    
 ]
