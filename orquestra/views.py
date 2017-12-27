@@ -37,7 +37,7 @@ def index(request, app_uid=None):
 		
 		menu 			= type('MenuOption', (object,), {})
 		menu.menu_place	= menus_options[0]
-		menu.uid 		= plugin_class._uid if hasattr(plugin_class,'_uid') else ''
+		menu.uid 		= plugin_class.UID if hasattr(plugin_class,'UID') else ''
 		menu.label 		= plugin_class.TITLE if plugin_class.TITLE else plugin_class.__name__.lower()
 		menu.order 		= plugin_class.ORQUESTRA_MENU_ORDER if hasattr(plugin_class,'ORQUESTRA_MENU_ORDER') else None
 		menu.icon  		= plugin_class.ORQUESTRA_MENU_ICON if hasattr(plugin_class, 'ORQUESTRA_MENU_ICON') else None
@@ -57,7 +57,7 @@ def index(request, app_uid=None):
 			menus[menus_options[1]].submenus.append( menu )
 			#menu.parent_menu.active = True
 
-		if hasattr(plugin_class, '_uid') and app_uid==plugin_class._uid: 
+		if hasattr(plugin_class, 'UID') and app_uid==plugin_class.UID: 
 			running_menu = menu			
 			menu.active  = True
 			if menu.parent_menu: 
