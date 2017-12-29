@@ -81,8 +81,5 @@ def index(request, app_uid=None):
 		'running_menu': running_menu
 	})
 
-	if request.user_agent.is_mobile:
-		return render_to_response('authenticated_base-mobile.html', context )
-	else:
-		return render_to_response('authenticated_base.html', context )
+	return render_to_response('authenticated_base.html', context )
 
