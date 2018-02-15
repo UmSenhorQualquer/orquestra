@@ -13,7 +13,7 @@ sudo pip install sorl-thumbnail
 sudo pip install dill
 sudo pip install filelock
 sudo pip install django-allauth
-sudo pip install git+https://github.com/UmSenhorQualquer/pysettings.git
+sudo pip install git+https://github.com/UmSenhorQualquer/pyforms.git
 sudo pip install git+https://github.com/UmSenhorQualquer/django-jfu.git
 sudo pip install git+https://UmSenhorQualquer@bitbucket.org/UmSenhorQualquer/pyforms-web.git --upgrade
 sudo pip install git+https://UmSenhorQualquer@bitbucket.org/UmSenhorQualquer/orquestra.git --upgrade

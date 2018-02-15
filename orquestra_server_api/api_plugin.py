@@ -8,7 +8,7 @@ import simplejson, os, inspect
 from django.http import HttpResponse, HttpResponseServerError
 from django.views.decorators.csrf import csrf_exempt
 import simplejson, json, glob, inspect, mimetypes, os
-from pysettings import conf
+from pyforms import conf
 
 from maestro.models import AlgorithmSubject, Algorithm, Server, Job
 

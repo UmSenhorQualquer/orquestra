@@ -4,7 +4,7 @@ import traceback
 
 import inspect, os, shutil, pkgutil, importlib
 from django.conf import settings
-from pysettings import conf
+from pyforms import conf
 from django.conf.urls import url
 from django.template.loader import render_to_string
 from orquestra.plugins import LayoutPositions
@@ -92,7 +92,7 @@ class Command(BaseCommand):
 		if not os.path.exists(static_dir): os.makedirs(static_dir)
 
 		f = open(os.path.join(static_dir,'__init__.py'), 'w')
-		f.write("from pysettings import conf\nconf += 'pyforms_plugins.settings'")
+		f.write("from pyforms import conf\nconf += 'pyforms_plugins.settings'")
 		f.close()
 		
 		manager.export_settings(os.path.join(static_dir,'settings.py'))

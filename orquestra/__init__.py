@@ -1,2 +1,2 @@
-from pysettings import conf
+from pyforms import conf
 conf += 'orquestra.settings'
