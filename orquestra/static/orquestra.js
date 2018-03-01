@@ -60,7 +60,7 @@ function add_tab(name, label, url) {
 				var html = '<div class="html ui basic segment"><div >';
 				html += '<h2 class="ui right floated header">'+label+'</h2>';
 				html += '<div class="ui clearing divider"></div>';
-				html += "<form class='ui form' id='app-"+res.app_id+"' >";
+				html += "<form class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
 				html += res.code;
 				html += '</form>';
 				html += '</div></div>';
@@ -94,7 +94,7 @@ function home(name, label, url){
 				var html = '<div class="html ui basic segment"><div >';
 				html += '<h2 class="ui right floated header">'+label+'</h2>';
 				html += '<div class="ui clearing divider"></div>';
-				html += "<form class='ui form' id='app-"+res.app_id+"' >";
+				html += "<form class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
 				html += res.code;
 				html += '</form>';
 				html += '</div></div>';
@@ -123,7 +123,7 @@ function add_segment(name, label, url) {
 				var html = '<div class="ui raised floated segment" style="margin:20px; min-width:650px;" >';
 				html += '<h2 class="ui right floated header">'+label+'</h2>';
 				html += '<div class="ui clearing divider"></div>';
-				html += "<form class='ui form' id='app-"+res.app_id+"' >";
+				html += "<form class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
 				html += res.code;
 				html += '</form>';
 				html += '</div>';
@@ -181,7 +181,7 @@ function show_window(name, label, url) {
 			else{
 				var html = '<div class="header">'+label+'</div>';
 				html += '<div class="content">';
-				html += "<form class='ui form' id='app-"+res.app_id+"' >";
+				html += "<form class='ui form"+res.css+"' id='app-"+res.app_id+"' >";
 				html += res.code;
 				html += '</form>';
 				html += '</div>';
