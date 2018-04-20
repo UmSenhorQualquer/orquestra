@@ -1,6 +1,13 @@
 {% if user.is_authenticated %}
-<div class="ui orange inverted small fixed top menu" id='top-menu'>
+<div class="ui grid orange inverted small fixed top menu" id='top-menu'>
+
+<a class="ui item column screen tablet mobile only" id='mobile-sidebar-openerbtn'  data-transition="overlay" >
+	<i class="sidebar icon large"></i>
+</a>
+
+
 <div class='ui container'>
+
 	{% for menu in menu_plugins %}
 		{% ifequal menu.menu_place 'top' %}
 			{% if menu.submenus %}
@@ -38,4 +45,6 @@
 	</div>
 	</div>
 </div>
+
+
 {% endif %}

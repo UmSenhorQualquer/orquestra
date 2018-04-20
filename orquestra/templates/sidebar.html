@@ -1,4 +1,5 @@
-<div class="ui inverted left visible vertical menu sidebar">
+<div class="ui left vertical inverted menu sidebar screen computer only top-vspacer" id='leftsidebar' >
+
 	<div class="item" style="height: 37px;" >
 		&nbsp;
 	</div>
@@ -11,7 +12,7 @@
 			</a>
 			{% if menu.show_submenu and menu.submenus %}
 				<div class="item">
-    				<div class="menu">
+					<div class="menu">
 						{% for submenu in menu.submenus %}
 							<a class="item {% if submenu.active %}active{% endif %}" href="/app/{{ submenu.uid }}/" onclick="{{ submenu.js_call }}" >
 								{{ submenu.label }}
@@ -27,6 +28,17 @@
 </div>
 
 
-<style type="text/css">
-	.ui.sidebar.visible ~ .pusher { width: calc(100% - 260px); }
-</style>
+<script type="text/javascript">
+		
+	if ($(document).width()<933) {
+		$('#leftsidebar').removeClass('visible');
+	}
+
+	$(document).ready(function(){
+		if ($(document).width()<933) {
+			$('#leftsidebar').sidebar({ dimPage: false , closable: false, transition: 'overlay' }).sidebar('attach events', '#mobile-sidebar-openerbtn', 'toggle');
+		};
+	});
+
+</script>
+

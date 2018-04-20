@@ -14,14 +14,19 @@
 	<script type="text/javascript" src="/static/jquery-ui/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="/static/orquestra.js"></script>
 	{% for staticfile in styles_files %}
-	<link rel="stylesheet" type="text/css" href="/static/{{staticfile}}">
+		<link rel="stylesheet" type="text/css" href="/static/{{staticfile}}">
 	{% endfor %}
 	{% for staticfile in javascript_files %}
-	<script type="text/javascript" src="/static/{{staticfile}}"></script>
+		<script type="text/javascript" src="/static/{{staticfile}}"></script>
 	{% endfor %}
 {% endblock %}
 
-{% block sidebar %}{% if 'left' in active_menus %}{% include "sidebar.html" %}{% endif %}{% endblock %}
+
+{% block sidebar %}
+	{% if 'left' in active_menus %}
+		{% include "sidebar.html" %}
+	{% endif %}
+{% endblock %}
 
 {% block page_content %}
 <br/>

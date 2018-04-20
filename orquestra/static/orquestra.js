@@ -209,6 +209,7 @@ function close_window(){
 /*********************************************************/
 
 $(document).ready(function() {
+
 	pyforms.register_layout_place(5, add_tab, activate_tab);
 	pyforms.register_layout_place(6, add_segment);
 	pyforms.register_layout_place(0, home);
