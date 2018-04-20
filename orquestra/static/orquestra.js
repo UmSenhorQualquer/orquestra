@@ -179,7 +179,7 @@ function show_window(name, label, url) {
 			if( res.result=='error' )
 				error_msg(res.msg);
 			else{
-				var html = '<div class="header">'+label+'</div>';
+				var html = '<i class="close icon"></i><div class="header">'+label+'</div>';
 				html += '<div class="content">';
 				html += "<form class='ui form"+res.css+"' id='app-"+res.app_id+"' >";
 				html += res.code;
