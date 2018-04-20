@@ -363,7 +363,6 @@ input[type="range"]::-webkit-slider-thumb {
 
 .content-panel{
 	max-width: calc(100% - 150px);
-	overflow:scroll;
 }
 
 @media only screen and (max-width: 767px) {
