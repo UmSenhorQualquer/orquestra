@@ -10,7 +10,7 @@ body{
 	font-size: 14px !important;
 	margin: 0;
 	font-family: 'Arimo', sans-serif !important;
-
+	background-color: #eee;
 	min-height:100%;
 }
 
@@ -22,6 +22,14 @@ body{
 	width: 50px;
 }
 
+.app-header{
+	padding-top: 20px !important;
+}
+
+.app-segment{
+	margin-left: 40px !important;
+	margin-right: 40px !important;
+}
 
 
 .dialog ul{

@@ -58,7 +58,7 @@ function add_tab(name, label, url) {
 				error_msg(res.msg);
 			else{
 				var html = '<div class="html ui basic segment"><div >';
-				html += '<h2 class="ui right floated header">'+label+'</h2>';
+				html += '<h2 class="ui medium header">'+label+'</h2>';
 				html += '<div class="ui clearing divider"></div>';
 				html += "<form class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
 				html += res.code;
@@ -91,13 +91,15 @@ function home(name, label, url){
 			if( res.result=='error' )
 				error_msg(res.msg);
 			else{
-				var html = '<div class="html ui basic segment"><div >';
-				html += '<h2 class="ui right floated header">'+label+'</h2>';
-				html += '<div class="ui clearing divider"></div>';
+				var html = '';
+				html += '<div class="app-segment" >'
+				html += '<h2 class="ui medium header app-header">'+label+'</h2>';
+				//html += '<div class="ui segment">';
 				html += "<form class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
 				html += res.code;
 				html += '</form>';
-				html += '</div></div>';
+				//html += '</div>';
+				html += '</div>';
 				$('#tab-home').html(html);
 			};
 		}
