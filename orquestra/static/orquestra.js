@@ -57,28 +57,24 @@ function add_tab(name, label, url) {
 			if( res.result=='error' )
 				error_msg(res.msg);
 			else{
-				var html = '<div class="html ui basic segment"><div >';
-				html += '<h2 class="ui medium header">'+label+'</h2>';
-				html += '<div class="ui clearing divider"></div>';
+				var html = '';
+				html += '<div class="app-segment" >'
+				html += '<h2 class="ui medium right aligned header app-header">'+label+'</h2>';
 				html += "<form class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
 				html += res.code;
 				html += '</form>';
-				html += '</div></div>';
+				html += '</div>';
 				$('#applications-tab-content .app-tab.tab[data-tab="'+tabname+'"]').html(html);
 			};
 		}
 	}).fail(function(xhr){
 		error_msg(xhr.status+" "+xhr.statusText+": "+xhr.responseText);
 	});
-}
-
-
+};
 
 function select_main_tab(){
 	$('#applications-tab-menu .item[data-tab="tab-home"]').click();
-}
-
-
+};
 
 function home(name, label, url){
 	$.ajax({
@@ -93,12 +89,10 @@ function home(name, label, url){
 			else{
 				var html = '';
 				html += '<div class="app-segment" >'
-				html += '<h2 class="ui medium header app-header">'+label+'</h2>';
-				//html += '<div class="ui segment">';
+				html += '<h2 class="ui medium right aligned header app-header">'+label+'</h2>';
 				html += "<form class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
 				html += res.code;
 				html += '</form>';
-				//html += '</div>';
 				html += '</div>';
 				$('#tab-home').html(html);
 			};
@@ -122,7 +116,8 @@ function add_segment(name, label, url) {
 			if( res.result=='error' )
 				error_msg(res.msg);
 			else{
-				var html = '<div class="ui raised floated segment" style="margin:20px; min-width:650px;" >';
+				var html = '';
+				html += '<div class="ui raised floated segment" style="margin:20px; min-width:650px;" >';
 				html += '<h2 class="ui right floated header">'+label+'</h2>';
 				html += '<div class="ui clearing divider"></div>';
 				html += "<form class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
@@ -137,11 +132,7 @@ function add_segment(name, label, url) {
 	}).always(function(){
 		pyforms.garbage_collector();
 	});
-
-	/*$('html, body').animate({
-        scrollTop: e.offset().top
-    }, 500);*/
-}
+};
 
 var refreshEvent = setInterval(function(){},100000);
 var msg_timeout = undefined;
@@ -151,7 +142,6 @@ function success_msg(msg){
 	$('#top-menu').popup({title: 'Success', variation:'basic', on:'manual', content: msg, position:'top center'}).popup('show');
 	msg_timeout = setTimeout(function(){$('#top-menu').popup('destroy');}, 5000);
 };
-
 
 function error_msg(msg){
 	if(msg_timeout!=undefined) clearTimeout(msg_timeout);
@@ -165,7 +155,6 @@ function get_current_folder(){
 	else
 		return '/';
 };
-
 
 /*********************************************************/
 /*********************************************************/
@@ -181,13 +170,14 @@ function show_window(name, label, url) {
 			if( res.result=='error' )
 				error_msg(res.msg);
 			else{
-				var html = '<i class="close icon"></i><div class="header">'+label+'</div>';
+				var html = '';
+				html += '<i class="close icon"></i><div class="header">'+label+'</div>';
 				html += '<div class="content">';
 				html += "<form class='ui form"+res.css+"' id='app-"+res.app_id+"' >";
 				html += res.code;
 				html += '</form>';
 				html += '</div>';
-				html += '</div>';			
+				html += '</div>';
 				$('#dialog').html(html);
 				$('#dialog').modal('setting', 'observe Changes', true).modal('setting', 'duration', 0).modal('setting', 'onHide', function(e){
 					pyforms.remove_app(res.app_id);
@@ -199,19 +189,18 @@ function show_window(name, label, url) {
 	}).always(function(){
 		pyforms.garbage_collector();
 	});
-}
+};
 function activate_window(name, label, url) {
 	$('#dialog').modal('show');
-}
+};
 function close_window(){
 	$('#dialog').modal('hide');
-}
+};
 /*********************************************************/
 /*********************************************************/
 /*********************************************************/
 
 $(document).ready(function() {
-
 	pyforms.register_layout_place(5, add_tab, activate_tab);
 	pyforms.register_layout_place(6, add_segment);
 	pyforms.register_layout_place(0, home);

@@ -359,8 +359,8 @@ input[type="range"]::-webkit-slider-thumb {
   padding-top: 8px;
 }
 
-#applications-tab .apps-tabs{
-	background-color: white;
+.apps-tabs{
+	margin-top: 11px !important;
 }
 
 
@@ -378,6 +378,12 @@ input[type="range"]::-webkit-slider-thumb {
     .content-panel{
 		max-width: 100%;
 	}
+
+	.app-segment{
+		margin-left:  5px !important;
+		margin-right: 5px !important;
+	}
+
 
 }
 
