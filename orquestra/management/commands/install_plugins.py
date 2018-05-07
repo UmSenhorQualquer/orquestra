@@ -8,7 +8,7 @@ from pyforms import conf
 from django.conf.urls import url
 from django.template.loader import render_to_string
 from orquestra.plugins import LayoutPositions
-from pyforms_web.web.basewidget import BaseWidget
+from pyforms_web.basewidget import BaseWidget
 
 
 class PluginsManager(object):
