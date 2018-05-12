@@ -10,7 +10,7 @@ body{
 	font-size: 14px !important;
 	margin: 0;
 	font-family: 'Arimo', sans-serif !important;
-
+	background-color: #eee;
 	min-height:100%;
 }
 
@@ -22,6 +22,14 @@ body{
 	width: 50px;
 }
 
+.app-header{
+	padding-top: 20px !important;
+}
+
+.app-segment{
+	margin-left: 40px !important;
+	margin-right: 40px !important;
+}
 
 
 .dialog ul{
@@ -351,8 +359,8 @@ input[type="range"]::-webkit-slider-thumb {
   padding-top: 8px;
 }
 
-#applications-tab .apps-tabs{
-	background-color: white;
+.apps-tabs{
+	margin-top: 11px !important;
 }
 
 
@@ -370,6 +378,12 @@ input[type="range"]::-webkit-slider-thumb {
     .content-panel{
 		max-width: 100%;
 	}
+
+	.app-segment{
+		margin-left:  5px !important;
+		margin-right: 5px !important;
+	}
+
 
 }
 

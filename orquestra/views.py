@@ -4,7 +4,7 @@ from django.shortcuts 								import render_to_response
 from django.contrib.auth.decorators 				import login_required
 from orquestra.management.commands.install_plugins 	import PluginsManager
 from orquestra.plugins 			 					import MenusPositions
-from pyforms_web.web.django_pyforms 						import ApplicationsLoader
+from pyforms_web.web 								import ApplicationsLoader
 
 @login_required
 def index(request, app_uid=None):
