@@ -20,5 +20,5 @@ from orquestra.views   import index
 
 urlpatterns = [
     url(r'^app/(?P<app_uid>[-\w]+)/', index),
-    url(r'^$', index),    
+    url(r'^$', index),
 ]

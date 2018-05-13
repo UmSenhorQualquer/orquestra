@@ -1,0 +1,43 @@
+{% load jfutags %}{% load thumbnail %}
+<!DOCTYPE html />
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>Successfully installation</title>
+	<link rel="stylesheet" type="text/css" href="/static/semantic-ui/semantic.css"></link>
+	<link rel="stylesheet" type="text/css" href="/static/orquestra.css" /></link>
+	<script type="text/javascript" src="/static/jquery.min.js"></script>
+	<script type="text/javascript" src="/static/semantic-ui/semantic.min.js"></script>
+
+	<script type="text/javascript" src="/static/base64.js"></script>
+	<script type="text/javascript" src="/static/pyformsjs/pyforms.js"></script>
+	<script type="text/javascript" src="/static/pyformsjs/pyforms-hub.js"></script>
+	<script type="text/javascript" src="/static/jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/static/orquestra.js"></script>
+
+</head>
+<body >
+	
+	<div class="ui attached stackable menu">
+		<div class="ui container">
+			<h3 class="ui olive header item">Pyforms</h3>
+			
+			<h4 class="ui gray header right item">
+				It is working!
+			</h4>
+		</div>
+	</div>
+	<div class="ui container" id="tab-home" >
+		
+	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			run_application('orquestra.default_app.DefaultApp');
+		});
+	</script>
+
+</body>
+</html>
+

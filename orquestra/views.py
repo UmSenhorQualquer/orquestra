@@ -1,15 +1,28 @@
+from pyforms                        import conf
+from django.conf                    import settings
+from django.http                    import HttpResponseRedirect
 from django.shortcuts               import render_to_response
 from django.contrib.auth.decorators import login_required
 from orquestra.apps_manager         import AppsManager
 
-@login_required
-def index(request, app_uid=None):
 
+def index(request, app_uid=None):
     manager = AppsManager()
+    plugins = manager.plugins
+
+    # no plugins are available.
+    # it will show the default application
+    if len(plugins)==0:
+        return render_to_response('default-app.html' )
+
+    if  conf.ORQUESTRA_REQUIREAUTH and \
+        not request.user.is_authenticated:
+        return HttpResponseRedirect(settings.LOGIN_URL)
+        
     
     ##### find the style and javscripts files #################################################
     style_files, javascript_files = [], []
-    for plugin in manager.plugins:
+    for plugin in plugins:
         for staticfile in (plugin.static_files if hasattr(plugin, 'static_files') else []):
             if staticfile.endswith('.css'): style_files.append(staticfile)
             if staticfile.endswith('.js'):  javascript_files.append(staticfile)
