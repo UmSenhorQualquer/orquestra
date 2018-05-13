@@ -20,20 +20,18 @@ class DefaultApp(BaseWidget):
     def __init__(self, *args, **kwargs):
         super(DefaultApp, self).__init__(*args, **kwargs)
 
-        
-
         self._css_btn = ControlButton(
             '<i class="icon toggle on" ></i>Toggle css', 
             default=self.__toggle_css_evt,
             label_visible=False
         )
         self._toggle_btn = ControlButton(
-            'Toggle visibility', 
+            '<i class="icon eye" ></i>Toggle visibility', 
             default=self.__toggle_visibility_evt,
             label_visible=False
         )
         self._copy_btn   = ControlButton(
-            'Copy the text',
+            '<i class="icon copy outline" ></i>Copy the text',
             default=self.__copy_text_evt,
             label_visible=False
         )
