@@ -344,6 +344,15 @@ input[type="range"]::-webkit-slider-thumb {
 	color: rgba(0,0,0,.27) !important;
 }*/
 
+.ui.form .fields > .field.segment{
+	padding-right: 1.5em !important;
+	padding-left: 1.5em !important;
+}
+
+.ui.form .two.fields > .fields, .ui.form .two.fields > .field.segment{
+	width: calc(50% - 10px);
+}
+
 .ui.grid > .column + .divider, .ui.grid > .row > .column + .divider{
 	left: 50%;
 }
