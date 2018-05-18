@@ -1,15 +1,15 @@
 from confapp import conf
-from pyforms import BaseWidget, no_columns, segment
+from pyforms_web.basewidget import BaseWidget, no_columns, segment
 
-from pyforms.controls import ControlButton
-from pyforms.controls import ControlText
-from pyforms.controls import ControlTextArea
+from pyforms_web.controls.control_button import ControlButton
+from pyforms_web.controls.control_text import ControlText
+from pyforms_web.controls.control_textarea import ControlTextArea
 
-from pyforms.controls import ControlCombo
-from pyforms.controls import ControlCheckBox
-from pyforms.controls import ControlDateTime
-from pyforms.controls import ControlList
-from pyforms.controls import ControlLabel
+from pyforms_web.controls.control_combo import ControlCombo
+from pyforms_web.controls.control_checkbox import ControlCheckBox
+from pyforms_web.controls.control_datetime import ControlDateTime
+from pyforms_web.controls.control_list import ControlList
+from pyforms_web.controls.control_label import ControlLabel
 
 class DefaultApp(BaseWidget):
 
