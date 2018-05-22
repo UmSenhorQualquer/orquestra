@@ -1,17 +1,17 @@
 html{min-height:100%;position:relative;}
 
 body{
-	/*zoom: 90%;*/
-
-	/*
-	background-color: -moz-linear-gradient(center top , #F5F5F5, #F1F1F1) repeat scroll 0 0 rgba(0, 0, 0, 0) !important;
-	*/
 	color: #333  !important;
 	font-size: 14px !important;
 	margin: 0;
 	font-family: 'Arimo', sans-serif !important;
 	background-color: #eee;
 	min-height:100%;
+}
+
+.ui.inverted.menu .darkviolet.active.item,
+.ui.inverted.darkviolet.menu {
+  background-color: #2A2A5F;
 }
 
 .ui.comments .comment img.avatar, .ui.comments .comment .avatar img{
@@ -364,14 +364,14 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 
+
 #applications-tab-content{
-  padding-top: 8px;
+  padding-top: 0px;
 }
 
-.apps-tabs{
-	margin-top: 11px !important;
+#top-menu{
+	margin-top: 0px;
 }
-
 
 .ui.vertical.menu .item > .menu {
     margin: -1.0em -1.14285714em 1em;

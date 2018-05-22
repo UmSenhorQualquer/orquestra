@@ -90,5 +90,5 @@ def index(request, app_uid=None):
         'running_menu': running_menu
     })
 
-    return render_to_response('authenticated_base.html', context )
+    return render_to_response('base-authenticated.html', context )
 
