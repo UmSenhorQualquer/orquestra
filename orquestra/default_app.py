@@ -35,7 +35,7 @@ class DefaultApp(BaseWidget):
             default=self.__copy_text_evt,
             label_visible=False
         )
-        self._input = ControlText('Type something here and press the copy button')
+        self._input = ControlText('Type something here and press the copy button', changed_event=self.__input_changed_evt)
         self._text  = ControlTextArea('Result')
         self._combo = ControlCombo(
             'Combo',
@@ -119,3 +119,6 @@ class DefaultApp(BaseWidget):
 
         self._text.value = self._input.value
 
+
+    def __input_changed_evt(self):
+        print(self._input.value)
