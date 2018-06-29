@@ -69,6 +69,13 @@ class AppsManager(object):
 					if inspect.isclass(obj) and hasattr(obj, 'LAYOUT_POSITION'):
 						self.append( obj )
 
-			except:
+			except ModuleNotFoundError:
+				traceback.print_exc()
+				pass
+			except ImportError:
+				traceback.print_exc()
+			except (SyntaxError, ImportError):
 				#print(app)
+				traceback.print_exc()
+			except:
 				traceback.print_exc()
