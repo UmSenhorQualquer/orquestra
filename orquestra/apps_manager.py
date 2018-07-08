@@ -1,6 +1,7 @@
 import traceback, inspect
 from django.apps import apps
 from pyforms_web.basewidget import BaseWidget
+from confapp import conf
 
 class AppsManager(object):
 
@@ -70,12 +71,16 @@ class AppsManager(object):
 						self.append( obj )
 
 			except ModuleNotFoundError:
-				traceback.print_exc()
+				if conf.ORQUESTRA_SHOW_NO_MODULE_EXCEPTION:
+					traceback.print_exc()
 				pass
 			except ImportError:
-				traceback.print_exc()
+				if conf.ORQUESTRA_SHOW_NO_MODULE_EXCEPTION:
+					traceback.print_exc()
 			except (SyntaxError, ImportError):
-				#print(app)
-				traceback.print_exc()
+				if conf.ORQUESTRA_SHOW_NO_MODULE_EXCEPTION:
+					traceback.print_exc()
 			except:
-				traceback.print_exc()
+				if conf.ORQUESTRA_SHOW_NO_MODULE_EXCEPTION:
+					traceback.print_exc()
+				
