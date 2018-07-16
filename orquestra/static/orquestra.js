@@ -22,7 +22,7 @@ function add_tab(name, label, url) {
 		var html = '<a class="item active app-tab" data-tab="'+tabname+'">'+label+' &nbsp;&nbsp;<i class="remove icon"></i></a>';
 		$('#applications-tab-menu').append(html);
 
-		var html = '<div class="ui attached active tab app-tab" data-tab="'+tabname+'"></div>';
+		var html = '<div class="ui attached active tab app-tab container" data-tab="'+tabname+'"></div>';
 		$('#applications-tab-content').append(html);
 
 		$('#applications-tab-menu .app-tab.item[data-tab="'+tabname+'"]').on('click', function() {
@@ -88,7 +88,7 @@ function home(name, label, url){
 				error_msg(res.msg);
 			else{
 				var html = '';
-				html += '<div class="app-segment" >'
+				html += '<div class="app-segment ui container" >'
 				html += '<h2 class="ui medium right aligned header app-header">'+label+'</h2>';
 				html += "<form class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
 				html += res.code;
