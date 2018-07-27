@@ -298,6 +298,6 @@ $(document).ready(function() {
 	pyforms.register_layout_place(2, show_window, activate_window, close_window);
 	pyforms.register_layout_place(3, append_home);
 
-	pyforms.register_layout_place(0, home_full);
-	pyforms.register_layout_place(1, add_tab_full, activate_tab);
+	pyforms.register_layout_place(4, home_full);
+	pyforms.register_layout_place(5, add_tab_full, activate_tab);
 });
