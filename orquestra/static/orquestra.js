@@ -72,6 +72,70 @@ function add_tab(name, label, url) {
 	});
 };
 
+
+// actual addTab function: adds new tab using the input from the form above
+function add_tab_full(name, label, url) {
+	var tabname = "tab-" + name;
+
+	if($('#applications-tab-menu .app-tab.tab[data-tab="'+tabname+'"]').length==0){
+		//begin menu
+		$('#applications-tab-menu .app-tab.item').removeClass('active');
+		$('#applications-tab-content .app-tab.tab').removeClass('active');
+
+		if(label.length>30) label = label.substring(0,27)+'...';
+		var html = '<a class="item active app-tab" data-tab="'+tabname+'">'+label+' &nbsp;&nbsp;<i class="remove icon"></i></a>';
+		$('#applications-tab-menu').append(html);
+
+		var html = '<div class="ui attached active tab app-tab" data-tab="'+tabname+'"></div>';
+		$('#applications-tab-content').append(html);
+
+		$('#applications-tab-menu .app-tab.item[data-tab="'+tabname+'"]').on('click', function() {
+			$('#applications-tab-menu .item.app-tab').removeClass('active');
+			$('#applications-tab-content .tab.app-tab').removeClass('active');
+			$(this).addClass('active');
+			$('#applications-tab-content .tab.app-tab[data-tab="'+$(this).attr('data-tab')+'"]').addClass('active');
+		});
+
+		$('#applications-tab-menu .app-tab.item[data-tab="'+tabname+'"] i.remove').on('click', function(){
+			$('#confirm-tab-close').modal({
+				closable  : false,
+				onDeny    : function(){return true;},
+				onApprove : function() {
+					$('#applications-tab-content .app-tab.tab[data-tab="'+tabname+'"]').remove();
+					$('#applications-tab-menu .app-tab.item[data-tab="'+tabname+'"]').prev().click();
+					$('#applications-tab-menu .app-tab.item[data-tab="'+tabname+'"]').remove();
+					pyforms.garbage_collector();				  
+					return true;
+				}
+			}).modal('show');
+		});
+	};
+
+	$.ajax({
+		method: 'get',
+		cache: false,
+		dataType: "json",
+		url: url,
+		contentType: "application/json; charset=utf-8",
+		success: function(res){
+			if( res.result=='error' )
+				error_msg(res.msg);
+			else{
+				var html = '';
+				html += '<div class="app-segment" >'
+				html += '<h2 class="ui medium right aligned header app-header">'+label+'</h2>';
+				html += "<form class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
+				html += res.code;
+				html += '</form>';
+				html += '</div>';
+				$('#applications-tab-content .app-tab.tab[data-tab="'+tabname+'"]').html(html);
+			};
+		}
+	}).fail(function(xhr){
+		error_msg(xhr.status+" "+xhr.statusText+": "+xhr.responseText);
+	});
+};
+
 function select_main_tab(){
 	$('#applications-tab-menu .item[data-tab="tab-home"]').click();
 };
@@ -104,8 +168,36 @@ function home(name, label, url){
 	});
 };
 
+function home_full(name, label, url){
+	$.ajax({
+		method: 	'get',
+		cache: 		false,
+		dataType: 	"json",
+		url: url,
+		contentType: "application/json; charset=utf-8",
+		success: function(res){
+			if( res.result=='error' )
+				error_msg(res.msg);
+			else{
+				var html = '';
+				html += '<div class="app-segment ui" >'
+				html += '<h2 class="ui medium right aligned header app-header">'+label+'</h2>';
+				html += "<form class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
+				html += res.code;
+				html += '</form>';
+				html += '</div>';
+				$('#tab-home').html(html);
+			};
+		}
+	}).fail(function(xhr){
+		error_msg(xhr.status+" "+xhr.statusText+": "+xhr.responseText);
+	}).always(function(){
+		pyforms.garbage_collector();
+	});
+};
+
 // actual addTab function: adds new tab using the input from the form above
-function add_segment(name, label, url) {
+function append_home(name, label, url) {
 	$.ajax({
 		method: 	'get',
 		cache: 		false,
@@ -201,8 +293,11 @@ function close_window(){
 /*********************************************************/
 
 $(document).ready(function() {
-	pyforms.register_layout_place(5, add_tab, activate_tab);
-	pyforms.register_layout_place(6, add_segment);
 	pyforms.register_layout_place(0, home);
-	pyforms.register_layout_place(4, show_window, activate_window, close_window);
+	pyforms.register_layout_place(1, add_tab, activate_tab);
+	pyforms.register_layout_place(2, show_window, activate_window, close_window);
+	pyforms.register_layout_place(3, append_home);
+
+	pyforms.register_layout_place(0, home_full);
+	pyforms.register_layout_place(1, add_tab_full, activate_tab);
 });
