@@ -9,6 +9,14 @@ function activate_tab(name){
 	$('.menu a.item[data-tab="'+tabname+'"]').addClass('active');
 };
 
+
+function close_tab(app_id){
+	var tabname = "tab-" + app_id;
+	$('#applications-tab-content .app-tab.tab[data-tab="'+tabname+'"]').remove();
+	$('#applications-tab-menu .app-tab.item[data-tab="'+tabname+'"]').prev().click();
+	$('#applications-tab-menu .app-tab.item[data-tab="'+tabname+'"]').remove();
+};
+
 // actual addTab function: adds new tab using the input from the form above
 function add_tab(name, label, url) {
 	var tabname = "tab-" + name;
@@ -252,6 +260,8 @@ function get_current_folder(){
 /*********************************************************/
 /*********************************************************/
 function show_window(name, label, url) {
+	var dialog_id = "dialog-"+name;
+
 	$.ajax({
 		method: 	'get',
 		cache: 		false,
@@ -262,7 +272,8 @@ function show_window(name, label, url) {
 			if( res.result=='error' )
 				error_msg(res.msg);
 			else{
-				var html = '';
+				
+				var html = "<div class='ui modal' id='"+dialog_id+"' >";
 				html += '<i class="close icon"></i><div class="header">'+label+'</div>';
 				html += '<div class="content">';
 				html += "<form class='ui form"+res.css+"' id='app-"+res.app_id+"' >";
@@ -270,8 +281,9 @@ function show_window(name, label, url) {
 				html += '</form>';
 				html += '</div>';
 				html += '</div>';
-				$('#dialog').html(html);
-				$('#dialog').modal('setting', 'observe Changes', true).modal('setting', 'duration', 0).modal('setting', 'onHide', function(e){
+
+				$('body').append(html);
+				$('#'+dialog_id).modal('setting', 'observe Changes', true).modal('setting', 'duration', 0).modal('setting', 'onHide', function(e){
 					pyforms.remove_app(res.app_id);
 				}).modal('show');
 			};
@@ -283,10 +295,13 @@ function show_window(name, label, url) {
 	});
 };
 function activate_window(name, label, url) {
-	$('#dialog').modal('show');
+	var dialog_id = "dialog-"+name;
+	$('#'+dialog_id).modal('show');
 };
-function close_window(){
-	$('#dialog').modal('hide');
+function close_window(app_id){
+	var dialog_id = "dialog-"+app_id;
+	$('#'+dialog_id).modal('hide');
+	$('#'+dialog_id).remove();
 };
 /*********************************************************/
 /*********************************************************/
@@ -294,10 +309,10 @@ function close_window(){
 
 $(document).ready(function() {
 	pyforms.register_layout_place(0, home);
-	pyforms.register_layout_place(1, add_tab, activate_tab);
+	pyforms.register_layout_place(1, add_tab, activate_tab, close_tab);
 	pyforms.register_layout_place(2, show_window, activate_window, close_window);
 	pyforms.register_layout_place(3, append_home);
 
 	pyforms.register_layout_place(4, home_full);
-	pyforms.register_layout_place(5, add_tab_full, activate_tab);
+	pyforms.register_layout_place(5, add_tab_full, activate_tab, close_tab);
 });

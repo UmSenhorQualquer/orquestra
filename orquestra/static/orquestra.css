@@ -367,6 +367,8 @@ input[type="range"]::-webkit-slider-thumb {
 
 #applications-tab-content{
   padding-top: 0px;
+  padding-right: 20px;
+  padding-left: 20px;
 }
 
 #top-menu{
