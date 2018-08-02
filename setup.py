@@ -6,16 +6,15 @@ with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as readme: READ
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
-	name='orquestra',
-	version='0.0',
+	name='Orquestra',
+	version='1.0',
 	packages=find_packages(),
 	include_package_data=True,
-	license='BSD License',  # example license
-	description='A simple Django app to conduct Web-based polls.',
+	description='There for pyforms web.',
 	long_description=README,
-	url='https://www.example.com/',
-	author='Your Name',
-	author_email='yourname@example.com',
+	url='https://github.com/UmSenhorQualquer/orquestra/',
+	author='Ricardo Ribeiro',
+	author_email='ricardojvr@gmail.com',
 	classifiers=[
 		'Environment :: Web Environment',
 		'Framework :: Django',
