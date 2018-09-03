@@ -5,7 +5,7 @@ body{
 	font-size: 14px !important;
 	margin: 0;
 	font-family: 'Arimo', sans-serif !important;
-	background-color: #eee;
+	background-color: #f1f4f5;
 	min-height:100%;
 }
 
@@ -24,11 +24,6 @@ body{
 
 .app-header{
 	padding-top: 20px !important;
-}
-
-.app-segment{
-	margin-left: 40px !important;
-	margin-right: 40px !important;
 }
 
 
@@ -373,6 +368,8 @@ input[type="range"]::-webkit-slider-thumb {
 
 #top-menu{
 	margin-top: 0px;
+	max-width: 100%;
+	box-shadow: none;
 }
 
 .ui.vertical.menu .item > .menu {
@@ -381,8 +378,9 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .content-panel{
-	max-width: calc(100% - 150px);
+	max-width: calc(100% - 260px);
 }
+
 
 @media only screen and (max-width: 767px) {
 
@@ -398,3 +396,14 @@ input[type="range"]::-webkit-slider-thumb {
 
 }
 
+a.item.transition {
+    margin-left: 30px;
+}
+
+.app-segment.container {
+    margin-left: 0px !important;
+}
+
+.app-tab.container {
+    margin-left: 0px !important;
+}

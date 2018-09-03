@@ -54,6 +54,7 @@ def index(request, app_uid=None):
         menu.fullname   = plugin_class.fullname # full name of the class
         menu.parent_menu= None
         menu.active     = False
+        menu.submenu_active = False
         menu.submenus   = []
         menu.show_submenu = False
         
@@ -71,6 +72,7 @@ def index(request, app_uid=None):
             menu.active  = True
             if menu.parent_menu: 
                 menu.parent_menu.show_submenu = True
+                menu.parent_menu.submenu_active = True
             else:
                 menu.show_submenu = True
 
@@ -83,6 +85,7 @@ def index(request, app_uid=None):
 
     context = {'user': request.user}
     context.update({
+        'submenu_title': conf.ORQUESTRA_TITLE,
         'menu_plugins': menus,
         'active_menus': list(set(active_menus)),
         'styles_files': style_files,

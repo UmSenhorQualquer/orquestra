@@ -1,51 +1,49 @@
 {% if user.is_authenticated %}
-<div class="ui grid small top fixed menu" id='top-menu'>
+<div class="ui top fixed menu grid" id='top-menu'>
 
-<a class="ui item column screen tablet mobile only" id='mobile-sidebar-openerbtn'  data-transition="overlay" >
-	<i class="sidebar icon large"></i>
-</a>
+    <a class="ui item column screen tablet mobile only" id='mobile-sidebar-openerbtn'  data-transition="overlay" >
+        <i class="sidebar icon large"></i>
+    </a>
 
+    {% for menu in menu_plugins %}
+        {% ifequal menu.menu_place 'top' %}
+            {% if menu.submenus %}
+                <div class="item ui simple dropdown">
+                    <i class="ui {{ menu.icon }} icon"></i> {{ menu.label }} <i class="dropdown icon"></i>
+                    <div class="menu">
+                        {% for submenu in menu.submenus %}
+                            <a class="item"  href="/app/{{ submenu.uid }}/" >
+                                {% if submenu.icon %}<i class="{{submenu.icon}} icon"></i>{% endif %}
+                                {{ submenu.label }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+                <a class="item" id="menu-{{ menu.anchor }}" href="/app/{{ menu.uid }}/" >
+                    {% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
+                    {{ menu.label }}
+                </a>
+            {% endif %}
+        {% endifequal %}
+    {% endfor %}
 
-<div class='ui container'>
+    <div class="right item ui simple dropdown" id='user-menu' >
+        <i class="user icon label inverted circular yellow"></i> {{ user }} <i class="dropdown icon"></i>
+        <div class="menu">
+            {% for menu in menu_plugins %}{% ifequal menu.menu_place 'user' %}
+            <a class="item"  href="/app/{{ menu.uid }}/" >
+                {% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
+                {{ menu.label }}
+            </a>
+            {% endifequal %}{% endfor %}
+            <a class="item" href='/accounts/logout/'><i class="sign out icon"></i> Logout</a>
+        </div>
+    </div>
 
-	{% for menu in menu_plugins %}
-		{% ifequal menu.menu_place 'top' %}
-			{% if menu.submenus %}
-				<div class="item ui simple dropdown">
-					<i class="{{ menu.icon }} icon"></i> {{ menu.label }} <i class="dropdown icon"></i>
-					<div class="menu">
-						{% for submenu in menu.submenus %}
-							<a class="item"  href="/app/{{ submenu.uid }}/" >
-								{% if submenu.icon %}<i class="{{submenu.icon}} icon"></i>{% endif %}
-								{{ submenu.label }}
-							</a>
-						{% endfor %}
-					</div>
-				</div>
-			{% else %}
-				<a class="item" id="menu-{{ menu.anchor }}" href="/app/{{ menu.uid }}/" >
-					{% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
-					{{ menu.label }}
-				</a>
-			{% endif %}
-		{% endifequal %}
-	{% endfor %}
-
-	<div class="right item ui simple dropdown" id='user-menu' >
-		<i class="user icon"></i> {{ user }} <i class="dropdown icon"></i>
-		<div class="menu">
-			{% for menu in menu_plugins %}{% ifequal menu.menu_place 'user' %}
-			<a class="item"  href="/app/{{ menu.uid }}/" >
-				{% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
-				{{ menu.label }}
-			</a>
-			{% endifequal %}{% endfor %}
-			<a class="item" href='/accounts/logout/'><i class="sign out icon"></i> Logout</a>
-		</div>
-	</div>
-	</div>
 </div>
 
-<div style="padding-top: 24px;" ></div>
+
+<div style="padding-top: 42px;" ></div>
 
 {% endif %}
