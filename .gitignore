@@ -1,4 +1,5 @@
 *.pyc
 orquestra\.egg-info/
+Orquestra\.egg-info/
 
 \.DS_Store
