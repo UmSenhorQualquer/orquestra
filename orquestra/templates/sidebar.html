@@ -10,7 +10,7 @@
                 <div class="title {% if menu.active or menu.submenu_active %}active{% endif %}">
                     {% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
                     {{ menu.label }}
-                    <i class="dropdown icon"></i>
+                    {% if menu.submenus %}<i class="dropdown icon"></i>{% endif %}
                 </div>
             </a>
             {% if menu.show_submenu and menu.submenus %}
