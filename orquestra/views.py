@@ -63,9 +63,11 @@ def index(request, app_uid=None):
             menus[plugin_class.__name__] = menu
         
         elif len(menus_options)==2:
-            menu.parent_menu = menus[menus_options[1]]
-            menus[menus_options[1]].submenus.append( menu )
-            #menu.parent_menu.active = True
+            parent_menu = menus.get(menus_options[1], None)
+            if parent_menu:
+                menu.parent_menu = parent_menu
+                parent_menu.submenus.append( menu )
+                #menu.parent_menu.active = True
 
         if hasattr(plugin_class, 'UID') and app_uid==plugin_class.UID: 
             running_menu = menu         
