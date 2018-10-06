@@ -27,12 +27,19 @@ class AppsManager(object):
                 ): continue
 
             add = False
+            """
             if hasattr(plugin_class, 'AUTHORIZED_GROUPS'):
                 if 'superuser' in plugin_class.AUTHORIZED_GROUPS and user.is_superuser:   add = True
                 if user.groups.filter(name__in=plugin_class.AUTHORIZED_GROUPS).exists():  add = True
             else:
                 add = True
-
+            """
+            if hasattr(plugin_class, 'has_permissions'):
+                if plugin_class.has_permissions(user): 
+                    add = True
+            else:
+                add = True
+            
             if add: res.append(plugin_class)
 
             plugin_class.fullname = '{0}.{1}'.format( plugin_class.__module__,plugin_class.__name__)
