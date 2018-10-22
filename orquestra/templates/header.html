@@ -1,9 +1,7 @@
 {% if user.is_authenticated %}
 <div class="ui top fixed menu grid" id='top-menu'>
 
-    <a class="ui item column screen tablet mobile only" id='mobile-sidebar-openerbtn'  data-transition="overlay" >
-        <i class="sidebar icon large"></i>
-    </a>
+    <a class="ui item" id='sidebar-openerbtn'  data-transition="overlay" ><i class="sidebar icon large"></i></a>
 
     {% for menu in menu_plugins %}
         {% ifequal menu.menu_place 'top' %}

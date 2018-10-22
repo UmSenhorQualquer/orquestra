@@ -35,14 +35,22 @@
         
     if ($(document).width()<933) {
         $('#leftsidebar').removeClass('visible');
-
     }
 
     $(document).ready(function(){
-        if ($(document).width()<933) {
-            $('#mobile-sidebar-openerbtn').removeClass('column');
-            $('#leftsidebar').sidebar({ dimPage: false , closable: false, transition: 'overlay' }).sidebar('attach events', '#mobile-sidebar-openerbtn', 'toggle');
-        };
+        $('#leftsidebar').sidebar(
+            { 
+                dimPage: false , closable: false, transition: 'slide', 
+                onShow: function(){ 
+                    $('.pusher').addClass('content-panel');
+                },
+                onHidden:function(){
+                    $('.pusher').removeClass('content-panel');
+                }
+            }
+        ).sidebar(
+            'attach events', '#sidebar-openerbtn', 'toggle'
+        );
     });
 
 </script>
