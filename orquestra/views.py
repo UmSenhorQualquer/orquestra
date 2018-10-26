@@ -92,7 +92,8 @@ def index(request, app_uid=None):
         'active_menus': list(set(active_menus)),
         'styles_files': style_files,
         'javascript_files': javascript_files,
-        'running_menu': running_menu
+        'running_menu': running_menu,
+        'GOOGLE_ANALYTICS': conf.ORQUESTRA_GOOGLE_ANALYTICS
     })
 
     return render_to_response('base-authenticated.html', context )
