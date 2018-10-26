@@ -31,27 +31,5 @@
 </div>
 
 
-<script type="text/javascript">
-        
-    if ($(document).width()<933) {
-        $('#leftsidebar').removeClass('visible');
-    }
 
-    $(document).ready(function(){
-        $('#leftsidebar').sidebar(
-            { 
-                dimPage: false , closable: false, transition: 'slide', 
-                onShow: function(){ 
-                    $('.pusher').addClass('content-panel');
-                },
-                onHidden:function(){
-                    $('.pusher').removeClass('content-panel');
-                }
-            }
-        ).sidebar(
-            'attach events', '#sidebar-openerbtn', 'toggle'
-        );
-    });
-
-</script>
 

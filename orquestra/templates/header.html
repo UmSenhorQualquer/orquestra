@@ -1,4 +1,4 @@
-{% if user.is_authenticated %}
+
 <div class="ui top fixed menu grid" id='top-menu'>
 
     <a class="ui item" id='sidebar-openerbtn'  data-transition="overlay" ><i class="sidebar icon large"></i></a>
@@ -26,6 +26,7 @@
         {% endifequal %}
     {% endfor %}
 
+    {% if user.is_authenticated %}
     <div class="right item ui simple dropdown" id='user-menu' >
         <i class="user icon label inverted circular yellow"></i> {{ user }} <i class="dropdown icon"></i>
         <div class="menu">
@@ -38,10 +39,10 @@
             <a class="item" href='/accounts/logout/'><i class="sign out icon"></i> Logout</a>
         </div>
     </div>
+    {% endif %}
 
 </div>
 
 
 <div style="padding-top: 42px;" ></div>
 
-{% endif %}

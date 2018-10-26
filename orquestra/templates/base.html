@@ -2,29 +2,58 @@
 <!DOCTYPE html />
 <html lang="en">
 <head>
-		<meta charset="utf-8"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-		<title>{{ title }}</title>
-		<link rel="stylesheet" type="text/css" href="/static/semantic-ui/semantic.css"></link>
-		<link rel="stylesheet" type="text/css" href="/static/orquestra.css" /></link>
-		<script type="text/javascript" src="/static/jquery.min.js"></script>
-		<script type="text/javascript" src="/static/semantic-ui/semantic.min.js"></script>
-		
-		{% block head %}{% endblock %}
-		{% block css %}{% endblock %}
-		{% block js %}{% endblock %}
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>{{ title }}</title>
+        <link rel="stylesheet" type="text/css" href="/static/semantic-ui/semantic.css"></link>
+        <link rel="stylesheet" type="text/css" href="/static/orquestra.css" /></link>
+        <script type="text/javascript" src="/static/jquery.min.js"></script>
+        <script type="text/javascript" src="/static/semantic-ui/semantic.min.js"></script>
+        
+        {% block head %}{% endblock %}
+        {% block css %}{% endblock %}
+        {% block js %}{% endblock %}
 </head>
 <body >
-	{% block sidebar %}{% endblock %}
+    {% block sidebar %}{% endblock %}
 
-	<div class='pusher content-panel' >
-		{% block header %}{% include "header.html" %}{% endblock %}		
-		{% block body %}{% endblock %}
-		{% block page_content %}{% endblock %}
-		{% block content %}{% endblock %}
-		{% block extra_body %}{% endblock %}
-		{% block extra_scripts %}{% endblock %}
-	</div>
+    <div class='pusher content-panel' >
+        {% block header %}{% include "header.html" %}{% endblock %}     
+        {% block body %}{% endblock %}
+        {% block page_content %}{% endblock %}
+        {% block content %}{% endblock %}
+        {% block extra_body %}{% endblock %}
+        {% block extra_scripts %}{% endblock %}
+    </div>
+
+    <script type="text/javascript">
+        // configure the side bar
+        var show_sidebar = localStorage.show_sidebar=='1' && $(document).width()>=933;
+  
+        if(!show_sidebar){
+            $('#leftsidebar').removeClass('visible');
+            $('.pusher').removeClass('content-panel');
+        }
+        
+        $(document).ready(function(){
+            $('#leftsidebar').sidebar(
+                { 
+                    dimPage: false , closable: false, transition: 'slide', 
+                    onShow: function(){ 
+                        $('.pusher').addClass('content-panel');
+                        localStorage.show_sidebar = 1;
+                    },
+                    onHidden:function(){
+                        $('.pusher').removeClass('content-panel');
+                        localStorage.show_sidebar = 0;
+                    }
+                }
+            ).sidebar(
+                'attach events', '#sidebar-openerbtn', 'toggle'
+            );
+        });
+        
+    </script>
 </body>
 </html>
 
