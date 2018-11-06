@@ -272,20 +272,28 @@ function show_window(name, label, url) {
 			if( res.result=='error' )
 				error_msg(res.msg);
 			else{
+				var window_exists = $('#'+dialog_id).length>0;
+				if( !window_exists )
+					$('body').append("<div class='ui modal' id='"+dialog_id+"' ></div>");
 				
-				var html = "<div class='ui modal' id='"+dialog_id+"' >";
-				html += '<i class="close icon"></i><div class="header">'+label+'</div>';
-				html += '<div class="content">';
-				html += "<form class='ui form"+res.css+"' id='app-"+res.app_id+"' >";
-				html += res.code;
-				html += '</form>';
-				html += '</div>';
-				html += '</div>';
+				var html = '<i class="close icon"></i><div class="header">'+label+'</div>';
+					html += '<div class="content">';
+					html += "<form class='ui form"+res.css+"' id='app-"+res.app_id+"' >";
+					html += res.code;
+					html += '</form>';
+					html += '</div>';
 
-				$('body').append(html);
-				$('#'+dialog_id).modal('setting', 'observe Changes', true).modal('setting', 'duration', 0).modal('setting', 'onHide', function(e){
-					pyforms.remove_app(res.app_id);
-				}).modal('show');
+				$('#'+dialog_id).html(html);
+				
+				if( !window_exists )	
+					$('#'+dialog_id).modal(
+						'setting', 'observe Changes', true).modal(
+						'setting', 'duration', 0).modal(
+						'setting', 'onHide', function(e){
+						pyforms.remove_app(res.app_id);
+					}).modal('show');
+				else
+					$('#'+dialog_id).modal('refresh').modal('show');
 			};
 		}
 	}).fail(function(xhr){
