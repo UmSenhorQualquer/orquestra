@@ -407,3 +407,7 @@ a.item.transition {
 .app-tab.container {
     margin-left: 0px !important;
 }
+
+body.pushable > .pusher{
+	background-color: #f1f4f5 !important;
+}
