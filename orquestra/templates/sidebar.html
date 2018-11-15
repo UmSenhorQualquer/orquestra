@@ -26,6 +26,16 @@
             {% endif %}
 
         {% endifequal %}
+
+        {% ifequal menu.menu_place 'external-links' %}
+            <a class="item" href="{{ menu.uid }}" target="_blank">
+                <div class="title">
+                    {% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
+                    {{ menu.label }}
+                </div>
+            </a>
+        {% endifequal %}
+
     {% endfor %}
 
 </div>
