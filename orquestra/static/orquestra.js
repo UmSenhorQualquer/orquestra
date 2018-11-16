@@ -68,7 +68,7 @@ function add_tab(name, label, url) {
 				var html = '';
 				html += '<div class="app-segment" >'
 				html += '<h2 class="ui medium right aligned header app-header">'+label+'</h2>';
-				html += "<form onkeypress='return event.keyCode!=13;' class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
+				html += "<form onsubmit='return false;' class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
 				html += res.code;
 				html += '</form>';
 				html += '</div>';
@@ -132,7 +132,7 @@ function add_tab_full(name, label, url) {
 				var html = '';
 				html += '<div class="app-segment" >'
 				html += '<h2 class="ui medium right aligned header app-header">'+label+'</h2>';
-				html += "<form onkeypress='return event.keyCode!=13;' class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
+				html += "<form onsubmit='return false;' class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
 				html += res.code;
 				html += '</form>';
 				html += '</div>';
@@ -162,7 +162,7 @@ function home(name, label, url){
 				var html = '';
 				html += '<div class="app-segment ui container" >'
 				html += '<h2 class="ui medium right aligned header app-header">'+label+'</h2>';
-				html += "<form onkeypress='return event.keyCode!=13;' class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
+				html += "<form onsubmit='return false;' class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
 				html += res.code;
 				html += '</form>';
 				html += '</div>';
@@ -190,7 +190,7 @@ function home_full(name, label, url){
 				var html = '';
 				html += '<div class="app-segment ui" >'
 				html += '<h2 class="ui medium right aligned header app-header">'+label+'</h2>';
-				html += "<form onkeypress='return event.keyCode!=13;' class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
+				html += "<form onsubmit='return false;' class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
 				html += res.code;
 				html += '</form>';
 				html += '</div>';
@@ -220,7 +220,7 @@ function append_home(name, label, url) {
 				html += '<div class="ui raised floated segment" style="margin:20px; min-width:650px;" >';
 				html += '<h2 class="ui right floated header">'+label+'</h2>';
 				html += '<div class="ui clearing divider"></div>';
-				html += "<form onkeypress='return event.keyCode!=13;' class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
+				html += "<form onsubmit='return false;' class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
 				html += res.code;
 				html += '</form>';
 				html += '</div>';
@@ -278,7 +278,7 @@ function show_window(name, label, url) {
 				
 				var html = '<i class="close icon"></i><div class="header">'+label+'</div>';
 					html += '<div class="content">';
-					html += "<form onkeypress='return event.keyCode!=13;' class='ui form"+res.css+"' id='app-"+res.app_id+"' >";
+					html += "<form onsubmit='return false;' class='ui form"+res.css+"' id='app-"+res.app_id+"' >";
 					html += res.code;
 					html += '</form>';
 					html += '</div>';
