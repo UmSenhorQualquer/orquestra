@@ -323,6 +323,8 @@ $(document).ready(function() {
 
 	pyforms.register_layout_place(4, home_full);
 	pyforms.register_layout_place(5, add_tab_full, activate_tab, close_tab);
+
+	pyforms_checkhash_wrapper();
 });
 
 
