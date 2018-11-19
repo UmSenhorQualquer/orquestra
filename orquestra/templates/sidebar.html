@@ -27,7 +27,15 @@
 
         {% endifequal %}
 
-        {% ifequal menu.menu_place 'external-links' %}
+
+
+    {% endfor %}
+
+    <div class="ui hidden divider"></div>
+
+    {% for menu in menu_plugins %}
+
+        {% ifequal menu.menu_place 'bottom-left' %}
             <a class="item" href="{{ menu.uid }}" target="_blank">
                 <div class="title">
                     {% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
@@ -37,7 +45,6 @@
         {% endifequal %}
 
     {% endfor %}
-
 </div>
 
 
