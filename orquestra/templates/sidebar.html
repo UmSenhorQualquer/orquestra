@@ -28,14 +28,30 @@
         {% endifequal %}
 
 
-
     {% endfor %}
 
-    <div class="ui hidden divider"></div>
 
     {% for menu in menu_plugins %}
 
+        {% ifequal menu.menu_place 'middle-left' %}
+            {% ifchanged menu.menu_place %}<div class="ui hidden divider"></div>{% endifchanged %}
+
+            <a class="item" href="{{ menu.uid }}" target="_blank">
+                <div class="title">
+                    {% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
+                    {{ menu.label }}
+                </div>
+            </a>
+        {% endifequal %}
+
+    {% endfor %}
+
+
+
+    {% for menu in menu_plugins %}
         {% ifequal menu.menu_place 'bottom-left' %}
+            {% ifchanged menu.menu_place %}<div class="ui hidden divider"></div>{% endifchanged %}
+
             <a class="item" href="{{ menu.uid }}" target="_blank">
                 <div class="title">
                     {% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}

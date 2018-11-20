@@ -79,7 +79,7 @@ def index(request, app_uid=None):
                 menu.show_submenu = True
 
     ## sort menus and submenus ######################################################################
-    menus = sorted(menus.values(), key=lambda x: x.order)
+    menus = sorted(menus.values(), key=lambda x: (x.menu_place, x.order) )
     for menu in menus: menu.submenus = sorted(menu.submenus, key=lambda x: x.order)
     #################################################################################################
 
