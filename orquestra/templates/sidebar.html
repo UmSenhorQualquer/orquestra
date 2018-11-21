@@ -6,7 +6,7 @@
 
     {% for menu in menu_plugins %}
         {% ifequal menu.menu_place 'left' %}
-            <a class="item {% if menu.active %}active{% endif %}" href="/app/{{ menu.uid }}/">
+            <a class="item {% if menu.active %}active{% endif %}" href="{{ menu.url }}" {{ menu.target }}>
                 <div class="title {% if menu.active or menu.submenu_active %}active{% endif %}">
                     {% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
                     {{ menu.label }}
@@ -17,7 +17,7 @@
             <div class="active content">
       
                 {% for submenu in menu.submenus %}
-                    <a class="item transition {% if submenu.active %}active{% endif %}" href="/app/{{ submenu.uid }}/" onclick="{{ submenu.js_call }}" >
+                    <a class="item transition {% if submenu.active %}active{% endif %}" href="{{ submenu.url }}" {{ submenu.target }} onclick="{{ submenu.js_call }}" >
                         {{ submenu.label }}
                         {% if submenu.icon %}<i class="{{submenu.icon}} icon"></i>{% endif %}
                     </a>
@@ -36,7 +36,7 @@
         {% ifequal menu.menu_place 'middle-left' %}
             {% ifchanged menu.menu_place %}<div class="ui hidden divider"></div>{% endifchanged %}
 
-            <a class="item" href="{{ menu.uid }}" target="_blank">
+            <a class="item" href="{{ menu.url }}" {{ menu.target }}>
                 <div class="title">
                     {% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
                     {{ menu.label }}
@@ -52,7 +52,7 @@
         {% ifequal menu.menu_place 'bottom-left' %}
             {% ifchanged menu.menu_place %}<div class="ui hidden divider"></div>{% endifchanged %}
 
-            <a class="item" href="{{ menu.uid }}" target="_blank">
+            <a class="item" href="{{ menu.url }}" {{ menu.target }}>
                 <div class="title">
                     {% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
                     {{ menu.label }}
