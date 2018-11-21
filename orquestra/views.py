@@ -85,7 +85,7 @@ def index(request, app_uid=None):
     for menu in menus: menu.submenus = sorted(menu.submenus, key=lambda x: x.order)
     #################################################################################################
 
-    if running_menu is None and len(menus)>0: running_menu = menus[0]
+    if running_menu is None and len(menus)>0: running_menu = sorted(menus, key=lambda x: x.order )[0]
 
     context = {'user': request.user}
     context.update({

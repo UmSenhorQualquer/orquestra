@@ -8,23 +8,20 @@
         {% ifequal menu.menu_place 'left' %}
             <a class="item {% if menu.active %}active{% endif %}" href="{{ menu.url }}" {{ menu.target }}>
                 <div class="title {% if menu.active or menu.submenu_active %}active{% endif %}">
-                    {% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
-                    {{ menu.label }}
-                    {% if menu.submenus %}<i class="dropdown icon"></i>{% endif %}
+                    {% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}{{ menu.label }}{% if menu.submenus %}<i class="dropdown icon"></i>{% endif %}
                 </div>
             </a>
             {% if menu.show_submenu and menu.submenus %}
-            <div class="active content">
-      
-                {% for submenu in menu.submenus %}
-                    <a class="item transition {% if submenu.active %}active{% endif %}" href="{{ submenu.url }}" {{ submenu.target }} onclick="{{ submenu.js_call }}" >
-                        {{ submenu.label }}
-                        {% if submenu.icon %}<i class="{{submenu.icon}} icon"></i>{% endif %}
-                    </a>
-                {% endfor %}
-            </div>
-            {% endif %}
+                <div class="active content">
 
+                    {% for submenu in menu.submenus %}
+                        <a class="item transition {% if submenu.active %}active{% endif %}" href="{{ submenu.url }}" {{ submenu.target }} onclick="{{ submenu.js_call }}" >
+                            {{ submenu.label }}
+                            {% if submenu.icon %}<i class="{{submenu.icon}} icon"></i>{% endif %}
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
         {% endifequal %}
 
 
@@ -35,13 +32,20 @@
 
         {% ifequal menu.menu_place 'middle-left' %}
             {% ifchanged menu.menu_place %}<div class="ui hidden divider"></div>{% endifchanged %}
-
-            <a class="item" href="{{ menu.url }}" {{ menu.target }}>
-                <div class="title">
-                    {% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
-                    {{ menu.label }}
+            <a class="item {% if menu.active %}active{% endif %}" href="{{ menu.url }}" {{ menu.target }}>
+                <div class="title {% if menu.active or menu.submenu_active %}active{% endif %}">
+                    {% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}{{ menu.label }}
                 </div>
             </a>
+            {% if menu.show_submenu and menu.submenus %}
+                <div class="active content">
+                    {% for submenu in menu.submenus %}
+                        <a class="item transition {% if submenu.active %}active{% endif %}" href="{{ submenu.url }}" {{ submenu.target }} onclick="{{ submenu.js_call }}" >
+                            {{ submenu.label }}{% if submenu.icon %}<i class="{{submenu.icon}} icon"></i>{% endif %}
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
         {% endifequal %}
 
     {% endfor %}
@@ -52,12 +56,20 @@
         {% ifequal menu.menu_place 'bottom-left' %}
             {% ifchanged menu.menu_place %}<div class="ui hidden divider"></div>{% endifchanged %}
 
-            <a class="item" href="{{ menu.url }}" {{ menu.target }}>
-                <div class="title">
-                    {% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
-                    {{ menu.label }}
+            <a class="item {% if menu.active %}active{% endif %}" href="{{ menu.url }}" {{ menu.target }}>
+                <div class="title {% if menu.active or menu.submenu_active %}active{% endif %}">
+                    {% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}{{ menu.label }}
                 </div>
             </a>
+            {% if menu.show_submenu and menu.submenus %}
+                <div class="active content">
+                    {% for submenu in menu.submenus %}
+                        <a class="item transition {% if submenu.active %}active{% endif %}" href="{{ submenu.url }}" {{ submenu.target }} onclick="{{ submenu.js_call }}" >
+                            {{ submenu.label }}{% if submenu.icon %}<i class="{{submenu.icon}} icon"></i>{% endif %}
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
         {% endifequal %}
 
     {% endfor %}
