@@ -2,7 +2,6 @@ from confapp                        import conf
 from django.conf                    import settings
 from django.http                    import HttpResponseRedirect
 from django.shortcuts               import render_to_response
-from django.contrib.auth.decorators import login_required
 from orquestra.apps_manager         import AppsManager
 
 

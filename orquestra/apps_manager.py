@@ -27,13 +27,7 @@ class AppsManager(object):
                 ): continue
 
             add = False
-            """
-            if hasattr(plugin_class, 'AUTHORIZED_GROUPS'):
-                if 'superuser' in plugin_class.AUTHORIZED_GROUPS and user.is_superuser:   add = True
-                if user.groups.filter(name__in=plugin_class.AUTHORIZED_GROUPS).exists():  add = True
-            else:
-                add = True
-            """
+
             if hasattr(plugin_class, 'has_permissions'):
                 if plugin_class.has_permissions(user): 
                     add = True
@@ -82,13 +76,9 @@ class AppsManager(object):
                         traceback.print_exc()
                     pass
                 """
-            except ImportError:
-                if conf.ORQUESTRA_SHOW_NO_MODULE_EXCEPTION:
-                    traceback.print_exc()
-            except (SyntaxError, ImportError):
+            except ModuleNotFoundError:
                 if conf.ORQUESTRA_SHOW_NO_MODULE_EXCEPTION:
                     traceback.print_exc()
             except:
-                if conf.ORQUESTRA_SHOW_NO_MODULE_EXCEPTION:
-                    traceback.print_exc()
+                traceback.print_exc()
                 
