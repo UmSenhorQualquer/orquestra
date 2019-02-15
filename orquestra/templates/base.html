@@ -8,6 +8,10 @@
 
         {% pyforms_dependencies %}
 
+        {% if extra_css_file %}
+            <link rel="stylesheet" type="text/css" href="{{ extra_css_file }}" /></link>
+        {% endif %}
+
         <link rel="stylesheet" type="text/css" href="/static/orquestra.css" /></link>
         <script type="text/javascript" src="/static/orquestra.js"></script>
 
