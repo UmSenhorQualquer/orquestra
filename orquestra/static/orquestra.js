@@ -259,7 +259,7 @@ function get_current_folder(){
 /*********************************************************/
 /*********************************************************/
 /*********************************************************/
-function show_window(name, label, url) {
+function show_window(name, label, url, bigwindow) {
 	var dialog_id = "dialog-"+name;
 
 	$.ajax({
@@ -273,9 +273,12 @@ function show_window(name, label, url) {
 				error_msg(res.msg);
 			else{
 				var window_exists = $('#'+dialog_id).length>0;
+				var extra_css = '';
+				if(bigwindow)
+					var extra_css = 'large';
 				if( !window_exists )
-					$('body').append("<div class='ui modal' id='"+dialog_id+"' ></div>");
-				
+					$('body').append(`<div class='ui ${extra_css} modal' id='${dialog_id}' ></div>`);
+
 				var html = '<i class="close icon"></i><div class="header">'+label+'</div>';
 					html += '<div class="content">';
 					html += "<form onsubmit='return false;' class='ui form"+res.css+"' id='app-"+res.app_id+"' >";
@@ -294,6 +297,8 @@ function show_window(name, label, url) {
 					}).modal('show');
 				else
 					$('#'+dialog_id).modal('refresh').modal('show');
+
+				setTimeout(`$('#${dialog_id}').modal('refresh');`, 200);
 			};
 		}
 	}).fail(function(xhr){
@@ -311,6 +316,10 @@ function close_window(app_id){
 	$('#'+dialog_id).modal('hide');
 	$('#'+dialog_id).remove();
 };
+
+function show_bigwindow(name, label, url) {
+	show_window(name, label, url, true);
+}
 /*********************************************************/
 /*********************************************************/
 /*********************************************************/
@@ -323,6 +332,8 @@ $(document).ready(function() {
 
 	pyforms.register_layout_place(4, home_full);
 	pyforms.register_layout_place(5, add_tab_full, activate_tab, close_tab);
+
+	pyforms.register_layout_place(6, show_bigwindow, activate_window, close_window);
 
 	pyforms_checkhash_wrapper();
 });
