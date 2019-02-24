@@ -32,6 +32,8 @@
         {% endif %}
 </head>
 <body >
+{% block fullcontent %}
+
     {% block sidebar %}{% endblock %}
 
     <div class='pusher content-panel' >
@@ -71,6 +73,7 @@
         });
         
     </script>
+{% endblock %}
 </body>
 </html>
 
