@@ -411,3 +411,48 @@ a.item.transition {
 body.pushable > .pusher{
 	background-color: #f1f4f5 !important;
 }
+
+input.ologin {
+  display: none;
+  visibility: hidden;
+}
+
+label.ologin {
+  display: block;
+  padding: 0.5em;
+  text-align: center;
+  border-bottom: 1px solid #CCC;
+  color: #666;
+}
+
+label.ologin:hover {
+  color: #000;
+}
+
+label.ologin::before {
+  font-family: Consolas, monaco, monospace;
+  font-weight: bold;
+  font-size: 15px;
+  content: "+";
+  vertical-align: text-top;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 3px;
+  background: radial-gradient(ellipse at center, #CCC 50%, transparent 50%);
+}
+#expand {
+  height: 0px;
+  overflow: hidden;
+  transition: height 0.5s;
+  color: #FFF;
+}
+section {
+  padding: 0 20px;
+}
+#toggle:checked ~ #expand {
+  height: 350px;
+}
+#toggle:checked ~ label.ologin::before {
+  content: "-";
+}
