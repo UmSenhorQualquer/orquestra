@@ -95,7 +95,7 @@ def index(request, app_uid=None):
         'javascript_files': javascript_files,
         'running_menu': running_menu,
         'GOOGLE_ANALYTICS': conf.ORQUESTRA_GOOGLE_ANALYTICS,
-        'extra_css_file': conf.ORQUESTRA_EXTRA_CSS_FILE
+        'extra_css_file': conf.ORQUESTRA_EXTRA_CSS_FILE,
     })
 
     return render_to_response('base-authenticated.html', context )
