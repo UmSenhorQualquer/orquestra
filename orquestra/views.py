@@ -88,6 +88,7 @@ def index(request, app_uid=None):
 
     context = {'user': request.user}
     context.update({
+        'title': conf.ORQUESTRA_PAGE_TITLE,
         'submenu_title': conf.ORQUESTRA_TITLE,
         'menu_plugins': menus,
         'active_menus': list(set(active_menus)),
