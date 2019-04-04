@@ -290,6 +290,7 @@ function show_window(name, label, url, bigwindow) {
 				
 				if( !window_exists )	
 					$('#'+dialog_id).modal(
+						'setting', 'autofocus', false).modal(
 						'setting', 'observe Changes', true).modal(
 						'setting', 'duration', 0).modal(
 						'setting', 'onHide', function(e){
