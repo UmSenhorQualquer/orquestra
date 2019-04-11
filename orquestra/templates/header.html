@@ -7,12 +7,12 @@
         {% ifequal menu.menu_place 'top' %}
             {% if menu.submenus %}
                 <div class="item ui simple dropdown">
-                    <i class="ui {{ menu.icon }} icon"></i> {{ menu.label }} <i class="dropdown icon"></i>
+                    <i class="ui {{ menu.icon }} icon"></i> {{ menu.label|safe }} <i class="dropdown icon"></i>
                     <div class="menu">
                         {% for submenu in menu.submenus %}
                             <a class="item"  href="/app/{{ submenu.uid }}/" >
                                 {% if submenu.icon %}<i class="{{submenu.icon}} icon"></i>{% endif %}
-                                {{ submenu.label }}
+                                {{ submenu.label|safe }}
                             </a>
                         {% endfor %}
                     </div>
@@ -20,7 +20,7 @@
             {% else %}
                 <a class="item" id="menu-{{ menu.anchor }}" href="/app/{{ menu.uid }}/" >
                     {% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
-                    {{ menu.label }}
+                    {{ menu.label|safe }}
                 </a>
             {% endif %}
         {% endifequal %}
@@ -33,7 +33,7 @@
             {% for menu in menu_plugins %}{% ifequal menu.menu_place 'user' %}
             <a class="item"  href="/app/{{ menu.uid }}/" >
                 {% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
-                {{ menu.label }}
+                {{ menu.label|safe }}
             </a>
             {% endifequal %}{% endfor %}
             <a class="item" href='/accounts/logout/'><i class="sign out icon"></i> Logout</a>
