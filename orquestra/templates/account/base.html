@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block css %}
+<style type="text/css">
+body {
+  background-color: #DADADA;
+}
+
+[action] {
+  /* override pyforms behaviour of using pointer */
+  cursor: auto !important;
+}
+
+body>.grid {
+  height: 100%;
+}
+
+.column {
+  max-width: 450px;
+}
+</style>
+{% endblock %}
