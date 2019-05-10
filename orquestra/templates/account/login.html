@@ -6,18 +6,28 @@
 {% get_providers as socialaccount_providers %}
 <div class="ui middle aligned center aligned grid container">
   <div class="column">
-    <form class="ui large form login {% if form.errors %}error{% endif %}" method="post" action="{% url 'account_login' %}">
-      {% csrf_token %}
-      <div class="ui segment">
-        {% if socialaccount_providers %}
-        {% for provider in socialaccount_providers%}
-        <a href="{% provider_login_url provider.id %}" class="ui fluid large {{ provider.id }} {% if provider.id == 'google' %}plus{% endif %} labeled icon button">
-          <i class="{{ provider.id }} icon"></i>
-          Sign in with {{ provider.name }}
-        </a>
-        {% endfor %}
-        {% include "socialaccount/snippets/login_extra.html" %}
-        <div class="ui section horizontal divider">Or</div>
+    <div class="ui segment">
+      {% if socialaccount_providers %}
+      {% for provider in socialaccount_providers%}
+      <a href="{% provider_login_url provider.id %}" class="ui fluid large {{ provider.id }} {% if provider.id == 'google' %}plus{% endif %} labeled icon button">
+        <i class="{{ provider.id }} icon"></i>
+        Sign in with {{ provider.name }}
+      </a>
+      {% endfor %}
+      {% include "socialaccount/snippets/login_extra.html" %}
+      <div class="ui section horizontal divider">Or</div>
+      {% endif %}
+      <form class="ui fluid large form {% if form.errors %}error{% endif %}" method="post" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+        <div class="ui error message">
+          {% for error in form.non_field_errors %}
+          {# <i class="exclamation triangle icon"></i> #}
+          <div class="content">
+            {{ error }}
+          </div>
+          {% endfor %}
+        </div>
         {% endif %}
         {% for field in form.visible_fields %}
         <div class="field">
@@ -39,19 +49,15 @@
         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
         <button class="ui fluid large primary submit button" type="submit">{% trans "Sign In" %}</button>
-      </div>
-      {% if form.non_field_errors %}
-      <div class="ui error message">
-        {% for error in form.non_field_errors %}
-        {{ error }}
-        {% endfor %}
-      </div>
-      {% endif %}
-    </form>
-    <div class="ui message">
-      New to us? <a href="{% url 'account_signup' %}">Sign Up</a><br />
-      Forgot your password? <a href="{% url 'account_reset_password' %}">Reset it here</a>
+      </form>
+      <div class="ui divider"></div>
+      <p>New to us? <a href="{% url 'account_signup' %}">Sign up here</a> instead.</p>
     </div>
+    {% if form.non_field_errors %}
+    <div class="ui warning message">
+      <p>Forgot your password? <a href="{% url 'account_reset_password' %}">Reset it here</a>.</p>
+    </div>
+    {% endif %}
   </div>
 </div>
 {% endblock %}
