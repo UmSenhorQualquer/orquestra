@@ -50,7 +50,7 @@
         <button class="ui fluid large primary submit button" type="submit">{% trans "Sign In" %}</button>
       </form>
       <div class="ui divider"></div>
-      <p>New to us? <a href="{% url 'account_signup' %}">Sign up here</a> instead.</p>
+      <p>{% blocktrans %}New to us? <a href="{{ signup_url }}">Sign up here</a> instead.{% endblocktrans %}</p>
     </div>
     {% if form.non_field_errors %}
     <div class="ui warning message">
