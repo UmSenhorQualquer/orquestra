@@ -9,10 +9,12 @@
     <div class="ui segment">
       {% if socialaccount_providers %}
       {% for provider in socialaccount_providers%}
-      <a href="{% provider_login_url provider.id %}" class="ui fluid large {{ provider.id }} {% if provider.id == 'google' %}plus{% endif %} labeled icon button">
-        <i class="{{ provider.id }} icon"></i>
-        Sign in with {{ provider.name }}
-      </a>
+      <div class="ui link list">
+        <a href="{% provider_login_url provider.id %}" class="ui fluid large {{ provider.id }} {% if provider.id == 'google' %}plus{% endif %} labeled icon button">
+          <i class="{{ provider.id }} icon"></i>
+          Sign in with {{ provider.name }}
+        </a>
+      </div>
       {% endfor %}
       {% include "socialaccount/snippets/login_extra.html" %}
       <div class="ui section horizontal divider">Or</div>
