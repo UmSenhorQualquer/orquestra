@@ -3,6 +3,14 @@ from django.apps import apps
 from pyforms_web.basewidget import BaseWidget
 from confapp import conf
 
+# Used for older python version
+try:
+    ModuleNotFoundError
+except:
+    class ModuleNotFoundError(Exception):
+        pass
+
+
 class AppsManager(object):
 
     def __init__(self):
