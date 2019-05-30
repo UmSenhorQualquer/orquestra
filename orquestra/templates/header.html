@@ -1,3 +1,6 @@
+{% load account %}
+
+{% user_display user as user_display %}
 
 <div class="ui top fixed menu grid" id='top-menu'>
 
@@ -30,7 +33,7 @@
 
     {% if user.is_authenticated %}
     <div class="right item ui simple dropdown" id='user-menu' >
-        <i class="user icon label inverted circular yellow"></i> {{ user }} <i class="dropdown icon"></i>
+        <i class="user icon label inverted circular yellow"></i>{{ user_display }}<i class="dropdown icon"></i>
         <div class="menu">
             {% for menu in menu_plugins %}{% ifequal menu.menu_place 'user' %}
             <a class="item"  href="/app/{{ menu.uid }}/" >
