@@ -1,6 +1,3 @@
-{% if user.is_authenticated %}
-    {% include 'header-user-display.html' %}
-{% endif %}
 <div class="ui top fixed menu grid" id='top-menu'>
 
     {% if 'left' in active_menus %}
@@ -31,6 +28,8 @@
     {% endfor %}
 
     {% if user.is_authenticated %}
+    {% load account %}
+    {% user_display user as user_display %}
     <div class="right item ui simple dropdown" id='user-menu' >
         <i class="user icon label inverted circular yellow"></i>{{ user_display }}<i class="dropdown icon"></i>
         <div class="menu">
