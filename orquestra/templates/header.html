@@ -1,7 +1,6 @@
-{% load account %}
-
-{% user_display user as user_display %}
-
+{% if user.is_authenticated %}
+    {% include 'header-user-display.html' %}
+{% endif %}
 <div class="ui top fixed menu grid" id='top-menu'>
 
     {% if 'left' in active_menus %}
