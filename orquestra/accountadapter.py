@@ -1,6 +1,9 @@
 from allauth.account.adapter import DefaultAccountAdapter
+from allauth.exceptions import ImmediateHttpResponse
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
 from django.conf import settings
+from django.shortcuts import render_to_response
+
 
 class OrquestraAccountAdapter(DefaultAccountAdapter):
 
