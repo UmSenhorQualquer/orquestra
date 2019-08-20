@@ -10,6 +10,9 @@
                 <div class="item ui simple dropdown">
                     <i class="ui {{ menu.icon }} icon"></i> {{ menu.label|safe }} <i class="dropdown icon"></i>
                     <div class="menu">
+                        <a class="item"  href="/app/{{ menu.uid }}/" >
+                            <i class="ui {{ menu.icon }} icon"></i> {{ menu.label|safe }}
+                        </a>
                         {% for submenu in menu.submenus %}
                             <a class="item"  href="/app/{{ submenu.uid }}/" >
                                 {% if submenu.icon %}<i class="{{submenu.icon}} icon"></i>{% endif %}
