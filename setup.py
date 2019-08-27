@@ -7,7 +7,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
 	name='Orquestra',
-	version='1.3',
+	version='1.4',
 	packages=find_packages(),
 	include_package_data=True,
 	description='There for pyforms web.',
@@ -45,6 +45,7 @@ setup(
 		'static/semantic-ui/themes/default/assets/fonts/*.*',
 		'templates/*.html',
 		'templates/account/*.html',
+		'templates/account/snippets/*.html',
 		'templates/plugins/*.js',		
 		]
 	},
