@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block sidebar %}
-	{% if 'left' in active_menus or 'middle-left' in active_menus %}
+	{% if 'left' in active_menus or 'middle-left' in active_menus or 'bottom-left' in active_menus %}
 		{% include "sidebar.html" %}
 	{% endif %}
 {% endblock %}

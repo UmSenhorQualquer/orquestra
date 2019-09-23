@@ -1,6 +1,6 @@
 <div class="ui top fixed menu grid" id='top-menu'>
 
-    {% if 'left' in active_menus %}
+    {% if 'left' in active_menus or 'middle-left' in active_menus or 'bottom-left' in active_menus %}
         <a class="ui item" id='sidebar-openerbtn'  data-transition="overlay" ><i class="sidebar icon large"></i></a>
     {% endif %}
 
