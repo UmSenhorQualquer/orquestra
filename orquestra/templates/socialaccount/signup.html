@@ -1,0 +1,51 @@
+{% extends "socialaccount/base.html" %}
+{% load i18n %}
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block fullcontent %}
+<div class="ui middle aligned center aligned grid container">
+  <div class="column">
+    <div class="ui segment">
+      <h1 class="ui header">
+        {% trans "Sign Up" %}
+      </h1>
+      <p>{% blocktrans with provider_name=account.get_provider.name site_name=site.name %}You are about to use your {{provider_name}} account to login to
+      {{site_name}}. As a final step, please complete the following form:{% endblocktrans %}</p>
+      <form class="ui fluid large form {% if form.errors %}error{% endif %}" id="signup_form" method="post" action="{% url 'socialaccount_signup' %}">
+        {% csrf_token %}
+        {% for field in form.visible_fields %}
+        <div class="field {% if field.errors %}error{% endif %}">
+          <div class="ui left icon input">
+            {% if 'E-mail' in field.label %}
+            <i class="mail icon"></i>
+            {% elif 'Password' in field.label %}
+            <i class="key icon"></i>
+            {% else %}pippip
+            <i class="user icon"></i>
+            {% endif %}
+            {{ field }}
+          </div>
+        </div>
+        {% endfor %}
+        {% if form.errors %}
+        <div class="ui tiny error message">
+          <ul class="list">
+            {% for field, errors in form.errors.items %}
+            {% for error in errors %}
+            <li class="item">
+            {{ error|escape }}</li>
+            {% endfor %}
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <button class="ui fluid large primary submit button" type="submit">{% trans "Sign Up" %}</button>
+      </form>
+      <div class="ui divider"></div>
+      {% include "account/snippets/go_back.html" %}
+    </div>
+  </div>
+</div>
+{% endblock %}
