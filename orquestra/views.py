@@ -1,7 +1,7 @@
 from confapp                        import conf
 from django.conf                    import settings
 from django.http                    import HttpResponseRedirect
-from django.shortcuts               import render_to_response
+from django.shortcuts               import render
 from orquestra.apps_manager         import AppsManager
 
 
@@ -12,7 +12,7 @@ def index(request, app_uid=None):
     # no plugins are available.
     # it will show the default application
     if len(plugins)==0:
-        return render_to_response('default-app.html' )
+        return render(request, 'default-app.html' )
 
     if  conf.ORQUESTRA_REQUIREAUTH and \
         not request.user.is_authenticated:
@@ -99,5 +99,5 @@ def index(request, app_uid=None):
         'extra_css_file': conf.ORQUESTRA_EXTRA_CSS_FILE
     })
 
-    return render_to_response('base-authenticated.html', context )
+    return render(request, 'base-authenticated.html', context )
 
