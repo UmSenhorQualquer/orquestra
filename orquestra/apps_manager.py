@@ -1,6 +1,5 @@
 import traceback, inspect
 from django.apps import apps
-from pyforms_web.basewidget import BaseWidget
 from confapp import conf
 
 # Used for older python version
@@ -48,23 +47,6 @@ class AppsManager(object):
 
         return res
 
-
-
-    def export_settings(self, filename):
-        out = open(filename, 'w')
-
-        apps = {}
-        
-        for plugin_class in self.plugins:
-            if issubclass(plugin_class, BaseWidget):
-                print(plugin_class)
-                apps[plugin_class.__name__.lower()] = '{0}.{1}'.format(
-                    plugin_class.__module__,
-                    plugin_class.__name__
-                )
-
-        out.write( "PYFORMS_APPS = "+str(apps) )
-        out.close()
 
 
     def search_4_plugins(self):

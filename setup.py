@@ -29,7 +29,7 @@ setup(
 		'Topic :: Internet :: WWW/HTTP',
 		'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
 	],
-    install_requires=['django-allauth'],
+    install_requires=['django-allauth','confapp'],
 	package_data={'orquestra': [
 		'static/*.*',
 		'static/jquery-ui/*.js',
