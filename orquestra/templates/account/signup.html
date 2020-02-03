@@ -1,95 +1,49 @@
-{% extends "base.html" %}{% load i18n %}
-
+{% extends "account/base.html" %}
+{% load i18n %}
 {% block head_title %}{% trans "Signup" %}{% endblock %}
-
 {% block fullcontent %}
-<style type="text/css">body{ background-color: #DADADA; }</style>
-
-<div style="margin: auto;position:relative; width:500px; top: 50vh;transform: translateY(-50%);" class="ui middle aligned center aligned basic segment">
-
-	<div class="ui column middle aligned very relaxed stackable grid">
-		<div class="column">
-			<h1>{% trans "Sign Up" %}</h1>
-
-			<div class="ui message">
-
-				<form method="post" class="ui form error" id="signup_form" action="{% url 'account_signup' %}">
-					{% csrf_token %}
-					
-					<div class="field">
-						
-						{% if form.username.errors %}
-							<div class="ui error message">
-								<ul class="list">
-									{% for error in form.username.errors %}
-										<li>{{ error|escape }}</li>
-									{% endfor %}
-								</ul>
-							</div>
-						{% endif %}
-
-						<label for="{{ form.username.id_for_label }}">{{form.username.label}}</label>
-						{{ form.username }}					
-					</div>
-
-					<div class="field">
-					
-						{% if form.email.errors %}
-							<div class="ui error message">
-								<ul class="list">
-									{% for error in form.email.errors %}
-										<li>{{ error|escape }}</li>
-									{% endfor %}
-								</ul>
-							</div>
-						{% endif %}
-
-						<label for="{{ form.email.id_for_label }}">{{form.email.label}}</label>
-						{{ form.email }}					
-					</div>
-
-					<div class="field">
-						
-						{% if form.password1.errors %}
-							<div class="ui error message">
-								<ul class="list">
-									{% for error in form.password1.errors %}
-										<li>{{ error|escape }}</li>
-									{% endfor %}
-								</ul>
-							</div>
-						{% endif %}
-
-						<label for="{{ form.password1.id_for_label }}">{{form.password1.label}}</label>
-						{{ form.password1 }}					
-					</div>
-
-					<div class="field">
-						
-						{% if form.password2.errors %}
-							<div class="ui error message">
-								<ul class="list">
-									{% for error in form.password2.errors %}
-										<li>{{ error|escape }}</li>
-									{% endfor %}
-								</ul>
-							</div>
-						{% endif %}
-						
-						<label for="{{ form.password2.id_for_label }}">{{form.password2.label}}</label>
-						{{ form.password2 }}					
-					</div>
-					
-					{% if redirect_field_value %}
-					<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-					{% endif %}
-					<button class="ui fluid large teal submit button" type="submit">{% trans "Sign Up" %} &raquo;</button>
-				</form>	
-
-			</div>		
-			<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
-		</div>
-	</div>
+<div class="ui middle aligned center aligned grid container">
+  <div class="column">
+    <div class="ui segment">
+      <h1 class="ui header">
+        {% trans "Sign Up" %}
+      </h1>
+      <form class="ui fluid large form {% if form.errors %}error{% endif %}" id="signup_form" method="post" action="{% url 'account_signup' %}">
+        {% csrf_token %}
+        {% for field in form.visible_fields %}
+        <div class="field {% if field.errors %}error{% endif %}">
+          <div class="ui left icon input">
+            {% if 'E-mail' in field.label %}
+            <i class="mail icon"></i>
+            {% elif 'Password' in field.label %}
+            <i class="key icon"></i>
+            {% else %}
+            <i class="user icon"></i>
+            {% endif %}
+            {{ field }}
+          </div>
+        </div>
+        {% endfor %}
+        {% if form.errors %}
+        <div class="ui tiny error message">
+          <ul class="list">
+            {% for field, errors in form.errors.items %}
+            {% for error in errors %}
+            <li class="item">
+              {{ error|escape }}</li>
+            {% endfor %}
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <button class="ui fluid large primary submit button" type="submit">{% trans "Sign Up" %}</button>
+      </form>
+      <div class="ui divider"></div>
+      <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+    </div>
+  </div>
 </div>
-
 {% endblock %}

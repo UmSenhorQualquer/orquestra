@@ -1,0 +1,20 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+{% block head_title %}{% trans "Account Inactive" %}{% endblock %}
+{% block fullcontent %}
+<div class="ui middle aligned center aligned grid container">
+  <div class="column">
+    <div class="ui segment">
+      <h1 class="ui icon header">
+        <i class="ban icon"></i>
+        <div class="content">
+          {% trans "Account Inactive" %}
+        </div>
+      </h1>
+      <p>{% trans "This account is inactive." %}</p>
+      {% include "account/snippets/go_back.html" %}
+    </div>
+    {% block extra %}{% endblock %}
+  </div>
+</div>
+{% endblock %}

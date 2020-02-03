@@ -7,7 +7,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
 	name='Orquestra',
-	version='1.2',
+	version='1.5',
 	packages=find_packages(),
 	include_package_data=True,
 	description='There for pyforms web.',
@@ -29,7 +29,7 @@ setup(
 		'Topic :: Internet :: WWW/HTTP',
 		'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
 	],
-    install_requires=['django-allauth'],
+    install_requires=['django-allauth','confapp'],
 	package_data={'orquestra': [
 		'static/*.*',
 		'static/jquery-ui/*.js',
@@ -45,6 +45,7 @@ setup(
 		'static/semantic-ui/themes/default/assets/fonts/*.*',
 		'templates/*.html',
 		'templates/account/*.html',
+		'templates/account/snippets/*.html',
 		'templates/plugins/*.js',		
 		]
 	},

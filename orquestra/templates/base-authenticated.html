@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load thumbnail %}
 
 {% block js %}
     {% for staticfile in styles_files %}<link rel="stylesheet" type="text/css" href="/static/{{staticfile}}">
@@ -9,7 +8,7 @@
 {% endblock %}
 
 {% block sidebar %}
-	{% if 'left' in active_menus %}
+	{% if 'left' in active_menus or 'middle-left' in active_menus or 'bottom-left' in active_menus %}
 		{% include "sidebar.html" %}
 	{% endif %}
 {% endblock %}

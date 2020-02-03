@@ -1,7 +1,6 @@
-
 <div class="ui top fixed menu grid" id='top-menu'>
 
-    {% if 'left' in active_menus %}
+    {% if 'left' in active_menus or 'middle-left' in active_menus or 'bottom-left' in active_menus %}
         <a class="ui item" id='sidebar-openerbtn'  data-transition="overlay" ><i class="sidebar icon large"></i></a>
     {% endif %}
 
@@ -11,6 +10,9 @@
                 <div class="item ui simple dropdown">
                     <i class="ui {{ menu.icon }} icon"></i> {{ menu.label|safe }} <i class="dropdown icon"></i>
                     <div class="menu">
+                        <a class="item"  href="/app/{{ menu.uid }}/" >
+                            <i class="ui {{ menu.icon }} icon"></i> {{ menu.label|safe }}
+                        </a>
                         {% for submenu in menu.submenus %}
                             <a class="item"  href="/app/{{ submenu.uid }}/" >
                                 {% if submenu.icon %}<i class="{{submenu.icon}} icon"></i>{% endif %}
@@ -29,18 +31,7 @@
     {% endfor %}
 
     {% if user.is_authenticated %}
-    <div class="right item ui simple dropdown" id='user-menu' >
-        <i class="user icon label inverted circular yellow"></i> {{ user }} <i class="dropdown icon"></i>
-        <div class="menu">
-            {% for menu in menu_plugins %}{% ifequal menu.menu_place 'user' %}
-            <a class="item"  href="/app/{{ menu.uid }}/" >
-                {% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
-                {{ menu.label|safe }}
-            </a>
-            {% endifequal %}{% endfor %}
-            <a class="item" href='/accounts/logout/'><i class="sign out icon"></i> Logout</a>
-        </div>
-    </div>
+    {% include "header-authenticated.html" %}
     {% endif %}
 
 </div>

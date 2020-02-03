@@ -1,28 +1,25 @@
-{% extends "account/base.html" %}
+{% extends "socialaccount/base.html" %}
 {% load i18n %}
-{% block head_title %}{% trans "Change Password" %}{% endblock %}
+{% block head_title %}{% trans "Signup" %}{% endblock %}
 {% block fullcontent %}
 <div class="ui middle aligned center aligned grid container">
   <div class="column">
     <div class="ui segment">
       <h1 class="ui header">
-        {% if token_fail %}{% trans "Bad Token" %}{% else %}{% trans "Change Password" %}{% endif %}
+        {% trans "Sign Up" %}
       </h1>
-      {% if token_fail %}
-      {% url 'account_reset_password' as passwd_reset_url %}
-      <p>{% blocktrans %}The password reset link was invalid, possibly because it has already been used. Please request a <a href="{{ passwd_reset_url }}">new password reset</a>.{% endblocktrans %}</p>
-      {% else %}
-      {% if form %}
-      <form class="ui fluid large form {% if form.errors %}error{% endif %}" method="POST" action="{{ action_url }}">
+      <p>{% blocktrans with provider_name=account.get_provider.name site_name=site.name %}You are about to use your {{provider_name}} account to login to
+      {{site_name}}. As a final step, please complete the following form:{% endblocktrans %}</p>
+      <form class="ui fluid large form {% if form.errors %}error{% endif %}" id="signup_form" method="post" action="{% url 'socialaccount_signup' %}">
         {% csrf_token %}
         {% for field in form.visible_fields %}
-        <div class="field">
+        <div class="field {% if field.errors %}error{% endif %}">
           <div class="ui left icon input">
             {% if 'E-mail' in field.label %}
             <i class="mail icon"></i>
             {% elif 'Password' in field.label %}
             <i class="key icon"></i>
-            {% else %}
+            {% else %}pippip
             <i class="user icon"></i>
             {% endif %}
             {{ field }}
@@ -35,7 +32,7 @@
             {% for field, errors in form.errors.items %}
             {% for error in errors %}
             <li class="item">
-              {{ error|escape }}</li>
+            {{ error|escape }}</li>
             {% endfor %}
             {% endfor %}
           </ul>
@@ -44,12 +41,10 @@
         {% if redirect_field_value %}
         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
-        <input class="ui fluid large primary submit button" type="submit" name="action" value="{% trans 'Change Password' %}" />
+        <button class="ui fluid large primary submit button" type="submit">{% trans "Sign Up" %}</button>
       </form>
-      {% else %}
-      <p>{% trans 'Your password is now changed.' %}</p>
-      {% endif %}
-      {% endif %}
+      <div class="ui divider"></div>
+      {% include "account/snippets/go_back.html" %}
     </div>
   </div>
 </div>
