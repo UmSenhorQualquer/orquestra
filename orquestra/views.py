@@ -22,9 +22,10 @@ def index(request, app_uid=None):
     ##### find the style and javscripts files #################################################
     style_files, javascript_files = [], []
     for plugin in plugins:
-        for staticfile in plugin.STATIC_FILES:
-            if staticfile.endswith('.css'): style_files.append(staticfile)
-            if staticfile.endswith('.js'):  javascript_files.append(staticfile)
+        if hasattr(plugin, 'STATIC_FILES'):
+            for staticfile in plugin.STATIC_FILES:
+                if staticfile.endswith('.css'): style_files.append(staticfile)
+                if staticfile.endswith('.js'):  javascript_files.append(staticfile)
     ###########################################################################################
 
     #### load menus ###########################################################################

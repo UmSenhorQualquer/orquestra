@@ -78,12 +78,7 @@ class AppsManager(object):
                     obj = getattr(apps_module, name)
                     if inspect.isclass(obj) and hasattr(obj, 'LAYOUT_POSITION'):
                         self.append( obj )
-                """
-                except ModuleNotFoundError:
-                    if conf.ORQUESTRA_SHOW_NO_MODULE_EXCEPTION:
-                        traceback.print_exc()
-                    pass
-                """
+
             except ModuleNotFoundError:
                 if conf.ORQUESTRA_SHOW_NO_MODULE_EXCEPTION:
                     traceback.print_exc()
