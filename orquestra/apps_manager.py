@@ -68,20 +68,23 @@ class AppsManager(object):
 
 
     def search_4_plugins(self):
-        for app in apps.get_app_configs():
-            try:
-                apss_modulename = '{0}.apps'.format(app.module.__name__)
+        places = ['pyforms_apps', 'pyforms_apps']
 
-                apps_module = __import__( apss_modulename, fromlist=[''] )
-                
-                for name in dir(apps_module):
-                    obj = getattr(apps_module, name)
-                    if inspect.isclass(obj) and hasattr(obj, 'LAYOUT_POSITION'):
-                        self.append( obj )
+        for place in places:
+            for app in apps.get_app_configs():
+                try:
+                    apss_modulename = f'{app.module.__name__}.{place}'
 
-            except ModuleNotFoundError:
-                if conf.ORQUESTRA_SHOW_NO_MODULE_EXCEPTION:
+                    apps_module = __import__( apss_modulename, fromlist=[''] )
+
+                    for name in dir(apps_module):
+                        obj = getattr(apps_module, name)
+                        if inspect.isclass(obj) and hasattr(obj, 'LAYOUT_POSITION'):
+                            self.append( obj )
+
+                except ModuleNotFoundError:
+                    if conf.ORQUESTRA_SHOW_NO_MODULE_EXCEPTION:
+                        traceback.print_exc()
+                except:
                     traceback.print_exc()
-            except:
-                traceback.print_exc()
-                
+
