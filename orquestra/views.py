@@ -29,7 +29,8 @@ def index(request, app_uid=None):
     ###########################################################################################
 
     #### load menus ###########################################################################
-    plugins4menus = sorted(manager.menu(request.user), key=lambda x: (x.ORQUESTRA_MENU,len(x.ORQUESTRA_MENU)) )
+    plugins4menus = list(set(manager.menu(request.user)))
+    plugins4menus = sorted(plugins4menus, key=lambda x: (x.ORQUESTRA_MENU,len(x.ORQUESTRA_MENU)) )
     menus         = {}
     active_menus  = {}
 
