@@ -83,7 +83,7 @@ class AppsManager(object):
                             self.append( obj )
 
                 except ModuleNotFoundError:
-                    if conf.ORQUESTRA_SHOW_NO_MODULE_EXCEPTION:
+                    if conf.PYFORMS_VERBOSE:
                         traceback.print_exc()
                 except:
                     traceback.print_exc()
