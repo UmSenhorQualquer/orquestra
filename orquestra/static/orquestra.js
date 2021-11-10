@@ -48,7 +48,7 @@ function add_tab(name, label, url) {
 					$('#applications-tab-content .app-tab.tab[data-tab="'+tabname+'"]').remove();
 					$('#applications-tab-menu .app-tab.item[data-tab="'+tabname+'"]').prev().click();
 					$('#applications-tab-menu .app-tab.item[data-tab="'+tabname+'"]').remove();
-					pyforms.garbage_collector();				  
+					pyforms.garbage_collector();
 					return true;
 				}
 			}).modal('show');
@@ -112,7 +112,7 @@ function add_tab_full(name, label, url) {
 					$('#applications-tab-content .app-tab.tab[data-tab="'+tabname+'"]').remove();
 					$('#applications-tab-menu .app-tab.item[data-tab="'+tabname+'"]').prev().click();
 					$('#applications-tab-menu .app-tab.item[data-tab="'+tabname+'"]').remove();
-					pyforms.garbage_collector();				  
+					pyforms.garbage_collector();
 					return true;
 				}
 			}).modal('show');
@@ -287,8 +287,8 @@ function show_window(name, label, url, bigwindow) {
 					html += '</div>';
 
 				$('#'+dialog_id).html(html);
-				
-				if( !window_exists )	
+
+				if( !window_exists )
 					$('#'+dialog_id).modal(
 						'setting', 'autofocus', false).modal(
 						'setting', 'observe Changes', true).modal(
