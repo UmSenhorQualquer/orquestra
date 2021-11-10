@@ -22,7 +22,7 @@ class AppsManager(object):
     @property
     def plugins(self): return self._plugins_list
 
-    
+
     def menu(self, user=None, menus=None):
         res = []
 
@@ -37,11 +37,11 @@ class AppsManager(object):
             add = False
 
             if hasattr(plugin_class, 'has_permissions'):
-                if plugin_class.has_permissions(user): 
+                if plugin_class.has_permissions(user):
                     add = True
             else:
                 add = True
-            
+
             if add: res.append(plugin_class)
 
             plugin_class.fullname = '{0}.{1}'.format( plugin_class.__module__,plugin_class.__name__)
@@ -54,10 +54,9 @@ class AppsManager(object):
         out = open(filename, 'w')
 
         apps = {}
-        
+
         for plugin_class in self.plugins:
             if issubclass(plugin_class, BaseWidget):
-                print(plugin_class)
                 apps[plugin_class.__name__.lower()] = '{0}.{1}'.format(
                     plugin_class.__module__,
                     plugin_class.__name__
