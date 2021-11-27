@@ -67,7 +67,7 @@ function add_tab(name, label, url) {
 			else{
 				var html = '';
 				html += '<div class="app-segment" >'
-				html += '<h2 class="ui medium right aligned header app-header">'+label+'</h2>';
+				//html += '<h2 class="ui medium right aligned header app-header">'+label+'</h2>';
 				html += "<form onsubmit='return false;' class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
 				html += res.code;
 				html += '</form>';
@@ -131,7 +131,7 @@ function add_tab_full(name, label, url) {
 			else{
 				var html = '';
 				html += '<div class="app-segment" >'
-				html += '<h2 class="ui medium right aligned header app-header">'+label+'</h2>';
+				//html += '<h2 class="ui medium right aligned header app-header">'+label+'</h2>';
 				html += "<form onsubmit='return false;' class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
 				html += res.code;
 				html += '</form>';
@@ -161,7 +161,7 @@ function home(name, label, url){
 			else{
 				var html = '';
 				html += '<div class="app-segment ui container" >'
-				html += '<h2 class="ui medium right aligned header app-header">'+label+'</h2>';
+				//html += '<h2 class="ui medium right aligned header app-header">'+label+'</h2>';
 				html += "<form onsubmit='return false;' class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
 				html += res.code;
 				html += '</form>';
@@ -189,7 +189,7 @@ function home_full(name, label, url){
 			else{
 				var html = '';
 				html += '<div class="app-segment ui" >'
-				html += '<h2 class="ui medium right aligned header app-header">'+label+'</h2>';
+				//html += '<h2 class="ui medium right aligned header app-header">'+label+'</h2>';
 				html += "<form onsubmit='return false;' class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
 				html += res.code;
 				html += '</form>';
