@@ -4,12 +4,12 @@
 <div class="right item ui simple dropdown" id='user-menu' >
     <i class="user icon label inverted circular yellow"></i>{{ user_display }}<i class="dropdown icon"></i>
     <div class="menu">
-        {% for menu in menu_plugins %}{% ifequal menu.menu_place 'user' %}
+        {% for menu in menu_plugins %}{% if menu.menu_place == 'user' %}
         <a class="item"  href="/app/{{ menu.uid }}/" >
             {% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
             {{ menu.label|safe }}
         </a>
-        {% endifequal %}{% endfor %}
+        {% endif %}{% endfor %}
         <a class="item" href='/accounts/logout/'><i class="sign out icon"></i> Logout</a>
     </div>
 </div>

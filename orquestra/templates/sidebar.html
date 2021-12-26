@@ -5,7 +5,7 @@
     </div>
 
     {% for menu in menu_plugins %}
-        {% ifequal menu.menu_place 'left' %}
+        {% if menu.menu_place == 'left' %}
             <a class="item {% if menu.active %}active{% endif %}" href="{{ menu.url }}" {{ menu.target }}>
                 <div class="title {% if menu.active or menu.submenu_active %}active{% endif %}">
                     {% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}{{ menu.label|safe }}{% if menu.submenus %}<i class="dropdown icon"></i>{% endif %}
@@ -22,7 +22,7 @@
                     {% endfor %}
                 </div>
             {% endif %}
-        {% endifequal %}
+        {% endif %}
 
 
     {% endfor %}
@@ -30,7 +30,7 @@
 
     {% for menu in menu_plugins %}
 
-        {% ifequal menu.menu_place 'middle-left' %}
+        {% if menu.menu_place == 'middle-left' %}
             {% ifchanged menu.menu_place %}<div class="ui hidden divider"></div>{% endifchanged %}
             <a class="item {% if menu.active %}active{% endif %}" href="{{ menu.url }}" {{ menu.target }}>
                 <div class="title {% if menu.active or menu.submenu_active %}active{% endif %}">
@@ -46,14 +46,14 @@
                     {% endfor %}
                 </div>
             {% endif %}
-        {% endifequal %}
+        {% endif %}
 
     {% endfor %}
 
 
 
     {% for menu in menu_plugins %}
-        {% ifequal menu.menu_place 'bottom-left' %}
+        {% if menu.menu_place == 'bottom-left' %}
             {% ifchanged menu.menu_place %}<div class="ui hidden divider"></div>{% endifchanged %}
 
             <a class="item {% if menu.active %}active{% endif %}" href="{{ menu.url }}" {{ menu.target }}>
@@ -70,7 +70,7 @@
                     {% endfor %}
                 </div>
             {% endif %}
-        {% endifequal %}
+        {% endif %}
 
     {% endfor %}
 </div>

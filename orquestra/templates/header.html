@@ -5,7 +5,7 @@
     {% endif %}
 
     {% for menu in menu_plugins %}
-        {% ifequal menu.menu_place 'top' %}
+        {% if menu.menu_place == 'top' %}
             {% if menu.submenus %}
                 <div class="item ui simple dropdown">
                     <i class="ui {{ menu.icon }} icon"></i> {{ menu.label|safe }} <i class="dropdown icon"></i>
@@ -27,7 +27,7 @@
                     {{ menu.label|safe }}
                 </a>
             {% endif %}
-        {% endifequal %}
+        {% endif %}
     {% endfor %}
 
     {% if user.is_authenticated %}
