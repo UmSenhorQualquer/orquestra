@@ -1,14 +1,10 @@
-import traceback, inspect
-from django.apps import apps
-from pyforms_web.basewidget import BaseWidget
-from confapp import conf
+import inspect
+import traceback
 
-# Used for older python version
-try:
-    ModuleNotFoundError
-except:
-    class ModuleNotFoundError(Exception):
-        pass
+from confapp import conf
+from django.apps import apps
+
+from pyforms_web.basewidget import BaseWidget
 
 
 class AppsManager(object):
@@ -71,15 +67,15 @@ class AppsManager(object):
             for app in apps.get_app_configs():
                 try:
                     apss_modulename = f'{app.module.__name__}.{place}'
-
                     apps_module = __import__(apss_modulename, fromlist=[''])
-
                     for name in dir(apps_module):
                         obj = getattr(apps_module, name)
                         if inspect.isclass(obj) and hasattr(obj, 'LAYOUT_POSITION'):
                             self.append(obj)
 
                 except ModuleNotFoundError:
+                    pass
+                except ImportError:
                     if conf.PYFORMS_VERBOSE:
                         traceback.print_exc()
                 except:

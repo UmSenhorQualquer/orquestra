@@ -2,77 +2,88 @@
 <!DOCTYPE html />
 <html lang="en">
 <head>
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>{% block head_title %}{{ title }}{% endblock %}</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{% block head_title %}{{ title }}{% endblock %}</title>
 
-        {% pyforms_dependencies %}
+    {% pyforms_dependencies %}
 
+    {% block extra_css_file_block %}
         {% if extra_css_file %}
-            <link rel="stylesheet" type="text/css" href="{{ extra_css_file }}" /></link>
+            <link rel="stylesheet" type="text/css" href="{{ extra_css_file }}"/></link>
         {% endif %}
+    {% endblock %}
 
-        <link rel="stylesheet" type="text/css" href="/static/orquestra.css" /></link>
-        <script type="text/javascript" src="/static/orquestra.js"></script>
 
-        {% block head %}{% endblock %}
-        {% block css %}{% endblock %}
-        {% block js %}{% endblock %}
+    <link rel="stylesheet" type="text/css" href="/static/orquestra.css"/>
+    </link>
+    <script type="text/javascript" src="/static/orquestra.js"></script>
 
+    {% block head %}{% endblock %}
+    {% block css %}{% endblock %}
+    {% block js %}{% endblock %}
+
+    {% block GOOGLE_ANALYTICS_block %}
         {% if GOOGLE_ANALYTICS %}
             <!-- Global site tag (gtag.js) - Google Analytics -->
             <script async src="https://www.googletagmanager.com/gtag/js?id={{GOOGLE_ANALYTICS}}"></script>
             <script>
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
+                window.dataLayer = window.dataLayer || [];
 
-              gtag('config', '{{GOOGLE_ANALYTICS}}');
+                function gtag() {
+                    dataLayer.push(arguments);
+                }
+
+                gtag('js', new Date());
+
+                gtag('config', '{{GOOGLE_ANALYTICS}}');
             </script>
         {% endif %}
+    {% endblock %}
+
 </head>
-<body >
+<body>
 {% block fullcontent %}
 
-    {% block sidebar %}{% endblock %}
+{% block sidebar %}{% endblock %}
 
-    <div class='pusher content-panel' >
-        {% block header %}{% include "header.html" %}{% endblock %}     
-        {% block body %}{% endblock %}
-        {% block page_content %}{% endblock %}
-        {% block content %}{% endblock %}
-        {% block extra_body %}{% endblock %}
-        {% block extra_scripts %}{% endblock %}
-    </div>
+<div class='pusher content-panel'>
+    {% block header %}{% include "header.html" %}{% endblock %}
+    {% block body %}{% endblock %}
+    {% block page_content %}{% endblock %}
+    {% block content %}{% endblock %}
+    {% block extra_body %}{% endblock %}
+    {% block extra_scripts %}{% endblock %}
+</div>
 
-    <script type="text/javascript">
-        // configure the side bar
-        var show_sidebar = localStorage.show_sidebar=='1' && $(document).width()>=933;
-  
-        if(!show_sidebar){
-            $('#leftsidebar').removeClass('visible');
-            $('.pusher').removeClass('content-panel');
-        }
-        
-        $(document).ready(function(){
-            $('#leftsidebar').sidebar(
-                { 
-                    dimPage: false , closable: false, transition: 'slide', 
-                    onShow: function(){ 
-                        $('.pusher').addClass('content-panel');
-                        localStorage.show_sidebar = 1;
-                    },
-                    onHidden:function(){
-                        $('.pusher').removeClass('content-panel');
-                        localStorage.show_sidebar = 0;
-                    }
+<script type="text/javascript">
+    // configure the side bar
+    var show_sidebar = localStorage.show_sidebar == '1' && $(document).width() >= 933;
+
+    if (!show_sidebar) {
+        $('#leftsidebar').removeClass('visible');
+        $('.pusher').removeClass('content-panel');
+    }
+
+    $(document).ready(function () {
+        $('#leftsidebar').sidebar(
+            {
+                dimPage: false, closable: false, transition: 'slide',
+                onShow: function () {
+                    $('.pusher').addClass('content-panel');
+                    localStorage.show_sidebar = 1;
+                },
+                onHidden: function () {
+                    $('.pusher').removeClass('content-panel');
+                    localStorage.show_sidebar = 0;
                 }
-            ).sidebar(
-                'attach events', '#sidebar-openerbtn', 'toggle'
-            );
-        });
-        
-    </script>
+            }
+        ).sidebar(
+            'attach events', '#sidebar-openerbtn', 'toggle'
+        );
+    });
+
+</script>
 {% endblock %}
 </body>
 </html>
