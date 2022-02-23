@@ -74,7 +74,8 @@ class AppsManager(object):
                             self.append(obj)
 
                 except ModuleNotFoundError:
-                    pass
+                    if conf.PYFORMS_VERBOSE:
+                        traceback.print_exc()
                 except ImportError:
                     if conf.PYFORMS_VERBOSE:
                         traceback.print_exc()
