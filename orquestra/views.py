@@ -13,7 +13,7 @@ def index(request, app_uid=None):
     # no plugins are available.
     # it will show the default application
     if len(plugins) == 0:
-        return render(request, 'default-app.html')
+        return render(request, 'orquestra/default-app.html')
 
     if conf.ORQUESTRA_REQUIREAUTH and \
             not request.user.is_authenticated:
@@ -103,4 +103,4 @@ def index(request, app_uid=None):
         'extra_css_file': conf.ORQUESTRA_EXTRA_CSS_FILE
     })
 
-    return render(request, 'base-authenticated.html', context)
+    return render(request, 'orquestra/base-authenticated.html', context)
