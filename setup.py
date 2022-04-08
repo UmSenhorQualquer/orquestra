@@ -44,6 +44,7 @@ setup(
 		'static/semantic-ui/themes/default/images/*.png',
 		'static/semantic-ui/themes/default/assets/fonts/*.*',
 		'templates/*.html',
+		'templates/orquestra/*.html',
 		'templates/account/*.html',
 		'templates/account/snippets/*.html',
 		'templates/plugins/*.js',		
