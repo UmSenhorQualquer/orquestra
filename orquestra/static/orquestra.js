@@ -66,6 +66,9 @@ function add_tab(name, label, url) {
 				error_msg(res.msg);
 			else{
 				var html = '';
+				if(res.css){
+					html += `<style>${res.css}</style>`;
+				}
 				html += '<div class="app-segment" >'
 				//html += '<h2 class="ui medium right aligned header app-header">'+label+'</h2>';
 				html += "<form onsubmit='return false;' class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
@@ -130,6 +133,9 @@ function add_tab_full(name, label, url) {
 				error_msg(res.msg);
 			else{
 				var html = '';
+				if(res.css){
+					html += `<style>${res.css}</style>`;
+				}
 				html += '<div class="app-segment" >'
 				//html += '<h2 class="ui medium right aligned header app-header">'+label+'</h2>';
 				html += "<form onsubmit='return false;' class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
@@ -160,6 +166,9 @@ function home(name, label, url){
 				error_msg(res.msg);
 			else{
 				var html = '';
+				if(res.css){
+					html += `<style>${res.css}</style>`;
+				}
 				html += '<div class="app-segment ui container" >'
 				//html += '<h2 class="ui medium right aligned header app-header">'+label+'</h2>';
 				html += "<form onsubmit='return false;' class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
@@ -188,6 +197,9 @@ function home_full(name, label, url){
 				error_msg(res.msg);
 			else{
 				var html = '';
+				if(res.css){
+					html += `<style>${res.css}</style>`;
+				}
 				html += '<div class="app-segment ui" >'
 				//html += '<h2 class="ui medium right aligned header app-header">'+label+'</h2>';
 				html += "<form onsubmit='return false;' class='ui form "+res.css+"' id='app-"+res.app_id+"' >";
@@ -217,6 +229,9 @@ function append_home(name, label, url) {
 				error_msg(res.msg);
 			else{
 				var html = '';
+				if(res.css){
+					html += `<style>${res.css}</style>`;
+				}
 				html += '<div class="ui raised floated segment" style="margin:20px; min-width:650px;" >';
 				html += '<h2 class="ui right floated header">'+label+'</h2>';
 				html += '<div class="ui clearing divider"></div>';
@@ -279,7 +294,11 @@ function show_window(name, label, url, bigwindow) {
 				if( !window_exists )
 					$('body').append(`<div class='ui ${extra_css} modal' id='${dialog_id}' ></div>`);
 
-				var html = '<i class="close icon"></i><div class="header">'+label+'</div>';
+				var html = '';
+				if(res.css){
+					html += `<style>${res.css}</style>`;
+				}
+					html += '<i class="close icon"></i><div class="header">'+label+'</div>';
 					html += '<div class="content">';
 					html += "<form onsubmit='return false;' class='ui form"+res.css+"' id='app-"+res.app_id+"' >";
 					html += res.code;
