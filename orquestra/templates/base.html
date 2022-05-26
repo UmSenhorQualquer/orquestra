@@ -47,7 +47,7 @@
 
 {% block sidebar %}{% endblock %}
 
-<div class='pusher content-panel'>
+<div class='pusher {% if 'left' in active_menus or 'middle-left' in active_menus or 'bottom-left' in active_menus %}content-panel{% endif %}'>
     {% block header %}{% include "orquestra/header.html" %}{% endblock %}
     {% block body %}{% endblock %}
     {% block page_content %}{% endblock %}
