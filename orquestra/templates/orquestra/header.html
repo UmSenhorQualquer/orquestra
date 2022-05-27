@@ -1,7 +1,9 @@
 <div class="ui secondary top fixed menu grid" id='top-menu'>
 
     {% if 'left' in active_menus or 'middle-left' in active_menus or 'bottom-left' in active_menus %}
-        <a class="ui item" id='sidebar-opener-btn'  data-transition="overlay" ><i class="sidebar icon large"></i></a>
+        <a class="item" id='sidebar-opener-btn' data-transition="overlay" >
+            <i class="sidebar icon large"></i>
+        </a>
     {% endif %}
 
     {% for menu in menu_plugins %}
