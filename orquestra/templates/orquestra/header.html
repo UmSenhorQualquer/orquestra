@@ -9,14 +9,14 @@
     {% for menu in menu_plugins %}
         {% if menu.menu_place == 'top' %}
             {% if menu.submenus %}
-                <div class="item ui simple dropdown">
+                <div class="item {% if menu.active %}active{% endif %} ui simple dropdown">
                     <i class="ui {{ menu.icon }} icon"></i> {{ menu.label|safe }} <i class="dropdown icon"></i>
                     <div class="menu">
                         <a class="item"  href="/app/{{ menu.uid }}/" >
                             <i class="ui {{ menu.icon }} icon"></i> {{ menu.label|safe }}
                         </a>
                         {% for submenu in menu.submenus %}
-                            <a class="item"  href="/app/{{ submenu.uid }}/" >
+                            <a class="item {% if submenu.active %}active{% endif %}"  href="/app/{{ submenu.uid }}/" >
                                 {% if submenu.icon %}<i class="{{submenu.icon}} icon"></i>{% endif %}
                                 {{ submenu.label|safe }}
                             </a>
@@ -24,7 +24,7 @@
                     </div>
                 </div>
             {% else %}
-                <a class="item" id="menu-{{ menu.anchor }}" href="/app/{{ menu.uid }}/" >
+                <a class="item {% if menu.active %}active{% endif %}" id="menu-{{ menu.anchor }}" href="/app/{{ menu.uid }}/" >
                     {% if menu.icon %}<i class="{{menu.icon}} icon"></i>{% endif %}
                     {{ menu.label|safe }}
                 </a>
