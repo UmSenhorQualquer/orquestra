@@ -9,9 +9,10 @@
     {% pyforms_dependencies %}
 
     {% block extra_css_file_block %}
-        {% if extra_css_file %}
-            <link rel="stylesheet" type="text/css" href="{{ extra_css_file }}"/></link>
-        {% endif %}
+    {% if extra_css_file %}
+    <link rel="stylesheet" type="text/css" href="{{ extra_css_file }}"/>
+    </link>
+    {% endif %}
     {% endblock %}
 
 
@@ -24,21 +25,21 @@
     {% block js %}{% endblock %}
 
     {% block GOOGLE_ANALYTICS_block %}
-        {% if GOOGLE_ANALYTICS %}
-            <!-- Global site tag (gtag.js) - Google Analytics -->
-            <script async src="https://www.googletagmanager.com/gtag/js?id={{GOOGLE_ANALYTICS}}"></script>
-            <script>
-                window.dataLayer = window.dataLayer || [];
+    {% if GOOGLE_ANALYTICS %}
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{GOOGLE_ANALYTICS}}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
-                function gtag() {
-                    dataLayer.push(arguments);
-                }
+        function gtag() {
+            dataLayer.push(arguments);
+        }
 
-                gtag('js', new Date());
+        gtag('js', new Date());
 
-                gtag('config', '{{GOOGLE_ANALYTICS}}');
-            </script>
-        {% endif %}
+        gtag('config', '{{GOOGLE_ANALYTICS}}');
+    </script>
+    {% endif %}
     {% endblock %}
 
 </head>
@@ -47,13 +48,13 @@
 
 {% block sidebar %}{% endblock %}
 
-<div class='pusher {% if 'left' in active_menus or 'middle-left' in active_menus or 'bottom-left' in active_menus %}content-panel{% endif %}'>
-    {% block header %}{% include "orquestra/header.html" %}{% endblock %}
-    {% block body %}{% endblock %}
-    {% block page_content %}{% endblock %}
-    {% block content %}{% endblock %}
-    {% block extra_body %}{% endblock %}
-    {% block extra_scripts %}{% endblock %}
+<div class="pusher {% if 'left' in active_menus or 'middle-left' in active_menus or 'bottom-left' in active_menus %}content-panel{% endif %}">
+{% block header %}{% include "orquestra/header.html" %}{% endblock %}
+{% block body %}{% endblock %}
+{% block page_content %}{% endblock %}
+{% block content %}{% endblock %}
+{% block extra_body %}{% endblock %}
+{% block extra_scripts %}{% endblock %}
 </div>
 
 <script type="text/javascript">
@@ -63,12 +64,23 @@
     if (!show_sidebar) {
         $('#leftsidebar').removeClass('visible');
         $('.pusher').removeClass('content-panel');
+
+    }else{
+        $('#sidebar-opener-btn').hide();
     }
 
     $(document).ready(function () {
         $('#leftsidebar').sidebar(
             {
-                dimPage: false, closable: false, transition: 'slide',
+                dimPage: false,
+                closable: false,
+                transition: 'slide',
+                onVisible: function () {
+                    $('#sidebar-opener-btn').hide();
+                },
+                onHide: function () {
+                    $('#sidebar-opener-btn').show();
+                },
                 onShow: function () {
                     $('.pusher').addClass('content-panel');
                     localStorage.show_sidebar = 1;
@@ -79,7 +91,9 @@
                 }
             }
         ).sidebar(
-            'attach events', '#sidebar-openerbtn', 'toggle'
+            'attach events', '#sidebar-opener-btn', 'show'
+        ).sidebar(
+            'attach events', '#sidebar-closer-btn', 'hide'
         );
     });
 

@@ -367,9 +367,7 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 #top-menu{
-	margin-top: 0px;
-	max-width: 100%;
-	box-shadow: none;
+	margin-top: 13px;
 }
 
 .ui.vertical.menu .item > .menu {
@@ -410,4 +408,16 @@ a.item.transition {
 
 body.pushable > .pusher{
 	background-color: #f1f4f5 !important;
+}
+
+.ui.vertical.menu .item:before {
+	content: none !important;
+}
+
+.ui.vertical.menu > .item:first-child {
+	margin-bottom: 30px !important;
+}
+
+.secondary.top.menu .right.item .menu{
+	margin-top: 0px !important;
 }
