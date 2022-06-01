@@ -3,10 +3,10 @@ function not_loading()	{/* $("#loading-label").removeClass('active'); */	};
 
 function activate_tab(name){
 	var tabname = "tab-" + name;
-	$('.app-tab').removeClass('active');
-	$('.app-tab[data-tab="'+tabname+'"]').addClass('active');
-	$('.menu a.item').removeClass('active');
-	$('.menu a.item[data-tab="'+tabname+'"]').addClass('active');
+	$('#applications-tab-content .app-tab').removeClass('active');
+	$('#applications-tab-content .app-tab[data-tab="'+tabname+'"]').addClass('active');
+	$('#applications-tab-menu a.item').removeClass('active');
+	$('#applications-tab-menu a.item[data-tab="'+tabname+'"]').addClass('active');
 };
 
 
@@ -318,7 +318,7 @@ function show_window(name, label, url, bigwindow) {
 				else
 					$('#'+dialog_id).modal('refresh').modal('show');
 
-				setTimeout(`$('#${dialog_id}').modal('refresh');`, 200);
+				setTimeout(`$('#${dialog_id}').modal('refresh');`, 1000);
 			};
 		}
 	}).fail(function(xhr){
