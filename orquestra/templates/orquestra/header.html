@@ -11,11 +11,15 @@
         {% if menu.menu_place == 'top' %}
             {% if menu.submenus %}
                 <div class="item ui simple dropdown">
-                    <i class="ui {{ menu.icon }} icon"></i> {{ menu.label|safe }} <i class="dropdown icon"></i>
+                    {% if menu.icon %}<i class="ui {{ menu.icon }} icon"></i>{% endif %}
+                    {{ menu.label|safe }}
+                    <i class="dropdown icon"></i>
                     <div class="menu">
+                        {% if menu.uid %}
                         <a class="item {% if menu.active %}active{% endif %}"  href="/app/{{ menu.uid }}/" >
-                            <i class="ui {{ menu.icon }} icon"></i> {{ menu.label|safe }}
+                            <i class="ui {{ menu.icon }} icon"></i>{{ menu.label|safe }}
                         </a>
+                        {% endif %}
                         {% for submenu in menu.submenus %}
                             <a class="item {% if submenu.active %}active{% endif %}"  href="/app/{{ submenu.uid }}/" >
                                 {% if submenu.icon %}<i class="{{submenu.icon}} icon"></i>{% endif %}

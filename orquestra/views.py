@@ -37,16 +37,31 @@ def index(request, app_uid=None):
     running_menu = None
 
     for plugin_class in plugins4menus:
-        menus_options = plugin_class.ORQUESTRA_MENU.split('>')
+        menus_options = plugin_class.ORQUESTRA_MENU.split('>', maxsplit=1)
+
+
+        menu_place = menus_options[0]
+        menu_label = None
+        if len(menus_options) == 2:
+            menu_label = menus_options[1]
+            if menu_label != plugin_class.__name__ and menus_options[1] not in menus:
+                menu = type('MenuOption', (object,), {})
+                menu.menu_place = menu_place
+                menu.label = menu_label
+                menu.submenus = []
+                menu.icon = None
+                menu.order = plugin_class.ORQUESTRA_MENU_ORDER if hasattr(plugin_class, 'ORQUESTRA_MENU_ORDER') else None
+                menus[menu_label] = menu
 
         # used to check if a menu should be activated or not
-        active_menus[menus_options[0]] = True
+        active_menus[menu_place] = True
 
         # if an application is not running ignore the submenus
-        if app_uid is None and len(menus_options) > 1: continue
+        if app_uid is None and len(menus_options) > 1:
+            continue
 
         menu = type('MenuOption', (object,), {})
-        menu.menu_place = menus_options[0]
+        menu.menu_place = menu_place
         menu.uid = plugin_class.UID if hasattr(plugin_class, 'UID') else ''
         menu.url = plugin_class.ORQUESTRA_URL if hasattr(plugin_class, 'ORQUESTRA_URL') else '/app/{0}/'.format(menu.uid)
         menu.target = 'target={0}'.format(plugin_class.ORQUESTRA_TARGET) if hasattr(plugin_class, 'ORQUESTRA_TARGET') else ''
@@ -67,7 +82,10 @@ def index(request, app_uid=None):
             menus[plugin_class.__name__] = menu
 
         elif len(menus_options) == 2:
-            parent_menu = menus.get(menus_options[1], None)
+            parent_menu = menus.get(menu_label, None)
+            if parent_menu is None:
+                parent_menu = menus[menu_label] = menu
+
             if parent_menu:
                 menu.parent_menu = parent_menu
                 parent_menu.submenus.append(menu)
@@ -89,6 +107,8 @@ def index(request, app_uid=None):
 
     if running_menu is None and len(menus) > 0 and app_uid is None:
         running_menu = sorted(menus, key=lambda x: x.order)[0]
+
+    print([x.label for x in menus])
 
     context = {'user': request.user}
     context.update({
