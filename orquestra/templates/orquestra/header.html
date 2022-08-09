@@ -10,10 +10,10 @@
     {% for menu in menu_plugins %}
         {% if menu.menu_place == 'top' %}
             {% if menu.submenus %}
-                <div class="item {% if menu.active %}active{% endif %} ui simple dropdown">
+                <div class="item ui simple dropdown">
                     <i class="ui {{ menu.icon }} icon"></i> {{ menu.label|safe }} <i class="dropdown icon"></i>
                     <div class="menu">
-                        <a class="item"  href="/app/{{ menu.uid }}/" >
+                        <a class="item {% if menu.active %}active{% endif %}"  href="/app/{{ menu.uid }}/" >
                             <i class="ui {{ menu.icon }} icon"></i> {{ menu.label|safe }}
                         </a>
                         {% for submenu in menu.submenus %}
