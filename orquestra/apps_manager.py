@@ -65,9 +65,29 @@ class AppsManager(object):
 
         for place in places:
             for app in apps.get_app_configs():
+
+                apps_modulename = f'{app.module.__name__}.{place}'
+                if apps_modulename in [
+                    'django.contrib.messages.pyforms_apps',
+                    'django.contrib.sessions.pyforms_apps',
+                    'django.contrib.contenttypes.pyforms_apps',
+                    'django.contrib.auth.pyforms_apps',
+                    'django.contrib.admin.pyforms_apps',
+                    'django.contrib.sites.pyforms_apps',
+                    'django.contrib.messages.pyforms_apps',
+                    'django.contrib.staticfiles.pyforms_apps',
+                    'allauth.socialaccount.pyforms_apps',
+                    'allauth.account.pyforms_apps',
+                    'allauth.pyforms_apps',
+                    'orquestra.pyforms_apps',
+                    'pyforms_web.pyforms_apps',
+                    'pyforms_web.web.pyforms_apps',
+                    'jfu.pyforms_apps'
+                ]:
+                    continue
+
                 try:
-                    apss_modulename = f'{app.module.__name__}.{place}'
-                    apps_module = __import__(apss_modulename, fromlist=[''])
+                    apps_module = __import__(apps_modulename, fromlist=[''])
                     for name in dir(apps_module):
                         obj = getattr(apps_module, name)
                         if inspect.isclass(obj) and hasattr(obj, 'LAYOUT_POSITION'):

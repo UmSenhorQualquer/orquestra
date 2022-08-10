@@ -39,7 +39,6 @@ def index(request, app_uid=None):
     for plugin_class in plugins4menus:
         menus_options = plugin_class.ORQUESTRA_MENU.split('>', maxsplit=1)
 
-
         menu_place = menus_options[0]
         menu_label = None
         if len(menus_options) == 2:
@@ -57,8 +56,8 @@ def index(request, app_uid=None):
         active_menus[menu_place] = True
 
         # if an application is not running ignore the submenus
-        if app_uid is None and len(menus_options) > 1:
-            continue
+        #if app_uid is None and len(menus_options) > 1:
+        #    continue
 
         menu = type('MenuOption', (object,), {})
         menu.menu_place = menu_place
@@ -107,8 +106,6 @@ def index(request, app_uid=None):
 
     if running_menu is None and len(menus) > 0 and app_uid is None:
         running_menu = sorted(menus, key=lambda x: x.order)[0]
-
-    print([x.label for x in menus])
 
     context = {'user': request.user}
     context.update({
