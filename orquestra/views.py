@@ -56,7 +56,7 @@ def index(request, app_uid=None):
         active_menus[menu_place] = True
 
         # if an application is not running ignore the submenus
-        #if app_uid is None and len(menus_options) > 1:
+        # if app_uid is None and len(menus_options) > 1:
         #    continue
 
         menu = type('MenuOption', (object,), {})
@@ -101,7 +101,13 @@ def index(request, app_uid=None):
 
     ## sort menus and submenus ######################################################################
     menus = sorted(menus.values(), key=lambda x: (x.menu_place, x.order))
-    for menu in menus: menu.submenus = sorted(menu.submenus, key=lambda x: x.order)
+    final_menus = []
+    for menu in menus:
+        if not menu.uid and len(menu.submenus) == 0:
+            continue
+        menu.submenus = sorted(menu.submenus, key=lambda x: x.order)
+        final_menus.append(menu)
+    menus = final_menus
     #################################################################################################
 
     if running_menu is None and len(menus) > 0 and app_uid is None:
