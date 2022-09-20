@@ -103,7 +103,7 @@ def index(request, app_uid=None):
     menus = sorted(menus.values(), key=lambda x: (x.menu_place, x.order))
     final_menus = []
     for menu in menus:
-        if not menu.uid and len(menu.submenus) == 0:
+        if not hasattr(menu, 'uid') and len(menu.submenus) == 0:
             continue
         menu.submenus = sorted(menu.submenus, key=lambda x: x.order)
         final_menus.append(menu)
