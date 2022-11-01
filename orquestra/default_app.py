@@ -1,52 +1,49 @@
-from confapp import conf
 from pyforms_web.basewidget import BaseWidget, no_columns, segment
-
 from pyforms_web.controls.control_button import ControlButton
+from pyforms_web.controls.control_checkbox import ControlCheckBox
+from pyforms_web.controls.control_combo import ControlCombo
+from pyforms_web.controls.control_label import ControlLabel
+from pyforms_web.controls.control_list import ControlList
 from pyforms_web.controls.control_text import ControlText
 from pyforms_web.controls.control_textarea import ControlTextArea
 
-from pyforms_web.controls.control_combo import ControlCombo
-from pyforms_web.controls.control_checkbox import ControlCheckBox
-from pyforms_web.controls.control_datetime import ControlDateTime
-from pyforms_web.controls.control_list import ControlList
-from pyforms_web.controls.control_label import ControlLabel
 
 class DefaultApp(BaseWidget):
-
     TITLE = 'Demo app'
 
     LAYOUT_POSITION = 0
 
     def __init__(self, *args, **kwargs):
-        super(DefaultApp, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self._css_btn = ControlButton(
-            '<i class="icon toggle on" ></i>Toggle css', 
+            '<i class="icon toggle on" ></i>Toggle css',
             default=self.__toggle_css_evt,
             label_visible=False
         )
         self._toggle_btn = ControlButton(
-            '<i class="icon eye" ></i>Toggle visibility', 
+            '<i class="icon eye" ></i>Toggle visibility',
             default=self.__toggle_visibility_evt,
             label_visible=False
         )
-        self._copy_btn   = ControlButton(
+        self._copy_btn = ControlButton(
             '<i class="icon copy outline" ></i>Copy the text',
             default=self.__copy_text_evt,
             label_visible=False
         )
         self._input = ControlText('Type something here and press the copy button', changed_event=self.__input_changed_evt)
-        self._text  = ControlTextArea('Result')
+        self._text = ControlTextArea('Result')
         self._combo = ControlCombo(
             'Combo',
-            items=[('Item 1', 1),('Item 2', 2),('Item 3', 3)]
+            items=[('Item 1', 1), ('Item 2', 2), ('Item 3', 3)]
         )
         self._check = ControlCheckBox('Check box')
-        self._list  = ControlList('List')
+        self._list = ControlList('List')
         self._label = ControlLabel('Label', default='Use the label for a dynamic text')
 
         self.formset = [
-            no_columns('_toggle_btn','_copy_btn', '_css_btn'),
+            ' ',
+            no_columns('_toggle_btn', '_copy_btn', '_css_btn'),
             ' ',
             '_input',
             '_text',
@@ -113,12 +110,9 @@ class DefaultApp(BaseWidget):
             self._css_btn.hide()
         else:
             self._css_btn.show()
-            
 
     def __copy_text_evt(self):
-
         self._text.value = self._input.value
-
 
     def __input_changed_evt(self):
         print(self._input.value)
