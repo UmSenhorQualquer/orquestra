@@ -425,3 +425,9 @@ body.pushable > .pusher{
 .secondary.top.menu .right.item .menu{
 	margin-top: 0px !important;
 }
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
