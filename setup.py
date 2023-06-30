@@ -29,7 +29,11 @@ setup(
 		'Topic :: Internet :: WWW/HTTP',
 		'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
 	],
-    install_requires=['django-allauth', 'sorl-thumbnail'],
+    install_requires=[
+		'django-allauth',
+		'sorl-thumbnail',
+		'pyexcel_ods'
+	],
 	package_data={'orquestra': [
 		'static/*.*',
 		'static/jquery-ui/*.js',

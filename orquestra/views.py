@@ -40,6 +40,11 @@ def index(request, app_uid=None):
         menus_options = plugin_class.ORQUESTRA_MENU.split('>', maxsplit=1)
 
         menu_place = menus_options[0]
+
+        # If no menu top was configured all apps will be shown on the left menu
+        if menu_place == 'top' and not conf.ORQUESTRA_HAS_TOP_BAR:
+            menu_place = 'left'
+
         menu_label = None
         if len(menus_options) == 2:
             menu_label = menus_options[1]
@@ -123,7 +128,8 @@ def index(request, app_uid=None):
         'javascript_files': javascript_files,
         'running_menu': running_menu,
         'GOOGLE_ANALYTICS': conf.ORQUESTRA_GOOGLE_ANALYTICS,
-        'extra_css_file': conf.ORQUESTRA_EXTRA_CSS_FILE
+        'extra_css_file': conf.ORQUESTRA_EXTRA_CSS_FILE,
+        'ORQUESTRA_HAS_TOP_BAR': conf.ORQUESTRA_HAS_TOP_BAR,
     })
 
     return render(request, 'orquestra/base-authenticated.html', context)
