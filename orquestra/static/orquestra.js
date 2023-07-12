@@ -309,6 +309,7 @@ function show_window(name, label, url, bigwindow) {
                 var extra_css = '';
                 if (bigwindow)
                     extra_css = 'large';
+
                 if (!window_exists)
                     $('body').append(`<div class='ui ${extra_css} modal' id='${dialog_id}' ></div>`);
 
@@ -332,6 +333,7 @@ function show_window(name, label, url, bigwindow) {
                         'setting', 'duration', 0).modal(
                         'setting', 'onHide', function (e) {
                             pyforms.remove_app(res.app_id);
+                            setTimeout(x=>{$('#' + dialog_id).remove()}, 1000);
                         }).modal('show');
                 else
                     $('#' + dialog_id).modal('refresh').modal('show');
@@ -355,7 +357,7 @@ function activate_window(name, label, url) {
 function close_window(app_id) {
     var dialog_id = "dialog-" + app_id;
     $('#' + dialog_id).modal('hide');
-    $('#' + dialog_id).remove();
+    setTimeout(x=>{$('#' + dialog_id).remove()}, 1000);
 };
 
 function show_bigwindow(name, label, url) {
