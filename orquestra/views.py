@@ -123,6 +123,7 @@ def index(request, app_uid=None):
         'title': conf.ORQUESTRA_PAGE_TITLE,
         'submenu_title': conf.ORQUESTRA_TITLE,
         'menu_plugins': menus,
+        'active_app_uuid': app_uid,
         'active_menus': list(set(active_menus)),
         'styles_files': style_files,
         'javascript_files': javascript_files,
