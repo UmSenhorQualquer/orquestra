@@ -23,13 +23,14 @@ function close_tab(app_id) {
 // actual addTab function: adds new tab using the input from the form above
 function add_tab(name, label, url) {
     var tabname = "tab-" + name;
+    const l = label.replace(/(<([^>]+)>)/gi, "");
 
     if ($('#applications-tab-menu .app-tab.tab[data-tab="' + tabname + '"]').length == 0) {
         //begin menu
         $('#applications-tab-menu .app-tab.item').removeClass('active');
         $('#applications-tab-content .app-tab.tab').removeClass('active');
 
-        if (label.length > 30) label = label.substring(0, 27) + '...';
+        if (l.length > 30) label = label.substring(0, l.length+27) + '...';
         var html = '<a class="item active app-tab" data-tab="' + tabname + '">' + label + ' &nbsp;&nbsp;<i class="remove icon"></i></a>';
         $('#applications-tab-menu').append(html);
 
@@ -93,13 +94,14 @@ function add_tab(name, label, url) {
 // actual addTab function: adds new tab using the input from the form above
 function add_tab_full(name, label, url) {
     var tabname = "tab-" + name;
+    const l = label.replace(/(<([^>]+)>)/gi, "");
 
     if ($('#applications-tab-menu .app-tab.tab[data-tab="' + tabname + '"]').length == 0) {
         //begin menu
         $('#applications-tab-menu .app-tab.item').removeClass('active');
         $('#applications-tab-content .app-tab.tab').removeClass('active');
 
-        if (label.length > 30) label = label.substring(0, 27) + '...';
+        if (l.length > 30) label = label.substring(0, l.length+27) + '...';
         var html = '<a class="item active app-tab" data-tab="' + tabname + '">' + label + ' &nbsp;&nbsp;<i class="remove icon"></i></a>';
         $('#applications-tab-menu').append(html);
 
